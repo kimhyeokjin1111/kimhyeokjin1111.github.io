@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>프로필 설정 | 히포북</title>
+    <link rel="stylesheet" th:href="@{/css/user/login.css}">
+    <link rel="stylesheet" th:href="@{/css/user/hippobook.css}">
+</head>
+<body data-theme="light">
+    <div data-a-1120 id="wrap" class="web-mount">
+        <section data-a-1120 class="content">
+            <div data-a-1120 class="login-container">
+<!--                <div data-f-1170 class="back-component">-->
+<!--                    <div data-f-1170 class="back line">-->
+<!--                        <button data-f-1170 type="button" class="close-button">-->
+<!--                            <i data-f-1170 class="mds-icon&#45;&#45;arrow-left">-->
+<!--                            </i>-->
+<!--                        </button>-->
+<!--                    </div>-->
+<!--                </div>-->
+                <div class="login-content">
+                    <img data-b-1130 class="logo-picture" th:src="@{/images/user/Logo.png}" width="79px">
+                    <h3 class="title">프로필 설정</h3>
+                    <p class="sub-title">프로필을 설정한 회원이 독서 성공률이 높아요</p>
+                    <div class="picture-box">
+                        <div class="inner">
+                            <div class="image-box"></div>
+                        <label class="picture-change-button">
+                            <input type="file" id="file-input" accept=".jpg, .jpeg, .png, .gif, .heic">
+                            변경
+                        </label>
+                        </div>
+                    </div>
+                <div class="input-item">
+                    <div class="mds-input input mds-input--default mds-input--left">
+                        <label>
+                            <div class="inner">
+                                <div class="input">
+                                    <span id="input-245-label" class="label">
+                                        필명
+                                    </span>
+                                    <input autocomplete="off" id="input-245" aria-labelledby="input-245-label" type="text" placeholder="필명 입력" class="mds-input-field">
+                                </div>
+                                <button type="button" aria-label="내용 삭제" class="mds-icon--input-delete clear-button" style></button>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                <div class="button-area">
+                    <button type="button" class="next-button mds-button mds-button--primary mds-button--h56 mds-button--r4">
+                        <span>완료</span>
+                    </button>
+                </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+</body>
+</html>

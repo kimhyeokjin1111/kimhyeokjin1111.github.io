@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>히포북</title>
+    <link rel="stylesheet" th:href="@{/css/mypage/myPageInt.css}"/>
+    <link rel="stylesheet" th:href="@{/css/main/mainpage.css}" />
+    <script defer th:src="@{/js/mypage/myPageInt.js}"></script>
+    <script defer th:src="@{/js/main/mainpage.js}"></script>
+
+</head>
+<body>
+<header class="header" th:replace="~{/fragment/header :: header}"></header>
+
+
+<div>
+    <div>
+
+        <section class="profile" th:object="${profileDto}">
+            <div class="profile-all">
+                <div id="profile-photo">
+
+                    <img th:if="${profilePhoto.userProfileName == null}"
+                         th:src="@{/imgs/mypage/free-icon-hippo-3250992.png}" alt=""/>
+                    <img th:unless="${profilePhoto.userProfileName == null}"
+                         th:src="@{'/profile/' + ${profilePhoto.userProfileUploadPath} + '/' + ${profilePhoto.userProfileUuid} + '_' + ${profilePhoto.userProfileName}}"
+                         alt=""/>
+                </div>
+                <div id="profile-name">
+                    <span>
+                  <th:block>
+                  <img class="hippo-celeb" th:if="${checkSticker == 'Y'}"
+                       th:src="@{/images/mypage/hippo.png}" alt=""/>
+                  </th:block>
+                </span>
+                    <h3 class="mypage-user-nickname" th:text="${profileDto.userNickName}"></h3>
+                    <span class="profile-name-option">님의 서재</span>
+                </div>
+                <div id="follow">
+                    <span>팔로워 <span th:text="${profileDto.followerCnt}"></span></span>
+                    <span>팔로잉 <span th:text="${profileDto.followingCnt}"></span></span>
+                </div>
+            </div>
+            <div id="my-favorite-book">
+                <img th:if="*{cover == null}"
+                     th:src="@{/imgs/mypage/best_book_default.png}" alt=""/>
+                <img th:unless="*{cover == null}"
+                     th:src="${profileDto.cover}"
+                     id="best-book-img" alt=""/>
+            </div>
+        </section>
+
+    <div>
+        <div class="mypage-cate">
+            <div><a th:href="@{/mypage/int}">소개</a></div>
+            <div><a th:href="@{/mypage/book/container}">책장</a></div>
+            <div><a th:href="@{/mypage/book/write-content}">내 게시물</a></div>
+            <div><a th:href="@{/mypage/sticker}">스티커 신청</a></div>
+            <div><a th:href="@{/mypage/manage}">관리</a></div>
+        </div>
+        <div id="introduce-content">
+
+            <div class="introduce-pencil">
+                <h3>소개글</h3>
+                <img src="/images/mypage/free-icon-pencil-1828920.png" alt="" class="introduce-content-write">
+            </div>
+            <form th:action="@{/mypage/int}" method="post">
+                <div class="int-Text-Box-All">
+                    <textarea th:text="${intBoardDto.intBoardContent}" name="intBoardContent"
+                              class="introduce-text-content" cols="30" rows="10" placeholder="소개글을 작성해주세요
+                              (최대100자)"
+                              maxlength="100"></textarea>
+                    <button type="submit" class="introduce-save-btn">저장</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="mypage-book-cate">
+        <div id="mypage-book-cate-title">
+            <h5>최근 담은 책</h5>
+        </div>
+        <div id="mypage-book-cate-img">
+
+
+        </div>
+    </div>
+    <div class="mybook-collection">
+        <div th:each="i : ${#numbers.sequence(0, 1)}" class="mybook-second">
+
+            <h5>최근 담은 책</h5>
+            <div class="my-recent-book" th:if="${i < bookContainerList.size()}"
+                 th:with="bookContainerDto=${bookContainerList.get(i)}">
+                <div class="reading-book-img">
+                    <img th:src="${bookContainerDto.cover}"
+                         alt="">
+                </div>
+                <div class="reading-book-infor">
+                    <div id="reading-book-title">
+                        <p class="intpage-book-info">책 제목</p>  <span th:text="${bookContainerDto.bookName}"></span>
+                    </div>
+                    <div id="reading-book-date">
+                        <p class="intpage-book-info">저자 </p> <span th:text="${bookContainerDto.bookWriter}"></span>
+                        <p class="intpage-book-info">담은 날짜 </p><span th:text="${bookContainerDto.bookHasRecentDate}"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div th:unless="${i < bookContainerList.size()}">
+                <span>책장에 책을 담아주세요</span>
+            </div>
+        </div>
+        <!--        <th:block th:if="${bookContainerList.size() > 0}">-->
+        <!--            <div th:each="bookContainerDto : ${bookContainerList}" class="mybook-second">-->
+
+        <!--                <h5>최근 담은 책</h5>-->
+        <!--                <div class="my-recent-book">-->
+        <!--                    <div class="reading-book-img">-->
+        <!--                        <img th:src="@{'/upload/' + ${bookContainerDto.fileUploadPath} + '/' + ${bookContainerDto.fileUuid} + '_' + ${bookContainerDto.fileName}}"-->
+        <!--                             alt="">-->
+        <!--                    </div>-->
+        <!--                    <div class="reading-book-infor">-->
+        <!--                        <div id="reading-book-title">-->
+        <!--                            <span th:text="${bookContainerDto.bookName}">제목</span>-->
+        <!--                        </div>-->
+        <!--                        <div id="reading-book-date">-->
+        <!--                            <p>저자 : <span th:text="${bookContainerDto.bookWriter}"></span></p>-->
+        <!--                            <p>담은 날짜: <span th:text="${bookContainerDto.bookHasRecentDate}"></span></p>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--        </th:block>-->
+
+    </div>
+</div>
+</div>
+<!--카테고리 모달창-->
+<div class="category_popup" id="category_wrap">
+    <div class="category_popup_inner">
+        <section class="category_popup_inner_layout">
+            <section class="category_popup_content_layout">
+                <a th:href="@{/board/post/main}">
+                    <span class="category_popup_title">게시판</span>
+                </a>
+
+                <div class="category_popup_content_box">
+                    <span class="category_popup_content">소설 게시판</span>
+                    <span class="category_popup_content">중고 게시판</span>
+                    <span class="category_popup_content">자유 게시판</span>
+                </div>
+
+                <span class="category_popup_title">쪽지</span>
+                <div class="category_popup_content_box">
+                    <a th:href="@{/message/letter/get}">
+                        <span class="category_popup_content">받은 쪽지함</span>
+                    </a>
+                    <a th:href="@{/message/letter/send}">
+                        <span class="category_popup_content">보낸 쪽지함</span>
+                    </a>
+                </div>
+
+
+                <a th:href="@{/feed}">
+                    <span class="category_popup_title">피드</span>
+                </a>
+
+                <div class="category_popup_content_box">
+                    <a th:href="@{/feed}">
+                        <span class="category_popup_content">포스트</span>
+                    </a>
+                    <a th:href="@{/feed/oneline}">
+                        <span class="category_popup_content">한 줄 리뷰</span>
+                    </a>
+                    <a th:href="@{/feed/read}">
+                        <span class="category_popup_content">독후감</span>
+                    </a>
+                </div>
+
+                <span class="category_popup_title">이벤트</span>
+                <a th:href="@{/mypage/sticker}">
+                    <span class="category_popup_content">스티커 신청하기</span>
+                </a>
+            </section>
+        </section>
+    </div>
+</div>
+
+<footer>
+    <div>
+
+    </div>
+</footer>
+
+</body>
+</html>

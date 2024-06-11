@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.hippobookproject.mapper.like.LikeMapper">
+    <insert id="insertDealLike" parameterType="postLikeWriteDto">
+        insert into TBL_DEAL_LIKE (DEAL_LIKE_ID, USER_ID, DEAL_ID)
+        values (seq_deal_like.nextval, #{userId}, #{postId})
+    </insert>
+
+    <insert id="insertBoardLike" parameterType="postLikeWriteDto">
+        insert into TBL_DEAL_LIKE (BOARD_LIKE_ID, USER_ID, BOARD_ID)
+        values (seq_board_like.nextval, #{userId}, #{postId})
+    </insert>
+
+    <insert id="insertNovelLike" parameterType="postLikeWriteDto">
+        insert into TBL_NOVEL_LIKE (NOVEL_LIKE_ID, USER_ID, NOVEL_ID)
+        values (seq_novel_like.nextval, #{userId}, #{postId})
+    </insert>
+
+    <insert id="insertClaimLike" parameterType="postLikeWriteDto">
+        insert into TBL_CLAIM_LIKE (CLAIM_LIKE_ID, USER_ID, CLAIM_ID)
+        values (seq_claim_like.nextval, #{userId}, #{postId})
+    </insert>
+
+    <select id="selectDealLike">
+        select count(DEAL_LIKE_ID)
+        from TBL_DEAL_LIKE
+        where DEAL_ID = #{postId}
+    </select>
+
+    <select id="selectBoardLike">
+        select count(BOARD_LIKE_ID)
+        from TBL_BOARD_LIKE
+        where BOARD_ID = #{postId}
+    </select>
+
+    <select id="selectNovelLike">
+        select count(NOVEL_LIKE_ID)
+        from TBL_NOVEL_LIKE
+        where NOVEL_ID = #{postId}
+    </select>
+
+    <select id="selectClaimLike">
+        select count(CLAIM_LIKE_ID)
+        from TBL_CLAIM_LIKE
+        where CLAIM_ID = #{postId}
+    </select>
+</mapper>

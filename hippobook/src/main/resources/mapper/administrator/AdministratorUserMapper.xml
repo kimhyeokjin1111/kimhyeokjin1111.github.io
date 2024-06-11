@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.hippobookproject.mapper.administrator.AdiministratorUserMapper">
+    <select id="selectUserAdmin" resultType="resultUserAdminDto">
+        SELECT USER_ID, USER_NAME, USER_LOGIN_ID, USER_PHONENUMBER, USER_GENDER,
+        USER_AGE, USER_EMAIL, USER_ADDRESS, USER_ADDRESS_DETAIL, USER_ZIPCODE
+            FROM (
+                SELECT ROWNUM AS RNUM, USER_ID, USER_NAME, USER_LOGIN_ID, USER_PHONENUMBER, USER_GENDER,
+                    USER_AGE, USER_EMAIL, USER_ADDRESS, USER_ADDRESS_DETAIL, USER_ZIPCODE
+                FROM (
+                    SELECT U.USER_ID, USER_NAME, USER_LOGIN_ID, USER_PHONENUMBER, USER_GENDER,
+                    USER_AGE, USER_EMAIL, USER_ADDRESS, USER_ADDRESS_DETAIL, USER_ZIPCODE
+                    FROM TBL_USER U LEFT JOIN (
+                        SELECT TBL_ATTENDANCE.USER_ID, MAX(ATTENDANCE_DATE) MAXD FROM TBL_ATTENDANCE GROUP BY USER_ID
+                     ) A
+                    ON U.USER_ID = A.USER_ID
+                    <trim prefix="WHERE" prefixOverrides="AND" >
+                            <if test="selectUser.userInfo != null">
+                            <choose>
+                                <when test="'name'.equals(selectUser.userInfo)"> USER_NAME like '%' || #{selectUser.userInfoDate} || '%' </when>
+                                <when test="'loginId'.equals(selectUser.userInfo)"> USER_LOGIN_ID like '%' || #{selectUser.userInfoDate} || '%' </when>
+                                <when test="'email'.equals(selectUser.userInfo)"> USER_EMAIL like '%' || #{selectUser.userInfoDate} || '%' </when>
+                            </choose>
+                            </if>
+                            <if test="selectUser.startJoinDate != null and selectUser.endJoinDate != null">
+                            AND TO_CHAR(USER_SUB_DATE, 'YYYY-MM-DD') BETWEEN #{selectUser.startJoinDate} AND #{selectUser.endJoinDate}
+                            </if>
+                            <if test="selectUser.startUserAge != null and selectUser.endUserAge != null">
+                                AND USER_AGE BETWEEN #{selectUser.startUserAge} AND #{selectUser.endUserAge}
+                            </if>
+                            <if test="selectUser.gender != null and selectUser.gender.length() == 1">
+                                AND USER_GENDER = #{selectUser.gender}
+                            </if>
+                            <if test="selectUser.startVisitDate != null and selectUser.endVisitDate != null">
+                                AND TO_CHAR(A.MAXD, 'YYYY-MM-DD') BETWEEN #{selectUser.startVisitDate} AND #{selectUser.endVisitDate}
+                            </if>
+                    </trim>
+                    AND USER_LOCK = 'N'
+                        ORDER BY USER_ID)
+            <![CDATA[
+            WHERE ROWNUM <= #{criteria.page} * #{criteria.amount})
+        WHERE RNUM > (#{criteria.page} - 1) * #{criteria.amount}
+        ]]>
+    </select>
+
+    <select id="selectAdminUserTotal" parameterType="selectUserAdminDto" resultType="int">
+        SELECT COUNT(USER_ID)
+            FROM (SELECT U.USER_ID, USER_NAME, USER_LOGIN_ID, USER_PHONENUMBER, USER_GENDER,
+        USER_AGE, USER_EMAIL, USER_ADDRESS, USER_ADDRESS_DETAIL, USER_ZIPCODE
+        FROM TBL_USER U LEFT JOIN (
+        SELECT TBL_ATTENDANCE.USER_ID, MAX(ATTENDANCE_DATE) MAXD FROM TBL_ATTENDANCE GROUP BY USER_ID
+        ) A
+        ON U.USER_ID = A.USER_ID
+        <trim prefix="WHERE" prefixOverrides="AND" >
+            <if test="selectUser.userInfo != null">
+                <choose>
+                    <when test="'name'.equals(selectUser.userInfo)"> USER_NAME like '%' || #{selectUser.userInfoDate} || '%' </when>
+                    <when test="'loginId'.equals(selectUser.userInfo)"> USER_LOGIN_ID like '%' || #{selectUser.userInfoDate} || '%' </when>
+                    <when test="'email'.equals(selectUser.userInfo)"> USER_EMAIL like '%' || #{selectUser.userInfoDate} || '%' </when>
+                </choose>
+            </if>
+            <if test="selectUser.startJoinDate != null and selectUser.endJoinDate != null">
+                AND TO_CHAR(USER_SUB_DATE, 'YYYY-MM-DD') BETWEEN #{selectUser.startJoinDate} AND #{selectUser.endJoinDate}
+            </if>
+            <if test="selectUser.startUserAge != null and selectUser.endUserAge != null">
+                AND USER_AGE BETWEEN #{selectUser.startUserAge} AND #{selectUser.endUserAge}
+            </if>
+            <if test="selectUser.gender != null and selectUser.gender.length() == 1">
+                AND USER_GENDER = #{selectUser.gender}
+            </if>
+            <if test="selectUser.startVisitDate != null and selectUser.endVisitDate != null">
+                AND TO_CHAR(A.MAXD, 'YYYY-MM-DD') BETWEEN #{selectUser.startVisitDate} AND #{selectUser.endVisitDate}
+            </if>
+        </trim>
+        AND USER_LOCK = 'N'
+        ORDER BY USER_ID)
+    </select>
+
+    <delete id="deleteUserAdminById" parameterType="List">
+        UPDATE TBL_USER
+        SET USER_LOCK = 'Y'
+        WHERE USER_ID IN
+        <foreach collection="userIdList" item="list" index="index"
+                                  separator="," open="(" close=")">
+        #{list}
+        </foreach>
+    </delete>
+
+</mapper>

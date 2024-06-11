@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<section class="book_infoarea">
+    <div class="book_modal">
+        <div class="Xbtn-box">x</div>
+        <form th:action="@{/feed/postwrite}" method="get" name="cate" id="cate">
+            <div class="book_selectbox">
+                <select name="book_info" id="book_info">
+                    <option value="">제목</option>
+                    <option value="">저자</option>
+                </select>
+            </div>
+            <div class="book_search">
+                검색 : <input type="text" name="keyword">
+                <button>검색</button>
+            </div>
+        </form>
+        <div class="book_selectarea">
+            <table class="book_select">
+                <th>저자</th>
+                <th>제목</th>
+                <th></th>
+                <!-- 첫번째 행-->
+                <tr th:each="book : ${postList}" class="book_tr">
+                    <td th:text="${book.bookWriter}"></td>
+                    <td th:text="${book.bookName}"></td>
+                    <td class="book_radioBox"><input class="book_radio" type="radio"></td>
+                </tr>
+            </table>
+        </div>
+        <div class="book_submitBtn">
+            <button type="button">선택</button>
+        </div>
+    </div>
+</section>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/message/letterWrite.css}" />
+    <link rel="stylesheet" th:href="@{/css/main/mainpage.css}" />
+    <script defer th:src="@{/js/main/mainpage.js}"></script>
+    <script type="module" defer th:src="@{/js/message/letter_write.js}"></script>
+  </head>
+  <body>
+    <form action="">
+      <header class="header" th:replace="~{/fragment/header :: header}"></header>
+
+
+    </form>
+    <section>
+      <div>
+        <h1>쪽지 보내기</h1>
+      </div>
+    </section>
+    <div class="letter-middle-line"></div>
+    <form action="">
+      <div class="letter-cate">
+        <div class="letter-cate-box">
+          
+      
+        </div>
+      </div>
+    </form>
+    <form th:action="@{/message/letter/write}" method="post">
+      <div>
+        <div id="letter-warning">
+          <span>*표시는 필수적으로 입력해야 하는 항목입니다.</span>
+        </div>
+        <div class="letter-box-outline">
+          <div class="letter-id-box">
+            <div class="letter-id-box-title">
+              <h3>아이디 *</h3>
+            </div>
+            <th:block>
+            <div class="letter-id-box-input" >
+              <input type="text" id="letter-id-text" name="userNickname" />
+              <button type="button" id="letter-id-button">닉네임 검색</button>
+            </div>
+            </th:block>
+          </div>
+
+          <div class="letter-id-box">
+            <div class="letter-id-box-title">
+              <h3>제목 *</h3>
+            </div>
+            <div class="letter-id-box-input" >
+              <input type="text" class="message-title" name="messageTitle" />
+            </div>
+          </div>
+
+          <div class="letter-content-box-all">
+            <div class="letter-content-box-title">
+              <h3>내용 *</h3>
+            </div>
+            <div class="letter-content-box-content">
+              <textarea
+                name="messageContent"
+                id=""
+                cols="100"
+                rows="20"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="send-btn">
+          <button type="submit" class="submit-btn">전송하기</button>
+        </div>
+      </div>
+    </form>
+    <!--카테고리 모달창-->
+    <div class="category_popup" id="category_wrap">
+      <div class="category_popup_inner">
+        <section class="category_popup_inner_layout">
+          <section class="category_popup_content_layout">
+            <a th:href="@{/board/post/main}">
+              <span class="category_popup_title">게시판</span>
+            </a>
+
+            <div class="category_popup_content_box">
+              <span class="category_popup_content">소설 게시판</span>
+              <span class="category_popup_content">중고 게시판</span>
+              <span class="category_popup_content">자유 게시판</span>
+            </div>
+
+            <span class="category_popup_title">쪽지</span>
+            <div class="category_popup_content_box">
+              <a th:href="@{/message/letter/get}">
+                <span class="category_popup_content">받은 쪽지함</span>
+              </a>
+              <a th:href="@{/message/letter/send}">
+                <span class="category_popup_content">보낸 쪽지함</span>
+              </a>
+            </div>
+
+
+            <a th:href="@{/feed}">
+              <span class="category_popup_title">피드</span>
+            </a>
+
+            <div class="category_popup_content_box">
+              <a th:href="@{/feed}">
+                <span class="category_popup_content">포스트</span>
+              </a>
+              <a th:href="@{/feed/oneline}">
+                <span class="category_popup_content">한 줄 리뷰</span>
+              </a>
+              <a th:href="@{/feed/read}">
+                <span class="category_popup_content">독후감</span>
+              </a>
+            </div>
+
+            <span class="category_popup_title">이벤트</span>
+            <a th:href="@{/mypage/sticker}">
+              <span class="category_popup_content">스티커 신청하기</span>
+            </a>
+          </section>
+        </section>
+      </div>
+    </div>
+
+    <footer>
+      <div></div>
+    </footer>
+  </body>
+</html>

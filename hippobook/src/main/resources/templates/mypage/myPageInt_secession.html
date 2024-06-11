@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/mypage/myPageInt_secession.css}"/>
+    <link rel="stylesheet" th:href="@{/css/main/mainpage.css}" />
+    <script defer th:src="@{js/mypage/readingBook.js}"></script>
+    <script defer th:src="@{js/mypage/readingBookDeleteButton.js}"></script>
+    <script defer th:src="@{/js/main/mainpage.js}"></script>
+  </head>
+  <body>
+  <header class="header" th:replace="~{/fragment/header :: header}"></header>
+
+      <div>
+        <div>
+
+
+          <section class="profile" th:object="${profileDto}">
+            <div class="profile-all">
+              <div id="profile-photo">
+                <img th:if="${profilePhoto.userProfileName == null}"
+                     th:src="@{/imgs/mypage/free-icon-hippo-3250992.png}" alt=""/>
+                <img th:unless="${profilePhoto.userProfileName == null}"
+                     th:src="@{'/profile/' + ${profilePhoto.userProfileUploadPath} + '/' + ${profilePhoto.userProfileUuid} + '_' + ${profilePhoto.userProfileName}}"
+                     alt=""/>
+              </div>
+              <div id="profile-name">
+                <span>
+                  <th:block>
+                  <img class="hippo-celeb" th:if="${checkSticker == 'Y'}"
+                       th:src="@{/images/mypage/hippo.png}" alt=""/>
+                  </th:block>
+                </span>
+                <h3 class="mypage-user-nickname" th:text="${profileDto.userNickName}"></h3>
+                <span class="profile-name-option">님의 서재</span>
+              </div>
+              <div id="follow">
+                <span>팔로워 <span th:text="${profileDto.followerCnt}"></span></span>
+                <span>팔로잉 <span th:text="${profileDto.followingCnt}"></span></span>
+              </div>
+            </div>
+            <div id="my-favorite-book">
+              <img th:if="*{cover == null}"
+                   th:src="@{/imgs/mypage/best_book_default.png}" alt=""/>
+              <img th:unless="*{cover == null}"
+                   th:src="${profileDto.cover}"
+                   id="best-book-img" alt=""/>
+            </div>
+          </section>
+        </div>
+        <div>
+          <div class="mypage-cate">
+            <div><a th:href="@{/mypage/int}">소개</a></div>
+            <div><a th:href="@{/mypage/book/container}">책장</a></div>
+            <div><a th:href="@{/mypage/book/write-content}">내 게시물</a></div>
+            <div><a th:href="@{/mypage/sticker}">스티커 신청</a></div>
+            <div><a th:href="@{/mypage/manage}">관리</a></div>
+          </div>
+        </div>
+      </div>
+      <div class="main__secession-content-container">
+        <div class="main__secession-center-content-box">
+          <div class="main__my-reading-info-box">
+            <h3>회원 탈퇴</h3>
+            <div class="main__my-reading-info-div">
+              <h2 class="my-reading-info-nickname"><span th:text="${profileDto.userNickName}" ></span>의 서재</h2>
+              <hr>
+              <p><span>서재에 기록된 도서</span><span><strong th:text="${#lists.size(bookContainerList)}"></strong>권</span></p>
+              <p><span>서재에 기록된 리뷰</span><span><strong th:text="${reviewCount}"></strong>개</span></p>
+              <p><span>서재에 기록된 포스트</span><span><strong th:text="${postCount}"></strong>개</span></p>
+            </div>
+          </div>
+          <form th:action="@{/mypage/secession}" method="post">
+          <div class="main__secession-description-content-box">
+            <p>탈퇴 시 유의사항</p>
+            <ul>
+              <li>탈퇴를 하실 경우 기존 서재에 대한 복구는 불가능하며, 로그인이 필요한 모든 서비스를 이용하실 수 없습니다.</li>
+              <li>탈퇴를 하실 경우 계정과 함께 마일리지가 소멸됩니다. 원치 않으실 경우 마일리지 이용 후 탈퇴해 주시기 바랍니다.</li>
+              <li>탈퇴 시에도 회원님이 작성하신 포스트, 댓글을 포함한 모든 게시물은 자동 삭제되지 않습니다. 노출을 원치 않으시면 반드시 미리 삭제하신 후 탈퇴해주세요.</li>
+            </ul>
+            <p><input type="checkbox" id="secession-agree-check"><label for="secession-agree-check">회원 탈퇴에 관한 모든 내용을 숙지하였고, 회원 탈퇴를 신청합니다.</label></p>
+            <div><button>돌아가기</button><input type="hidden" th:value="${profileDto.userId}"/><button type="submit" onclick="alert('회원 탈퇴가 완료되었습니다.')">탈퇴하기</button></div>
+          </div>
+          </form>
+        </div>
+
+      </div>
+  <!--카테고리 모달창-->
+  <div class="category_popup" id="category_wrap">
+    <div class="category_popup_inner">
+      <section class="category_popup_inner_layout">
+        <section class="category_popup_content_layout">
+          <a th:href="@{/board/post/main}">
+            <span class="category_popup_title">게시판</span>
+          </a>
+
+          <div class="category_popup_content_box">
+            <span class="category_popup_content">소설 게시판</span>
+            <span class="category_popup_content">중고 게시판</span>
+            <span class="category_popup_content">자유 게시판</span>
+          </div>
+
+          <span class="category_popup_title">쪽지</span>
+          <div class="category_popup_content_box">
+            <a th:href="@{/message/letter/get}">
+              <span class="category_popup_content">받은 쪽지함</span>
+            </a>
+            <a th:href="@{/message/letter/send}">
+              <span class="category_popup_content">보낸 쪽지함</span>
+            </a>
+          </div>
+
+
+          <a th:href="@{/feed}">
+            <span class="category_popup_title">피드</span>
+          </a>
+
+          <div class="category_popup_content_box">
+            <a th:href="@{/feed}">
+              <span class="category_popup_content">포스트</span>
+            </a>
+            <a th:href="@{/feed/oneline}">
+              <span class="category_popup_content">한 줄 리뷰</span>
+            </a>
+            <a th:href="@{/feed/read}">
+              <span class="category_popup_content">독후감</span>
+            </a>
+          </div>
+
+          <span class="category_popup_title">이벤트</span>
+          <a th:href="@{/mypage/sticker}">
+            <span class="category_popup_content">스티커 신청하기</span>
+          </a>
+        </section>
+      </section>
+    </div>
+  </div>
+
+  <footer>
+        <div>
+          <button id="reading-book-delete-button">삭제하기</button>
+        </div>
+      </footer>
+  </body>
+</html>

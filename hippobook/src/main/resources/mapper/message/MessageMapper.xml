@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.hippobookproject.mapper.message.MessageMapper">
+    <insert id="insertMessage" parameterType="MessageDto">
+        insert into TBL_MESSAGE (MESSAGE_ID, MESSAGE_TITLE, MESSAGE_CONTENT, MESSAGE_CHECK, MESSAGE_TO,
+                                 MESSAGE_FROM)
+        values (SEQ_MESSAGE.nextval, #{messageTitle},#{messageContent},'N',#{messageTo},#{messageFrom})
+    </insert>
+
+    <select id="selectUserNickname" resultType="MessageNicknameDto">
+        SELECT USER_ID, USER_NICKNAME
+        FROM TBL_USER
+        WHERE USER_NICKNAME = #{userNickname}
+    </select>
+
+    <select id="selectGetMessage" parameterType="map" resultType="MessageDto">
+        <![CDATA[
+        SELECT RNUM, MESSAGE_ID, MESSAGE_TITLE, MESSAGE_CHECK, MESSAGE_DATE, MESSAGE_TO, MESSAGE_FROM,USER_NICKNAME
+        FROM (SELECT RNUM, MESSAGE_ID, MESSAGE_TITLE, MESSAGE_CHECK, MESSAGE_DATE, MESSAGE_TO, MESSAGE_FROM,USER_NICKNAME
+              FROM (SELECT ROWNUM AS RNUM,
+                           MESSAGE_ID,
+                           MESSAGE_TITLE,
+                           MESSAGE_CHECK,
+                           MESSAGE_DATE,
+                           MESSAGE_TO,
+                           MESSAGE_FROM
+                    FROM TBL_MESSAGE
+                    WHERE MESSAGE_TO = #{userId})
+                       JOIN TBL_USER ur
+                            ON MESSAGE_FROM = ur.USER_ID
+              WHERE RNUM <= #{messageCriteria.page} * #{messageCriteria.amount})
+        WHERE RNUM > (#{messageCriteria.page} - 1) * #{messageCriteria.amount}
+        ORDER BY MESSAGE_ID DESC
+        ]]>
+    </select>
+
+    <select id="selectPostMessage" parameterType="map" resultType="MessageDto">
+        <![CDATA[
+        SELECT RNUM, MESSAGE_ID, MESSAGE_TITLE, MESSAGE_CHECK, MESSAGE_DATE, MESSAGE_TO, MESSAGE_FROM,USER_NICKNAME
+        FROM (SELECT RNUM, MESSAGE_ID, MESSAGE_TITLE, MESSAGE_CHECK, MESSAGE_DATE, MESSAGE_TO, MESSAGE_FROM,USER_NICKNAME
+              FROM (SELECT ROWNUM AS RNUM,
+                           MESSAGE_ID,
+                           MESSAGE_TITLE,
+                           MESSAGE_CHECK,
+                           MESSAGE_DATE,
+                           MESSAGE_TO,
+                           MESSAGE_FROM
+                    FROM TBL_MESSAGE
+                    WHERE MESSAGE_FROM = #{userId})
+                       JOIN TBL_USER ur
+                            ON MESSAGE_TO = ur.USER_ID
+              WHERE RNUM <= #{messageCriteria.page} * #{messageCriteria.amount})
+        WHERE RNUM > (#{messageCriteria.page} - 1) * #{messageCriteria.amount}
+        ORDER BY MESSAGE_ID DESC
+        ]]>
+    </select>
+
+    <delete id="deleteMessage">
+        DELETE FROM TBL_MESSAGE
+        WHERE MESSAGE_ID IN
+        <foreach collection="idList" separator="," open="(" close=")" item="id">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="selectMessageView">
+        SELECT MESSAGE_ID, MESSAGE_TITLE, MESSAGE_CONTENT, MESSAGE_DATE, MESSAGE_TO, MESSAGE_FROM,USER_NICKNAME
+        FROM TBL_MESSAGE JOIN TBL_USER ur
+        ON MESSAGE_FROM = ur.USER_ID
+        WHERE MESSAGE_ID = #{messageId}
+    </select>
+
+    <select id="selectTotalGetMessage" resultType="int">
+        SELECT COUNT(MESSAGE_ID)
+        FROM TBL_MESSAGE
+        WHERE MESSAGE_TO =#{userId}
+    </select>
+
+    <select id="selectTotalPostMessage" resultType="int">
+        SELECT COUNT(MESSAGE_ID)
+        FROM TBL_MESSAGE
+        WHERE MESSAGE_FROM =#{userId}
+    </select>
+
+    <update id="updateReadingCheck">
+        UPDATE TBL_MESSAGE
+        SET MESSAGE_CHECK = 'Y'
+        WHERE MESSAGE_ID = #{messageId}
+    </update>
+
+    <select id="selectGetUserNickName">
+        SELECT USER_NICKNAME
+        FROM TBL_USER
+        WHERE USER_ID = #{messageFrom}
+    </select>
+
+
+
+
+
+</mapper>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.hippobookproject.mapper.feed.ReadMapper">
+    <select id="selectAll" resultType="ReadCardDto" parameterType="Long" >
+        SELECT F.READ_ID, U.USER_NICKNAME, F.USER_ID, F.READ_DATE, F.READ_CONTENT,
+               (SELECT COUNT(FL.READ_LIKE_ID) FROM TBL_READ_LIKE FL WHERE F.READ_ID = FL.READ_ID) AS LIKE_CNT,
+               NVL(J1.CNT, 0) AS IS_FOLLOW
+        FROM TBL_READ F JOIN TBL_USER U
+                             ON F.USER_ID = U.USER_ID
+                        LEFT JOIN (
+            SELECT COUNT(FO.FOLLOW_ID) CNT, FO.FOLLOW_TO
+            FROM TBL_FOLLOW FO
+            WHERE FO.FOLLOW_FROM = #{userId}
+            GROUP BY FO.FOLLOW_TO
+        ) J1
+                                  ON J1.FOLLOW_TO = F.USER_ID
+        ORDER BY F.READ_ID DESC
+    </select>
+
+    <insert id="insertFollow" parameterType="FollowDto">
+        insert into TBL_FOLLOW (FOLLOW_ID,  FOLLOW_TO, FOLLOW_FROM)
+        values (SEQ_FOLLOW.nextval, #{followTo}, #{followFrom})
+    </insert>
+
+    <delete id="deleteFollow" parameterType="FollowDto">
+        DELETE FROM TBL_FOLLOW
+        WHERE FOLLOW_TO = #{followTo} AND FOLLOW_FROM = #{followFrom}
+    </delete>
+</mapper>

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" th:href="@{/css/book/book_info_page.css}" />
+    <link rel="stylesheet" th:href="@{/css/main/mainpage.css}" />
+    <script defer th:src="@{/js/book/book_info_page.js}"></script>
+    <title>Document</title>
+  </head>
+  <body>
+  <header class="header" th:replace="~{/fragment/header :: header}"></header>
+    <input type="hidden" class="book-info-hidden" th:data-bookid="${bookInfo.bookId}"
+    th:data-uid="${session.userId}">
+    <div class="main__outer_container">
+      <main class="main__inner_container">
+        <section class="main__book-preview-info-box">
+          <div class="main__book-cover-box">
+            <img th:src="@{${bookInfo.cover}}" alt="" />
+          </div>
+          <div class="main__book-related-info-box">
+            <div class="book-simple-info">
+              <p class="book-title" th:text="${bookInfo.bookName}">별에서의 살인</p>
+              <p class="book-author" th:text="${bookInfo.bookWriter}">모모노 지파</p>
+            </div>
+            <div class="book-reference-data-box">
+              <div>
+                <p>이 책이 담긴 서재</p>
+                <strong><span th:text="${bookInfo.bookHasCnt}">1579</span>개</strong>
+              </div>
+              <div>
+                <p>한 줄 리뷰</p>
+                <strong><span>6</span>개</strong>
+              </div>
+              <div th:if="${userId != null} and ${bookHas == 0}">
+                <p>책 담기</p>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="main__book-detail-info-box">
+          <div class="main__book-short-content-box">
+            <div>
+              <h3>책소개</h3>
+              <p th:if="${bookInfo.description == null}" >해당 정보가 업데이트되지 않았습니다.</p>
+              <p th:unless="${bookInfo.description == null}" th:text="${bookInfo.description}">
+                무중력 공간에서 발견된 목매단 시체 <br />
+                전대미문의 우주 밀실 사건 발생!<br /><br />
+                에도가와 란포 상을 수상한 천재적 신인 작가가 선보이는<br />
+                신감각 신개념 신경지 미스터리<br /><br />
+                히가시노 게이고, 기리노 나쓰오, 다카노 가즈아키 등을 배출한
+                에도가와 란포 상을, 생애 첫 소설로 단번에 수상한 신진 작가
+                모모노 자파의 신개념 엔터테인먼트 미스터리 《별에서의 살인》이
+                한국 독자들을 만난다. <br />
+                우주여행이 일반화된 근미래. 일반인도 돈만 내면 누구나 우주로
+                떠날 수 있는 시대가 도래해 민간 회사에서 초저가 우주 투어의
+                모니터링 프로그램을 기획한다. 추첨으로 선발된 참가자 여섯 명과
+                우주선을 조종하는 조종사, 가이드이자 부기장은 우주선 ‘호프호’에
+                탑승해 고도 320킬로미터에 위치한 우주 호텔을 향해 이륙한다. 잠시
+                후 우주 호텔 ‘스타더스트’에 도착하자마자 뜻밖의 사건을
+                마주하는데…. 무중력 공간에서 목을 맨 채 공중에 둥둥 떠 있는
+                시신을 발견한 것. 죽은 사람은 함께 우주선을 타고 지상을 떠나온
+                인물 중 한 명이었다. 자살이라 해도 불가능하고 교살이라 해도
+                이해가 되지 않는 이 죽음의 수수께끼가 무사히 지구로 돌아가고자
+                하는 몇몇 인물들의 의지로 서서히 풀려간다.<br />독특한 설정과
+                강렬한 도입이 돋보이는 《별에서의 살인》은 누구나 이해할 수 있는
+                단순한 과학적 지식을 미스터리 장르에 훌륭히 접목해 뛰어난
+                몰입감과 색다른 재미를 선사한다. 독자 또한 우주라는 밀실에 갇혀
+                오도 가도 못 한 채 죽음이 지배하는 우주여행을 즐기다 보면 어느새
+                마지막 페이지를 닫으며 장대한 규모의 스토리와 스마트한 트릭이
+                선사하는 전율에 몸서리칠 것이다.<br />
+              </p>
+<!--              <div class="book-more-btn"><button>펼치기</button></div>-->
+            </div>
+            <div class="main__book-detail-content-box">
+              <ul>
+                <li><span>카테고리</span><strong th:text="${bookInfo.category}">추리</strong></li>
+<!--                <li><span>페이지</span><strong>400p</strong></li>-->
+                <li><span>출판사</span><strong th:text="${bookInfo.pubName}">모모</strong></li>
+                <li><span>출간일</span><strong th:text="${bookInfo.bookDate}">2024.04.24</strong></li>
+              </ul>
+            </div>
+<!--            <div class="main__book-other-descri-box">-->
+<!--              <ul>-->
+<!--                <li>-->
+<!--                  <button class="book-detail-btn book-list-btn">-->
+<!--                    목차 <img src="../img/down_sh.png" alt="" />-->
+<!--                  </button>-->
+<!--                  <p class="book-detail-content book-list-target">-->
+<!--                    1. test <br />-->
+<!--                    2. test <br />-->
+<!--                    3. test <br />-->
+<!--                    4. test-->
+<!--                  </p>-->
+<!--                </li>-->
+<!--                <li>-->
+<!--                  <button class="book-detail-btn book-author-btn">-->
+<!--                    저자 소개 <img src="../img/down_sh.png" alt="" />-->
+<!--                  </button>-->
+<!--                  <p class="book-detail-content book-author-target">-->
+<!--                    test author intro-->
+<!--                  </p>-->
+<!--                </li>-->
+<!--                <li>-->
+<!--                  <button class="book-detail-btn book-publi-btn">-->
+<!--                    출판사 서평 <img src="../img/down_sh.png" alt="" />-->
+<!--                  </button>-->
+<!--                  <p class="book-detail-content book-publi-target">-->
+<!--                    test publi-review-->
+<!--                  </p>-->
+<!--                </li>-->
+<!--              </ul>-->
+<!--            </div>-->
+          </div>
+        </section>
+        <section class="main__book-comment-content-box">
+          <h3>
+            <span>한 줄 리뷰<span>1</span></span>
+<!--            <img th:src="@{/imgs/administrator/fragment/right-shi.png}" alt="" />-->
+          </h3>
+          <ul>
+            <li>
+              <div class="book__decl-box">
+                <p>test comment reviewer</p>
+                <img th:src="@{/imgs/administrator/fragment/decl.png}" alt="" />
+              </div>
+              <span>2024.04.24</span>
+              <p class="book-comment-content">test comment content</p>
+<!--              <div class="book-comment-like-box">-->
+<!--                <span>리뷰가 마음에 드시나요?</span-->
+<!--                ><button>-->
+<!--                  <img src="/imgs/administrator/fragment/heart_empty.png" alt="" /><span>0</span>-->
+<!--                </button>-->
+<!--              </div>-->
+            </li>
+          </ul>
+          <div class="more-comment-btn">
+            <span>더보기</span>
+          </div>
+          <div th:if="${userId != null}" class="main__book-comment-write-container">
+            <form action="" class="book-comment-form">
+              <div class="main__book-comment-write-area">
+                <label>
+                  <span>한 줄 리뷰</span>
+                  <textarea
+                    name=""
+                    id="book-comment-input"
+                    placeholder="리뷰을 남겨보세요!"
+                    maxlength="60"
+                    rows="1"
+                  ></textarea>
+                </label>
+              </div>
+              <button type="button" id="book-comment-btn">등록</button>
+            </form>
+          </div>
+        </section>
+      </main>
+    </div>
+  <div class="modal-decl-req-back">
+    <div class="modal-decl-req-box">
+      <h2>신고하기</h2>
+      <div class="modal-decl-opt-content-box">
+        <input type="hidden" data-reasonnow="-1"/>
+        <label>
+          <input
+                  type="radio"
+                  name="decl_reason"
+                  data-reasonnow="1"
+                  value="단순 비방, 욕설 등 불쾌감을 주는 내용"
+          />
+          <div class="modal-decl-reason-box">
+            <p>단순 비방, 욕설 등 불쾌감을 주는 내용</p>
+            <span></span>
+          </div>
+        </label>
+        <label>
+          <input
+                  type="radio"
+                  name="decl_reason"
+                  data-reasonnow="2"
+                  value="음란성 또는 청소년에게 부적합"
+          />
+          <div class="modal-decl-reason-box">
+            <p>음란성 또는 청소년에게 부적합</p>
+            <span></span>
+          </div>
+        </label>
+        <label>
+          <input
+                  type="radio"
+                  name="decl_reason"
+                  data-reasonnow="3"
+                  value="주제와 관련 없거나 부적절한 홍보"
+          />
+          <div class="modal-decl-reason-box">
+            <p>주제와 관련 없거나 부적절한 홍보</p>
+            <span></span>
+          </div>
+        </label>
+        <label>
+          <input
+                  type="radio"
+                  name="decl_reason"
+                  data-reasonnow="4"
+                  value="스포일러가 포함된 내용"
+          />
+          <div class="modal-decl-reason-box">
+            <p>스포일러가 포함된 내용</p>
+            <span></span>
+          </div>
+        </label>
+        <label>
+          <input
+                  type="radio"
+                  name="decl_reason"
+                  data-reasonnow="5"
+                  id="decl-reason"
+                  value=""
+          />
+          <div class="modal-decl-reason-box">
+            <p>기타</p>
+            <span></span>
+          </div>
+        </label>
+        <div class="decl-reason-other-box-outer">
+          <label class="decl-reason-other-box">
+            <div class="decl-other-content-box">
+              <span>신고사유*</span>
+              <input
+                      type="text"
+                      placeholder="신고사유를 작성하세요"
+                      maxlength="50"
+                      class="other-reason"
+              />
+            </div>
+            <div class="decl-other-text-delete">
+              <button type="button"></button>
+            </div>
+          </label>
+        </div>
+      </div>
+      <p>신고 사유를 선택 후 신고해주세요</p>
+      <div class="modal-decl-btn-box">
+        <button type="button" class="decl-close-btn">취소</button>
+        <button type="button" class="decl-process-btn">신고</button>
+      </div>
+    </div>
+  </div>
+    <footer></footer>
+  </body>
+</html>

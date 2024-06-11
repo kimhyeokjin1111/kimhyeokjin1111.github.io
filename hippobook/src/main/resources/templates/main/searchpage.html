@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>히포북</title>
+    <link rel="stylesheet" th:href="@{/css/main/searchpage.css}">
+    <script defer th:src="@{/js/feed/category_modal.js}"></script>
+    <script defer th:src="@{/js/main/searchpage.js}"></script>
+</head>
+<body>
+    <header>
+        <div class="header_layout">
+            <h1 class="header_logo">
+                <div class="header_logo_layout">
+                    <a href="">  <!--홈페이지 버튼 -->
+                    <img th:src="@{/images/main/HippoBook_logo.png}" alt="" class="header_logo_images">
+                    </a>
+                </div>
+            </h1>
+            <div class="header_right_layout">
+                <a href=""> <!-- 알람 페이지 이동  -->
+                <img th:src="@{/images/main/alarm.png}" alt="" class="header_right_alarm">
+                </a>
+                <ul class="header_right_login">
+                    <a href="" class="header_right_login_box">로그인</a>
+                </ul>
+            </div>
+        </div>
+
+        <div class="main_top">
+            <div class="main_top_layout">
+                <a href="#" onclick="return false"> 
+                    <!-- 카테고리  -->
+                        <img th:src="@{/images/main/Category.png}" alt="" class="main_top_category">
+                </a>
+                <div class="main_top_category_tap">
+                    <ul class="main_top_category_list">
+                        <li>
+                            <a href="">내 서재</a> <!-- 내 서재 이동 -->
+                        </li>
+                        <li>
+                            <a href="">피드</a> <!-- 피드 이동-->
+                        </li>    
+                        <li>
+                            <a href="">쪽지</a> <!-- 쪽지 이동 -->
+                        </li> 
+                        <li>
+                            <a href="">검색</a> <!-- 검색 이동 -->
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="search_input_layer">
+            <div class="search_input_area">
+                <img th:src="@{/images/main/search.png}" alt="">
+                <label>
+                    <div class="search_inner">
+                        <div class="search_input">
+                            <input type="text" id="input" placeholder="검색어를 입력하세요." autofocus data-focus="T">
+                            <button></button>
+                        </div>
+                    </div>
+                </label>
+            </div>
+        </div>
+
+        <div class="main__content-container"><div class="main__week-recommend-word-container">
+            <h1>
+                히포북 주간 추천 검색어
+            </h1>
+            <ul class="main__search-recommend-box">
+                <li>
+                    <span>추리</span>
+                </li>
+                <li>
+                    <span>어린 왕자</span>
+                </li>
+                <li>
+                    <span>로맨스</span>
+                </li>
+            </ul>
+        </div>
+            <div class="main__book-search-word-container ">
+<!--                <h1>검색된 결과</h1>-->
+                <ul class="main__search-box">
+                    <li>
+                <span class="search-content-title">
+                    어린 왕자1
+                </span>
+                    </li>
+                    <li>
+                <span class="search-content-title">
+                    어린 왕자2
+                </span>
+                    </li>
+                    <li>
+                <span class="search-content-title">
+                    어린 왕자3
+                </span>
+                    </li>
+                    <li>
+                <span class="search-content-title">
+                    어린 왕자4
+                </span>
+                    </li>
+                    <li>
+                <span class="search-content-title">
+                    어린 왕자5
+                </span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="main__book-search-result-container">
+                <div class="main__book-result-center-box">
+                    <ul class="main__book-result-link-content-box">
+                        <li>
+                            <a href="">
+                                <img class="book-result-thumbnail" src="	https://cover.millie.co.kr/service/cover/179527015/4045c63613dd4b2c82da41c82a1db5e3.jpg" alt="">
+                                <div class="book-result-title-writer-box">
+                                    <p class="book-result-title">오늘 밤, 세계에서 이 사랑이 사라진다 해도</p>
+                                    <p class="book-result-writer">이치조 미사키 지음 / 권영주 옮김</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <img class="book-result-thumbnail" src="	https://cover.millie.co.kr/service/cover/179527015/4045c63613dd4b2c82da41c82a1db5e3.jpg" alt="">
+                                <div class="book-result-title-writer-box">
+                                    <p class="book-result-title">오늘 밤, 세계에서 이 사랑이 사라진다 해도</p>
+                                    <p class="book-result-writer">이치조 미사키 지음 / 권영주 옮김</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <img class="book-result-thumbnail" src="	https://cover.millie.co.kr/service/cover/179527015/4045c63613dd4b2c82da41c82a1db5e3.jpg" alt="">
+                                <div class="book-result-title-writer-box">
+                                    <p class="book-result-title">오늘 밤, 세계에서 이 사랑이 사라진다 해도</p>
+                                    <p class="book-result-writer">이치조 미사키 지음 / 권영주 옮김</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <img class="book-result-thumbnail" src="	https://cover.millie.co.kr/service/cover/179527015/4045c63613dd4b2c82da41c82a1db5e3.jpg" alt="">
+                                <div class="book-result-title-writer-box">
+                                    <p class="book-result-title">오늘 밤, 세계에서 이 사랑이 사라진다 해도</p>
+                                    <p class="book-result-writer">이치조 미사키 지음 / 권영주 옮김</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <img class="book-result-thumbnail" src="	https://cover.millie.co.kr/service/cover/179527015/4045c63613dd4b2c82da41c82a1db5e3.jpg" alt="">
+                                <div class="book-result-title-writer-box">
+                                    <p class="book-result-title">오늘 밤, 세계에서 이 사랑이 사라진다 해도</p>
+                                    <p class="book-result-writer">이치조 미사키 지음 / 권영주 옮김</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <div class="book-result-thumbnail-box">
+                                    <img class="book-result-thumbnail" src="	https://cover.millie.co.kr/service/cover/179527015/4045c63613dd4b2c82da41c82a1db5e3.jpg" alt="">
+                                </div>
+                                <div class="book-result-title-writer-box">
+                                    <p class="book-result-title">오늘 밤, 세계에서 이 사랑이 사라진다 해도</p>
+                                    <p class="book-result-writer">이치조 미사키 지음 / 권영주 옮김</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <img class="book-result-thumbnail" src="	https://cover.millie.co.kr/service/cover/179527015/4045c63613dd4b2c82da41c82a1db5e3.jpg" alt="">
+                                <div class="book-result-title-writer-box">
+                                    <p class="book-result-title">오늘 밤, 세계에서 이 사랑이 사라진다 해도</p>
+                                    <p class="book-result-writer">이치조 미사키 지음 / 권영주 옮김</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <img class="book-result-thumbnail" src="	https://cover.millie.co.kr/service/cover/179527015/4045c63613dd4b2c82da41c82a1db5e3.jpg" alt="">
+                                <div class="book-result-title-writer-box">
+                                    <p class="book-result-title">오늘 밤, 세계에서 이 사랑이 사라진다 해도</p>
+                                    <p class="book-result-writer">이치조 미사키 지음 / 권영주 옮김</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <img class="book-result-thumbnail" src="	https://cover.millie.co.kr/service/cover/179527015/4045c63613dd4b2c82da41c82a1db5e3.jpg" alt="">
+                                <div class="book-result-title-writer-box">
+                                    <p class="book-result-title">오늘 밤, 세계에서 이 사랑이 사라진다 해도</p>
+                                    <p class="book-result-writer">이치조 미사키 지음 / 권영주 옮김</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <img class="book-result-thumbnail" src="	https://cover.millie.co.kr/service/cover/179527015/4045c63613dd4b2c82da41c82a1db5e3.jpg" alt="">
+                                <div class="book-result-title-writer-box">
+                                    <p class="book-result-title">오늘 밤, 세계에서 이 사랑이 사라진다 해도</p>
+                                    <p class="book-result-writer">이치조 미사키 지음 / 권영주 옮김</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <img class="book-result-thumbnail" src="	https://cover.millie.co.kr/service/cover/179527015/4045c63613dd4b2c82da41c82a1db5e3.jpg" alt="">
+                                <div class="book-result-title-writer-box">
+                                    <p class="book-result-title">오늘 밤, 세계에서 이 사랑이 사라진다 해도</p>
+                                    <p class="book-result-writer">이치조 미사키 지음 / 권영주 옮김</p>
+                                </div>
+                            </a>
+                        </li>
+
+
+                    </ul>
+                </div>
+            </div>
+            <div class="search_text">
+<!--                <p>도서를 검색해보세요</p>-->
+            </div></div>
+
+
+        <div class="category_popup" id="category_wrap">
+            <div class="category_popup_inner">
+              <section class="category_popup_inner_layout">
+                <section class="category_popup_content_layout">
+                  <span class="category_popup_title">게시판</span>
+      
+                  <span class="category_popup_content">소설 쓰기</span>
+                  <span class="category_popup_content">중고거래</span>
+                  <span class="category_popup_content">독후감</span>
+                  <span class="category_popup_content">자유</span>
+      
+                  <span class="category_popup_title2">쪽지</span>
+                  <span class="category_popup_content">받은 쪽지함</span>
+                  <span class="category_popup_content" style="margin-bottom: 40px">쪽지 보내기</span>
+      
+                  <span class="category_popup_title3">내 서재</span>
+                  <span class="category_popup_title3">이벤트</span>
+                  <span class="category_popup_title3">검색</span>
+                  
+                </section>
+              </section>
+            </div>
+          </div>
+        
+    </main>
+
+    
+</body>
+</html>

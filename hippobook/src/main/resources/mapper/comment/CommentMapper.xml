@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.hippobookproject.mapper.comment.CommentMapper">
+    <insert id="insertDealComment" parameterType="CommentWriteDto">
+        INSERT INTO TBL_DEAL_COMMENT (DEAL_COMMENT_ID, DEAL_COMMENT_CONTENT, USER_ID, DEAL_ID)
+        VALUES(SEQ_DEAL_COMMENT.nextval, #{commentContent}, #{userId}, #{postId})
+    </insert>
+
+    <insert id="insertBoardComment" parameterType="CommentWriteDto">
+        INSERT INTO HR.TBL_BOARD_COMMENT (BOARD_COMMENT_ID, BOARD_COMMENT_CONTENT, USER_ID, BOARD_ID)
+        VALUES(SEQ_BOARD_COMMENT.nextval, #{commentContent}, #{userId}, #{postId})
+    </insert>
+
+    <insert id="insertNovelComment" parameterType="CommentWriteDto">
+        INSERT INTO TBL_NOVEL_COMMENT (NOVEL_COMMENT_ID, NOVEL_COMMENT_CONTENT, USER_ID, NOVEL_ID)
+        VALUES(SEQ_NOVEL_COMMENT.nextval, #{commentContent}, #{userId}, #{postId})
+    </insert>
+
+    <insert id="insertClaimComment" parameterType="CommentWriteDto">
+        INSERT INTO TBL_CLAIM_COMMENT (CLAIM_COMMENT_ID, CLAIM_COMMENT_CONTENT, USER_ID, CLAIM_ID)
+        VALUES(SEQ_CLAIM_COMMENT.nextval, #{commentContent}, #{userId}, #{postId})
+    </insert>
+
+    <insert id="insertBookComment" parameterType="CommentWriteDto">
+        INSERT INTO TBL_BOOK_COMMENT (BOOK_COMMENT_ID, BOOK_COMMENT_CONTENT, USER_ID, BOOK_ID)
+        VALUES(SEQ_BOOK_COMMENT.nextval, #{commentContent}, #{userId}, #{postId})
+    </insert>
+
+    <select id="selectDealComment"  resultType="CommentReadDto">
+        SELECT DEAL_COMMENT_ID comment_id, DEAL_COMMENT_CONTENT comment_content,
+        DEAL_COMMENT_CREATE comment_date, USER_ID, USER_NICKNAME, DEAL_ID post_id
+        FROM (SELECT ROWNUM AS RNUM, DEAL_COMMENT_ID, DEAL_COMMENT_CONTENT,
+            DEAL_COMMENT_CREATE, USER_ID, USER_NICKNAME, DEAL_ID
+            FROM (SELECT DEAL_COMMENT_ID, DEAL_COMMENT_CONTENT,
+                DEAL_COMMENT_CREATE, DC.USER_ID, USER_NICKNAME, DEAL_ID
+                FROM TBL_DEAL_COMMENT DC JOIN TBL_USER U
+                    ON DC.DEAL_ID = #{postId} AND DC.USER_ID = U.USER_ID
+                ORDER BY DEAL_COMMENT_CREATE)
+            <![CDATA[
+              WHERE ROWNUM <= #{criteria.page} * #{criteria.amount} + 1)
+        WHERE RNUM > (#{criteria.page} - 1) * #{criteria.amount}
+        ]]>
+    </select>
+
+    <select id="selectDealCommentTotal">
+        SELECT count(DEAL_COMMENT_ID)
+        FROM TBL_DEAL_COMMENT DC JOIN TBL_USER U
+                                      ON DC.DEAL_ID = #{postId} AND DC.USER_ID = U.USER_ID
+    </select>
+
+    <select id="selectBoardCommentTotal">
+        SELECT count(BOARD_COMMENT_ID)
+        FROM TBL_BOARD_COMMENT DC JOIN TBL_USER U
+                                       ON DC.BOARD_ID = #{postId} AND DC.USER_ID = U.USER_ID
+    </select>
+
+    <select id="selectNovelCommentTotal">
+        SELECT count(NOVEL_COMMENT_ID)
+        FROM TBL_NOVEL_COMMENT DC JOIN TBL_USER U
+                                       ON DC.NOVEL_ID = #{postId} AND DC.USER_ID = U.USER_ID
+    </select>
+
+    <select id="selectClaimCommentTotal">
+        SELECT count(CLAIM_COMMENT_ID)
+        FROM TBL_CLAIM_COMMENT DC JOIN TBL_USER U
+                                       ON DC.CLAIM_ID = #{postId} AND DC.USER_ID = U.USER_ID
+    </select>
+
+    <select id="selectBookCommentTotal">
+        SELECT count(CLAIM_COMMENT_ID)
+        FROM TBL_CLAIM_COMMENT DC JOIN TBL_USER U
+                                       ON DC.CLAIM_ID = #{postId} AND DC.USER_ID = U.USER_ID
+    </select>
+
+    <select id="selectBoardComment" resultType="CommentReadDto">
+        SELECT BOARD_COMMENT_ID comment_id, BOARD_COMMENT_CONTENT comment_content,
+               BOARD_COMMENT_CREATE comment_date, USER_ID, USER_NICKNAME, BOARD_ID post_id
+        FROM (SELECT ROWNUM AS RNUM, BOARD_COMMENT_ID, BOARD_COMMENT_CONTENT,
+                     BOARD_COMMENT_CREATE, USER_ID, USER_NICKNAME, BOARD_ID
+              FROM (SELECT BOARD_COMMENT_ID, BOARD_COMMENT_CONTENT,
+               BOARD_COMMENT_CREATE, DC.USER_ID, USER_NICKNAME, BOARD_ID
+        FROM TBL_BOARD_COMMENT DC JOIN TBL_USER U
+                    ON DC.BOARD_ID = #{postId} AND DC.USER_ID = U.USER_ID
+                    ORDER BY BOARD_COMMENT_CREATE)
+            <![CDATA[
+              WHERE ROWNUM <= #{criteria.page} * #{criteria.amount} + 1)
+        WHERE RNUM > (#{criteria.page} - 1) * #{criteria.amount}
+        ]]>
+    </select>
+
+    <select id="selectNovelComment"  resultType="CommentReadDto">
+        SELECT NOVEL_COMMENT_ID comment_id, NOVEL_COMMENT_CONTENT comment_content,
+               NOVEL_COMMENT_CREATE comment_date, USER_ID, USER_NICKNAME, NOVEL_ID post_id
+        FROM (SELECT ROWNUM AS RNUM, NOVEL_COMMENT_ID, NOVEL_COMMENT_CONTENT,
+                     NOVEL_COMMENT_CREATE, USER_ID, USER_NICKNAME, NOVEL_ID
+              FROM (SELECT NOVEL_COMMENT_ID, NOVEL_COMMENT_CONTENT,
+               NOVEL_COMMENT_CREATE, DC.USER_ID, USER_NICKNAME, NOVEL_ID
+        FROM TBL_NOVEL_COMMENT DC JOIN TBL_USER U
+                                      ON DC.NOVEL_ID = #{postId} AND DC.USER_ID = U.USER_ID
+                    ORDER BY NOVEL_COMMENT_CREATE)
+            <![CDATA[
+              WHERE ROWNUM <= #{criteria.page} * #{criteria.amount} + 1)
+        WHERE RNUM > (#{criteria.page} - 1) * #{criteria.amount}
+        ]]>
+    </select>
+
+    <select id="selectClaimComment" resultType="CommentReadDto">
+        SELECT CLAIM_COMMENT_ID comment_id, CLAIM_COMMENT_CONTENT comment_content,
+               CLAIM_COMMENT_CREATE comment_date, USER_ID, USER_NICKNAME, CLAIM_ID post_id
+        FROM (SELECT ROWNUM AS RNUM, CLAIM_COMMENT_ID, CLAIM_COMMENT_CONTENT,
+                     CLAIM_COMMENT_CREATE, USER_ID, USER_NICKNAME, CLAIM_ID
+              FROM (SELECT CLAIM_COMMENT_ID, CLAIM_COMMENT_CONTENT,
+               CLAIM_COMMENT_CREATE, DC.USER_ID, USER_NICKNAME, CLAIM_ID
+        FROM TBL_CLAIM_COMMENT DC JOIN TBL_USER U
+                                      ON DC.CLAIM_ID = #{postId} AND DC.USER_ID = U.USER_ID
+                    ORDER BY CLAIM_COMMENT_CREATE)
+            <![CDATA[
+              WHERE ROWNUM <= #{criteria.page} * #{criteria.amount} + 1)
+        WHERE RNUM > (#{criteria.page} - 1) * #{criteria.amount}
+        ]]>
+    </select>
+
+    <select id="selectBookComment" resultType="CommentReadDto">
+        SELECT BOOK_COMMENT_ID comment_id, BOOK_COMMENT_CONTENT comment_content,
+               BOOK_COMMENT_CREATE comment_date, USER_ID, USER_NICKNAME, BOOK_ID post_id
+        FROM (SELECT ROWNUM AS RNUM, BOOK_COMMENT_ID, BOOK_COMMENT_CONTENT,
+                     BOOK_COMMENT_CREATE, USER_ID, USER_NICKNAME, BOOK_ID
+              FROM (SELECT BOOK_COMMENT_ID, BOOK_COMMENT_CONTENT,
+               BOOK_COMMENT_CREATE, DC.USER_ID, USER_NICKNAME, BOOK_ID
+        FROM TBL_BOOK_COMMENT DC JOIN TBL_USER U
+                                      ON DC.BOOK_ID = #{postId} AND DC.USER_ID = U.USER_ID
+                    ORDER BY BOOK_COMMENT_CREATE)
+            <![CDATA[
+              WHERE ROWNUM <= #{criteria.page} * #{criteria.amount} + 1)
+        WHERE RNUM > (#{criteria.page} - 1) * #{criteria.amount}
+        ]]>
+    </select>
+</mapper>

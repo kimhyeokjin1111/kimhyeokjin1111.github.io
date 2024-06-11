@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>휴대폰인증 | 히포북</title>
+  <link rel="stylesheet" th:href="@{/css/user/login.css}">
+  <link rel="stylesheet" th:href="@{/css/user/hippobook.css}">
+  <link rel="stylesheet" th:href="@{/css/user/joinAuth.css}">
+</head>
+<body data-theme="light">
+  <div data-a-1120 id="wrap" class="web-mount">
+    <section data-a-1120 class="content">
+      <div data-b-1130 class="login-container">
+      <div data-f-1170 data-a-1120 class="login-container mobile">
+<!--        <div data-f-1170 data-e-1160 class="back line">-->
+<!--          <button data-f-1170 type="button" class="close-button">-->
+<!--            <i data-f-1170 class="mds-icon&#45;&#45;arrow-left">-->
+<!--            </i>-->
+<!--          </button>-->
+<!--        </div>-->
+<!--      </div>-->
+      <div data-e-1160 class="login-content" style=" width: 520px; height: 919px;">
+        <img data-b-1130 class="logo-picture" th:src="@{/images/user/Logo.png}" width="79px">
+        <h3 data-e-1160 class="title">휴대폰 인증</h3>
+        <p data-e-1160 class="sub-title">최초 1회 휴대폰 인증이 필요합니다.</p>
+        <div data-e-1160 class="input-item fade-in">
+          <div data-e-1160 class="mds-input input mds-input--default mds-input--left">
+            <label>
+              <div class="inner">
+                <div class="input">
+                  <span id="input-203-label" class="label">
+                    이름
+                  </span>
+                  <input autocomplete="off" id="input-203" aria-labelledby="input-203-label" aria-errormessage="input-203-message" type="text"
+                  placeholder="이름 입력" class="mds-input-field">
+                </div>
+                <button type="button" aria-label="내용 삭제" class="mds-icon--input-delete clear-button" style="display: none;"></button>
+              </div>
+            </label>
+          </div>
+        </div>
+        <div data-e-1160 class="input-item fade-in">
+          <div data-e-1160 class="jumin-number">
+            <div data-e-1160 class="one">
+              <div data-e-1160 class="mds-input input jumin1 mds-input--default mds-input--left">
+                <label>
+                  <div class="inner">
+                    <div class="input">
+                      <span id="input-154-label" class="label">
+                        생년월일, 성별
+                      </span>
+                      <input autocomplete="off" id="input-154" aria-labelledby="input-154-label" aria-errormessage="input-154-message" type="number"
+                      placeholder="생년월일" pattern="\d*" class="mds-input-field">
+                    </div>
+                  </div>
+                </label>
+              </div>
+              <span data-e-1160 class="line">-</span>
+            </div>
+            <div data-e-1160 class="two">
+              <div data-e-1160 class="mds-input input jumin2 mds-input--default mds-input--center">
+                <label>
+                  <div class="inner">
+                    <div class="input">
+                      <input autocomplete="off" id="input-155" aria-labelledby="input-155-label" aria-errormessage="input-155-message" type="number"
+                      placeholder="0" pattern="\d*" class="mds-input-field">
+                    </div>
+                  </div>
+                </label>
+              </div>
+              <span data-e-1160 class="dot">● ● ● ● ● ●</span>
+            </div>
+            <button data-v-13cc5357="" type="button" aria-label="내용 삭제" class="mds-icon--input-delete clear-button clear-jumin" style="display: none;"></button>
+          </div>
+        </div>
+        <div data-e-1160 class="input-item fade-in">
+          <div data-e-1160 aria-owns="mdsselect-input-156" class="mds-select input mds-select--default mds-select--action" name="agency">
+            <div class="inner">
+              <div>
+                <span role="label" id="mdsselct-label-input-156" class="label">통신사</span>
+                <input type="text" placeholder="통신사 선택" readonly="readonly" class="mds-select-input">
+              </div>
+              <i class="mds-icon--down-filled">
+              </i>
+            </div>
+            <ul role="listbox" aria-labelledby="mdsselct-label-input-156" style="display: none;">
+              <li role="option" id="input-156-0" tabindex="-1" class>
+                <span>SKT</span>
+              </li>
+              <li role="option" id="input-156-1" tabindex="-1" class>
+                <span>KT</span>
+              </li>
+              <li role="option" id="input-156-2" tabindex="-1" class>
+                <span>LG U+</span>
+              </li>
+              <li role="option" id="input-156-3" tabindex="-1" class>
+                <span>SKT 알뜰폰</span>
+              </li>
+              <li role="option" id="input-156-4" tabindex="-1" class>
+                <span>KT 알뜰폰</span>
+              </li>
+              <li role="option" id="input-156-5" tabindex="-1" class>
+                <span>LG U+ 알뜰폰</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div data-e-1160 class="input-item">
+          <div data-e-1160 class="mds-input input mds-input--default mds-input--left">
+            <label>
+              <div class="inner">
+                <div class="input">
+                  <span id="input-157-label" class="label">
+                    휴대폰 번호
+                  </span>
+                  <input autocomplete="off" id="input-157" aria-labelledby="input-157-label" type="number" placeholder="01012345678" pattern="\d*" class="mds-input-field">
+                </div>
+                <button type="button" aria-label="내용 삭제" class="mds-icon--input-delete clear-button" style="display: none;"></button>
+              </div>
+            </label>
+          </div>
+        </div>
+        <p data-e-1160 class="text">
+          <button data-e-1160 type="button" class="text-button">해외에서 휴대폰 인증이 어려우신가요?</button>
+        </p>
+        <div data-e-1160 class="button-area">
+          <button data-e-1160 type="button" disabled="disabled" class="next-button mds-button mds-button--primary mds-button--h56 mds-button--r4">
+            <a th:href="@{/user/phoneinfocode}">다음</a>
+          </button>
+        </div>
+<!--        <div data-e-1160 aria-modal="true" role="alertdialog" class="mds-dialog agency-popup mds-dialog&#45;&#45;open mds-dialog&#45;&#45;action mds-dialog&#45;&#45;bottom mds-dialog&#45;&#45;mobile">-->
+          <div class="mds-dialog--wrap">
+            <div class="mds-dialog--inner">
+              <div class="mds-dialog--header">
+                <strong id="dialog-178-title">통신사 선택</strong>
+                <em class="mds-font--body02"></em>
+              </div>
+              <div class="mds-dialog--body">
+                <ul class="contents">
+                  <li>
+                    <button type="button">SKT</button>
+                  </li>
+                  <li>
+                    <button type="button">KT</button>
+                  </li>
+                  <li>
+                    <button type="button">LG U+</button>
+                  </li>
+                  <li>
+                    <button type="button">SKT 알뜰폰</button>
+                  </li>
+                  <li>
+                    <button type="button">KT 알뜰폰</button>
+                  </li>
+                  <li>
+                    <button type="button">LG U+ 알뜰폰</button>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

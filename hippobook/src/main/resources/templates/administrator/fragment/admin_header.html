@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" th:href="@{/css/administrator/fragment/admin_header.css}" />
+    <script defer th:src="@{/js/administrator/fragment/admin_header.js}"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <header th:fragment="admin-header">
+      <h1><img th:src="@{/images/book/HippoBook_logo.png}" alt=""></h1>
+      <div class="header__admin-icon-box">
+        <div class="header__admin-icon" data-name="notice" data-clicked="F">
+          <img th:src="@{/imgs/administrator/fragment/notice.png}" alt="" />
+        </div>
+        <div class="header__admin-icon" data-name="admin" data-clicked="F">
+          <img th:src="@{/imgs/administrator/fragment/menu_user.png}" alt="" />
+        </div>
+      </div>
+
+    <div class="header__notice-info">
+      <div class="header__notice-count-box">
+        <h4>새로운 알림(<span>1</span>)</h4>
+        <button type="button" id="notice-all-checked">
+          모두 읽음으로 표시
+        </button>
+      </div>
+      <hr />
+      <nav class="notice-type-menu">
+        <ul>
+          <li class="notice-btn" th:data-type="A">전체</li>
+          <li class="notice-btn" th:data-type="decl">신고</li>
+          <li class="notice-btn" th:data-type="sticker">스티커</li>
+        </ul>
+      </nav>
+      <div class="header__notice-content-box">
+
+      </div>
+      <div class="header__notice-content-box-none">
+        <img th:src="@{/imgs/administrator/fragment/notice-none-bell.png}" alt="" />
+        <span>새로운 알림이 없습니다</span>
+      </div>
+    </div>
+    <div class="header__admin-info">
+<!--      <div class="header__admin-nickname">-->
+<!--        <span>kimhyeokjin</span> <br />-->
+<!--        관리자님 안녕하세요-->
+<!--      </div>-->
+<!--      <hr />-->
+<!--      <div class="header__admin-nickname header__">내 정보 보기</div>-->
+<!--      <hr />-->
+      <div class="header__admin-logout">
+        <span>로그아웃</span>
+      </div>
+    </div>
+    </header>
+  </body>
+</html>

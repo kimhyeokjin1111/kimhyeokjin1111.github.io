@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.hippobookproject.mapper.administrator.AdministratorChartMapper">
+    <select id="selectVisitByRange" parameterType="int" resultType="resultChartAdminDto">
+        SELECT S.ATTENDANCE_DATE ,
+        COUNT(AT.ATTENDANCE_ID) AS CNT
+        FROM (
+        SELECT TRUNC(SYSDATE) - LEVEL + 1 AS ATTENDANCE_DATE
+        FROM DUAL
+        <![CDATA[
+        CONNECT BY LEVEL <= SYSDATE - (SYSDATE - #{term})
+        ]]>
+        ) S
+        LEFT JOIN TBL_ATTENDANCE AT
+        ON S.ATTENDANCE_DATE = TRUNC(AT.ATTENDANCE_DATE)
+        GROUP BY S.ATTENDANCE_DATE
+        ORDER BY S.ATTENDANCE_DATE
+    </select>
+</mapper>

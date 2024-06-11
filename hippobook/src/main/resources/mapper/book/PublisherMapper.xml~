@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.hippobookproject.mapper.book.PublisherMapper">
+<<<<<<< HEAD
+<!--<select id="CategoriePage" resultType="categorie">-->
+<!--    SELECT * FROM TBL_PUBLISHER-->
+<!--</select>-->
+<!--    <insert id="insertCategoriePage" parameterType="categorie">-->
+<!--        INSERT INTO TBL_PUBLISHER (PUBLISHER_ID, PUBLISHER_NAME) VALUES (#{id}, #{name})-->
+<!--    </insert>-->
+<!--    <update id="updateCategoriepage" parameterType="categorie">-->
+<!--        UPDATE TBL_PUBLISHER SET PUBLISHER_ID = #{id} WHERE PUBLISHER_ID = #{id}-->
+<!--    </update>-->
+<!--    <delete id="deleteCategoriepage" parameterType="categorie">-->
+<!--        DELETE FROM TBL_PUBLISHER WHERE PUBLISHER_ID = #{id}-->
+<!--    </delete>-->
+=======
+<!--<select id="CategoriePage">
+    SELECT * FROM TBL_PUBLISHER
+</select>
+    <insert id="insertCategoriePage">
+        INSERT INTO TBL_PUBLISHER (PUBLISHER_ID, PUBLISHER_NAME) VALUES (#{id}, #{name})
+    </insert>
+    <update id="updateCategoriepage">
+        UPDATE TBL_PUBLISHER SET PUBLISHER_ID = #{id} WHERE PUBLISHER_ID = #{id}
+    </update>
+    <delete id="deleteCategoriepage">
+        DELETE FROM TBL_PUBLISHER WHERE PUBLISHER_ID = #{id}
+    </delete>-->
+>>>>>>> admin/chartTest
+</mapper>

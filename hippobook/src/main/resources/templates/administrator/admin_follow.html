@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" th:href="@{/css/administrator/adimin-follow.css}" />
+    <script defer th:src="@{/js/administrator/admin_follow.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/administrator/fragment/admin_header.css}" />
+    <script defer th:src="@{/js/administrator/fragment/admin_header.js}"></script>
+    <title>Document</title>
+  </head>
+  <body>
+  <header th:replace="~{/administrator/fragment/admin_header :: header}">
+
+  </header>
+    <div>
+      <main>
+        <div class="main__sidebar">
+          <section class="main__sidebar-show">
+            <div>
+              <img
+                th:src="@{/imgs/administrator/fragment/left_arrow.png}"
+                alt=""
+                class="main__sidebar--close-btn"
+              />
+            </div>
+          </section>
+          <section class="main__sidebar-content">
+            <div class="main__sidebar-content-icon">
+              <!-- a태그 경로 지정 -->
+              <ul>
+                <li >
+                  <a th:href="@{/admin/user}"><img th:src="@{/imgs/administrator/fragment/user.png}" alt="" /></a>
+                </li>
+                <li>
+                  <a th:href="@{/admin/chart}"><img th:src="@{/imgs/administrator/fragment/chart.png}" alt="" /></a>
+                </li>
+                <li>
+                  <a th:href="@{/admin/declaration}"><img th:src="@{/imgs/administrator/fragment/declaration.png}" alt="" /></a>
+                </li>
+                <li class="active">
+                  <a th:href="@{/admin/follow}"><img th:src="@{/imgs/administrator/fragment/hippo.png}" alt="" /></a>
+                </li>
+              </ul>
+            </div>
+            <div class="main__sidebar-conten-detail">
+              <!-- a태그 경로 지정 -->
+              <ul>
+                <li >
+                  <a th:href="@{/admin/user}"><span>회원 정보 조회</span></a>
+                </li>
+                <li>
+                  <a th:href="@{/admin/chart}"><span>방문수 통계 조회</span></a>
+                </li>
+                <li>
+                  <a th:href="@{/admin/declaration}"><span>신고글 관리</span></a>
+                </li>
+                <li class="active">
+                  <a th:href="@{/admin/follow}"><span>팔로우 스티커 승인</span></a>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </div>
+        <div class="main__center-container">
+          <div class="main__center-container-box">
+            <form action="">
+              <section class="main__center-container-box-search">
+                <div><h1>팔로우 스티커 승인</h1></div>
+                <div>
+                  <table class="main__search-option">
+                    <colgroup>
+                      <col class="col1" />
+                      <col class="col2" />
+                      <col class="col3" />
+                      <col class="col4" />
+                    </colgroup>
+                    <tbody>
+                      <tr>
+                        <th>회원 검색</th>
+                        <td>
+                          <input
+                            type="text"
+                            name="userName"
+                            class="main__userInfo-input"
+                          />
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>달성일</th>
+                        <td colspan="3">
+                          <input
+                            type="date"
+                            name="startFollowDate"
+                            class="startDate"
+                          /><span>~</span
+                          ><input
+                            type="date"
+                            name="endFollowDate"
+                            class="endDate"
+                          />
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>승인</th>
+                        <td class="main__followgoal-td">
+                          <label>
+                            <input type="radio" name="fPermission" value="" class="permission" checked/> 전체
+                          </label>
+                          <label>
+                            <input type="radio" name="fPermission" value="Y" class="permission"/> 승인
+                          </label>
+                          <label>
+                            <input type="radio" name="fPermission" value="N" class="permission"/> 미승인
+                          </label>
+                        </td>
+                      </tr>
+                      <!-- <tr>
+                        <th>접속일</th>
+                        <td colspan="3">
+                          <input
+                            type="date"
+                            name="startVisitDate"
+                            class="startDate"
+                          /><span>~</span
+                          ><input
+                            type="date"
+                            name="endVisitDate"
+                            class="endDate"
+                          />
+                        </td>
+                      </tr> -->
+                    </tbody>
+                  </table>
+                  <div class="main__user-search-btn-div">
+
+                      <span class="main__user-search-btn">검색</span>
+
+                  </div>
+                </div>
+              </section>
+              <section class="main__center-container-box-list">
+                <div><h4>회원 목록</h4></div>
+                <div class="main__result-box-container">
+                  <div class="main__list-rownum-box">
+                    <p>[검색결과 0건]</p>
+                    <select name="rownum" class="main__rownum-select">
+                      <option value="10">10개씩 보기</option>
+                      <option value="20">20개씩 보기</option>
+                      <option value="30">30개씩 보기</option>
+                      <option value="50">50개씩 보기</option>
+                    </select>
+                  </div>
+                  <div class="main__user-out-btn-box">
+                    <button type="button" class="main__user-delete-btn">
+                      <!-- <span><img src="../img/hippo.png" alt="" /></span> -->스티커
+                      승인
+                    </button>
+                  </div>
+                  <table class="main__result-table">
+                    <colgroup>
+                      <col class="chk" style="width: 5%" />
+                      <col style="width: 15%" />
+                      <col style="width: 15%" />
+                      <col style="width: 10%" />
+                      <col style="width: 10%" />
+                      <col style="width: 19%" />
+                      <col style="width: 26%" />
+                    </colgroup>
+                    <tr>
+                      <th>
+                        <label>
+                          <input
+                            type="checkbox"
+                            name="checkAll"
+                            class="main__result-checkall"
+                          />
+                        </label>
+                      </th>
+                      <th>이름</th>
+                      <th>아이디</th>  
+                      <th>성별</th>
+                      <th>나이</th>
+                      <th>팔로워수</th>
+                      <th>달성일</th>
+                    </tr>
+                  </table>
+                  <div class="main__result-list-container">
+
+                  </div>
+                  <div class="main__no-searched-user-result">
+                    검색된 회원 내역이 없습니다.
+                  </div>
+                  <div class="main__searched-result-page-btn">
+                    <ul>
+
+                    </ul>
+                  </div>
+                </div>
+              </section>
+            </form>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

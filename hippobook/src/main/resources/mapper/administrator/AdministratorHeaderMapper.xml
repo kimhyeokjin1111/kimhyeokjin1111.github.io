@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.hippobookproject.mapper.administrator.AdministratorHeaderMapper">
+    <select id="selectDeclAll" resultType="resultNoticeDto">
+        SELECT FEED_DECLARATION_ID NOTICE_ID, FEED_DECLARATION_DATE NOTICE_DATE, USER_NICKNAME NOTICE_USER, NOTICE_TYPE
+        FROM (SELECT FEED_DECLARATION_ID, FEED_DECLARATION_DATE, USER_NICKNAME, 'feed' AS NOTICE_TYPE
+              FROM TBL_FEED_DECLARATION F JOIN TBL_USER U
+                                               ON F.FEED_DECL_READ != 'Y' AND F.USER_ID = U.USER_ID
+              UNION
+              SELECT POST_DECLARATION_ID, POST_DECLARATION_DATE, USER_NICKNAME, 'post'
+              FROM TBL_POST_DECLARATION P JOIN TBL_USER U
+                                               ON P.POST_DECL_READ != 'Y' AND  P.USER_ID = U.USER_ID
+              UNION
+              SELECT COMMENT_DECLARATION_ID, COMMENT_DECLARATION_DATE, USER_NICKNAME, 'comment'
+              FROM TBL_COMMENT_DECLARATION C JOIN TBL_USER U
+                                                ON C.COMMENT_DECL_READ != 'Y' AND C.USER_ID = U.USER_ID
+             )
+        ORDER BY NOTICE_DATE
+    </select>
+
+    <select id="selectStickerAll" resultType="resultNoticeDto">
+        SELECT STIKER_ID NOTICE_ID, STIKER_DATE NOTICE_DATE, USER_NICKNAME NOTICE_USER, 'sticker' NOTICE_TYPE
+            FROM TBL_STICKER S JOIN TBL_USER U
+        ON S.STICKER_READ != 'Y' AND S.USER_ID = U.USER_ID
+        ORDER BY NOTICE_DATE
+    </select>
+
+    <select id="selectNoticeAll" resultType="resultNoticeDto">
+        SELECT FEED_DECLARATION_ID NOTICE_ID, FEED_DECLARATION_DATE NOTICE_DATE, USER_NICKNAME NOTICE_USER, NOTICE_TYPE
+        FROM (SELECT FEED_DECLARATION_ID, FEED_DECLARATION_DATE, USER_NICKNAME, 'feed' AS NOTICE_TYPE
+              FROM TBL_FEED_DECLARATION F JOIN TBL_USER U
+                                               ON F.FEED_DECL_READ != 'Y' AND F.USER_ID = U.USER_ID
+              UNION
+              SELECT POST_DECLARATION_ID, POST_DECLARATION_DATE, USER_NICKNAME, 'post'
+              FROM TBL_POST_DECLARATION P JOIN TBL_USER U
+                                               ON P.POST_DECL_READ != 'Y' AND  P.USER_ID = U.USER_ID
+              UNION
+              SELECT COMMENT_DECLARATION_ID, COMMENT_DECLARATION_DATE, USER_NICKNAME, 'comment'
+              FROM TBL_COMMENT_DECLARATION C JOIN TBL_USER U
+                                                  ON C.COMMENT_DECL_READ != 'Y' AND C.USER_ID = U.USER_ID
+             )
+        UNION
+        SELECT STIKER_ID NOTICE_ID, STIKER_DATE NOTICE_DATE, USER_NICKNAME NOTICE_USER, 'sticker' NOTICE_TYPE
+        FROM TBL_STICKER S JOIN TBL_USER U
+                                ON S.STICKER_READ != 'Y' AND S.USER_ID = U.USER_ID
+        ORDER BY NOTICE_DATE
+    </select>
+
+    <update id="updatePDeclByIds">
+        update TBL_POST_DECLARATION
+        set POST_DECL_READ = 'Y'
+        WHERE POST_DECLARATION_ID IN
+        <foreach collection="idList" item="list" index="index"
+                 separator="," open="(" close=")">
+            #{list}
+        </foreach>
+    </update>
+
+    <update id="updateCDeclByIds">
+        update TBL_COMMENT_DECLARATION
+        set COMMENT_DECL_READ = 'Y'
+        WHERE COMMENT_DECLARATION_ID IN
+        <foreach collection="idList" item="list" index="index"
+                 separator="," open="(" close=")">
+            #{list}
+        </foreach>
+    </update>
+
+    <update id="updateFDeclByIds">
+        update TBL_FEED_DECLARATION
+        set FEED_DECL_READ = 'Y'
+        WHERE FEED_DECLARATION_ID IN
+        <foreach collection="idList" item="list" index="index"
+                 separator="," open="(" close=")">
+            #{list}
+        </foreach>
+    </update>
+
+    <update id="updateStickerByIds">
+        update TBL_STICKER
+        set STICKER_READ = 'Y'
+        WHERE TBL_STICKER.STIKER_ID IN
+        <foreach collection="idList" item="list" index="index"
+                 separator="," open="(" close=")">
+            #{list}
+        </foreach>
+    </update>
+</mapper>

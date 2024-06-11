@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.hippobookproject.mapper.user.MypageBookContainerMapper">
+    <select id="selectBookContainer" resultType="BookContainerDto">
+        SELECT BOOK_HAS_ID, BOOK_HAS_PERCENT, T.BOOKCASE_ID, T.BOOK_ID, T.USER_ID, BOOKCASE_CREATE, B.BOOK_NAME, B.BOOK_WRITER,
+               B.COVER
+        FROM TBL_USER U
+                 JOIN (SELECT BOOK_HAS_ID, BOOK_HAS_PERCENT, H.BOOKCASE_ID, BOOK_ID, C.USER_ID, BOOKCASE_CREATE,BOOKCASE_NAME
+                       FROM TBL_BOOK_HAS H
+                                 JOIN TBL_BOOKCASE C
+                                     ON H.BOOKCASE_ID = C.BOOKCASE_ID) T
+                      ON T.USER_ID = #{userId} AND U.USER_ID = T.USER_ID
+                 JOIN TBL_BOOK B
+                      ON T.BOOK_ID = B.BOOK_ID
+
+    </select>
+
+    <delete id="deleteBookHas" parameterType="Long">
+        DELETE FROM TBL_BOOK_HAS
+        WHERE BOOK_HAS_ID = #{bookHasId}
+    </delete>
+
+    <update id="updateBestBook">
+        UPDATE TBL_USER
+        SET BEST_BOOK_ID = #{bookHasId}
+        WHERE USER_ID = #{userId}
+    </update>
+
+    <select id="selectBestBook">
+        SELECT BEST_BOOK_ID
+        FROM TBL_USER
+        WHERE USER_ID = #{userId}
+    </select>
+
+    <update id="updateBookStatus" parameterType="BookContainerDto">
+        UPDATE TBL_BOOK_HAS
+        SET BOOK_HAS_PERCENT = #{bookHasPercent}
+        WHERE BOOK_HAS_ID = #{bookHasId}
+    </update>
+
+
+
+
+</mapper>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>히포북</title>
+    <link rel="stylesheet" th:href="@{/css/board/writepage.css}" />
+    <script defer th:src="@{/js/board/writepage.js}"></script>
+  </head>
+  <body>
+    <header>
+      <div class="header_layout">
+        <h1 class="header_logo">
+          <div class="header_logo_layout">
+            <a href="">
+              <!--홈페이지 버튼 -->
+              <img
+                th:src="@{/images/main/HippoBook_logo.png}"
+                alt=""
+                class="header_logo_images"
+              />
+            </a>
+          </div>
+        </h1>
+        <div class="header_right_layout">
+          <a href="">
+            <!-- 알람 페이지 이동  -->
+            <img th:src="@{/images/main/alarm.png}" alt="" class="header_right_alarm" />
+          </a>
+          <ul class="header_right_login">
+            <a href="" class="header_right_login_box">로그인</a>
+          </ul>
+        </div>
+      </div>
+
+      <div class="main_top">
+        <div class="main_top_layout">
+          <a href="#" onclick="return false"> 
+            <!-- 카테고리  -->
+                <img th:src="@{/images/main/Category.png}" alt="" class="main_top_category">
+        </a>
+          <div class="main_top_category_tap">
+            <ul class="main_top_category_list">
+              <li>
+                <a href="">내 서재</a>
+                <!-- 내 서재 이동 -->
+              </li>
+              <li>
+                <a href="">피드</a>
+                <!-- 피드 이동-->
+              </li>
+              <li>
+                <a href="">쪽지</a>
+                <!-- 쪽지 이동 -->
+              </li>
+              <li>
+                <a href="">내서재</a>
+                <!-- 내 서재 이동 -->
+              </li>
+              <li>
+                <a href="">검색</a>
+                <!-- 검색 이동 -->
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="write_container">
+        <div class="write_inner">
+          <div class="write_wrap">
+            <h1 class="write_title">자유게시판</h1>
+            <form id="write_textframe" class="write_textframe">
+              <div class="write_textwrap">
+                <div class="write_kind">
+                  <input
+                    type="checkbox"
+                    id="post_checkbox"
+                    name="post_checkbox"
+                  />
+                  <label for="post_checkbox">자유</label><br />
+                  <input
+                    type="checkbox"
+                    id="review_checkbox"
+                    name="review_checkbox"
+                  />
+                  <label for="review_checkbox">중고거래</label><br />
+                  <input
+                    type="checkbox"
+                    id="oneline_checkbox"
+                    name="oneline_checkbox"
+                  />
+                  <label for="oneline_checkbox">소설</label><br />
+                  <input
+                    type="checkbox"
+                    id="oneline_checkbox"
+                    name="oneline_checkbox"
+                  />
+                  <label for="oneline_checkbox">사용자문의</label><br />
+                </div>
+
+                <div class="write_datebox">
+                  <input type="date" />
+                </div>
+
+                <div class="write_titlebox">
+                  <input
+                    type="text"
+                    id="Title"
+                    name="Title"
+                    value=""
+                    class="board_title_input"
+                    placeholder="제목을 입력해주세요."
+                  />
+                </div>
+              </div>
+            </form>
+            <div class="write_formbox">
+              <div class="write_form_wrap">
+                <div class="write_selectbar">
+                  <div class="write_selectbox">
+                    <div class="write_font">
+                      <a title="크기"><strong></strong></a>
+                      <a title="굵게"><strong></strong></a>
+                      <a title="기울임"><strong></strong></a>
+                      <a title="밑줄"><strong></strong></a>
+                      <a title="글자색"><strong></strong></a>
+                      <a title="글자배경색"><strong></strong></a>
+                    </div>
+                    <div class="write_positionbox">
+                      <a title="왼쪽"><strong></strong></a>
+                      <a title="가운데"><strong></strong></a>
+                      <a title="오른쪽"><strong></strong></a>
+                    </div>
+                    <div class="write_imgbox">
+                      <span style="color: blue">이미지 선택 : </span>
+                      <input type="file" />
+                    </div>
+                  </div>
+                </div>
+                <div class="write_contentbox">
+                  <textarea
+                    name="write_content"
+                    id="write_content"
+                    cols="145"
+                    rows="100"
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <ul class="write_bar-x">
+        <a href="" class="write_canclebar">취소</a>
+        <a href="" class="write_submitbar">등록</a>
+      </ul>
+    </main>
+
+    <div class="category_popup" id="category_wrap">
+      <div class="category_popup_inner">
+        <section class="category_popup_inner_layout">
+          <section class="category_popup_content_layout">
+            <span class="category_popup_title">게시판</span>
+
+            <span class="category_popup_content">소설 쓰기</span>
+            <span class="category_popup_content">중고거래</span>
+            <span class="category_popup_content">독후감</span>
+            <span class="category_popup_content">자유</span>
+
+            <span class="category_popup_title2">쪽지</span>
+            <span class="category_popup_content">받은 쪽지함</span>
+            <span class="category_popup_content" style="margin-bottom: 40px">쪽지 보내기</span>
+
+            <span class="category_popup_title3">내 서재</span>
+            <span class="category_popup_title3">이벤트</span>
+            <span class="category_popup_title3">검색</span>
+            
+          </section>
+        </section>
+      </div>
+    </div>
+  </body>
+</html>

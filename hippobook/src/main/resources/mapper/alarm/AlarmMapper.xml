@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.hippobookproject.mapper.alarm.AlarmMapper">
+<!--    <select id="selectTime2" resultType="string">-->
+<!--        SELECT SYSDATE FROM DUAL-->
+<!--    </select>-->
+
+    <select id="findByID" resultType="AlarmDto">
+        SELECT ALARM_ID, ALARM_CONTENT, ALARM_DATE, ALARM_CHECK,
+               ALARM_TO, ALARM_FROM, U.USER_ID, U.USER_NICKNAME
+        FROM TBL_ALARM A JOIN TBL_USER U
+        ON A.ALARM_TO = U.USER_ID
+        WHERE ALARM_TO = #{userId}
+    </select>
+
+    <!-- 사용자의 모든 알람 확인 처리 -->
+    <update id="updateAlarmCheckByUserId" parameterType="long">
+        UPDATE TBL_ALARM
+        SET ALARM_CHECK = 'Y'
+        WHERE ALARM_TO = #{userId}
+    </update>
+
+    <!--    하나라도 확인 안 한 알람이 있는지-->
+    <select id="hasUncheckedAlarms" resultType="boolean">
+        SELECT CASE WHEN COUNT(1) > 0 THEN 1 ELSE 0 END
+        FROM TBL_ALARM
+        WHERE ALARM_TO = #{userId} AND ALARM_CHECK IS NULL
+    </select>
+
+
+
+
+
+    <!--알람 확인-->
+    <select id="getAlarmCheck" resultType="char">
+        SELECT ALARM_CHECK
+        FROM TBL_ALARM
+        WHERE ALARM_TO = #{userId}
+    </select>
+
+    <insert id="insertAlarm" parameterType="AlarmDto">
+        <selectKey keyProperty="alarmId" resultType="Long" order="BEFORE">
+            SELECT SEQ_ALARM.nextval FROM DUAL
+        </selectKey>
+        INSERT INTO TBL_ALARM (ALARM_ID, ALARM_CONTENT, ALARM_CHECK, ALARM_TO, ALARM_FROM)
+        VALUES (#{alarmId}, #{alarmContent}, #{alarmCheck}, #{alarmTo}, #{alarmFrom})
+    </insert>
+
+
+    <select id="selectMessageAlarm" resultType="MessageDto">
+        SELECT MESSAGE_ID, MESSAGE_TITLE, MESSAGE_CONTENT, MESSAGE_CHECK, MESSAGE_DATE, MESSAGE_TO, MESSAGE_FROM
+        FROM TBL_MESSAGE
+        WHERE MESSAGE_TO = #{userId}
+    </select>
+
+    <select id="selectFollowAlarm" resultType="FollowDto">
+        SELECT FOLLOW_ID, FOLLOW_DATE, FOLLOW_TO, FOLLOW_FROM
+        FROM TBL_FOLLOW
+        WHERE FOLLOW_TO = #{userId}
+    </select>
+
+<!--    메시지 사용자 알림 확인 여부 조회-->
+
+    <select id="messageCheckedAlarms" resultType="boolean">
+        SELECT CASE WHEN COUNT(1) > 0 THEN 1 ELSE 0 END
+        FROM TBL_MESSAGE
+        WHERE MESSAGE_TO = #{userId} AND MESSAGE_CHECK = 'N'
+    </select>
+
+
+</mapper>

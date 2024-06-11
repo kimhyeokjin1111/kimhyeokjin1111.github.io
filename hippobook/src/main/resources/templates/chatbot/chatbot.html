@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/chatbot/chatbot.css}">
+    <script defer th:src="@{/js/chatbot/chatbot.js}"></script>
+    <title>Title</title>
+</head>
+<body>
+    <div th:fragment="chatbot-box" class="chatbot-icon-box" th:if="${session.userId != null}">
+        <div class="chatbot-container" th:data-userid="${session.userId}">
+            <div class="chatbot-head-box">
+                <h1>상담 챗봇</h1>
+                <img class="close-Icon" th:src="@{/imgs/administrator/fragment/close_btn.png}" alt="">
+            </div>
+            <div class="chatbot-viewer-box">
+
+            </div>
+            <div class="chatbot-question-box">
+                <input id="chat-input" type="text" placeholder="메세지를 입력하세요.">
+                <button id="chat-btn" type="button">전송</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

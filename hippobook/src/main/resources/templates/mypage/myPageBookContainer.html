@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/mypage/myPageBookContainer.css}">
+    <link rel="stylesheet" th:href="@{/css/main/mainpage.css}" />
+    <script defer th:src="@{/js/main/mainpage.js}"></script>
+    <script type="module" defer th:src="@{/js/mypage/bookContainer.js}"></script>
+</head>
+<body>
+<header class="header" th:replace="~{/fragment/header :: header}"></header>
+<div>
+    <div>
+
+    <section class="profile" th:object="${profileDto}">
+        <div class="profile-all">
+            <div id="profile-photo">
+
+                <img th:if="${profilePhoto.userProfileName == null}"
+                     th:src="@{/imgs/mypage/free-icon-hippo-3250992.png}" alt=""/>
+                <img th:unless="${profilePhoto.userProfileName == null}"
+                     th:src="@{'/profile/' + ${profilePhoto.userProfileUploadPath} + '/' + ${profilePhoto.userProfileUuid} + '_' + ${profilePhoto.userProfileName}}"
+                     alt=""/>
+            </div>
+
+            <div id="profile-name">
+                <span>
+                  <th:block>
+                  <img class="hippo-celeb" th:if="${checkSticker == 'Y'}"
+                       th:src="@{/images/mypage/hippo.png}" alt=""/>
+                  </th:block>
+                </span>
+                <h3 class="mypage-user-nickname" th:text="*{userNickName}"></h3>
+                <span class="profile-name-option">님의 서재</span>
+            </div>
+            <div id="follow">
+                <span>팔로워 <span th:text="*{followerCnt}"></span></span>
+                <span>팔로잉 <span th:text="*{followingCnt}"></span></span>
+            </div>
+        </div>
+
+        <div id="my-favorite-book">
+            <img th:if="*{cover == null}"
+                    th:src="@{/imgs/mypage/best_book_default.png}" alt=""/>
+            <img th:unless="*{cover == null}"
+                    th:src="${profileDto.cover}"
+                 id="best-book-img" alt=""/>
+        </div>
+    </section>
+</div>
+<div>
+    <div class="mypage-cate">
+        <div><a th:href="@{/mypage/int}">소개</a></div>
+        <div><a th:href="@{/mypage/book/container}">책장</a></div>
+        <div><a th:href="@{/mypage/book/write-content}">내 게시물</a></div>
+        <div><a th:href="@{/mypage/sticker}">스티커 신청</a></div>
+        <div><a th:href="@{/mypage/manage}">관리</a></div>
+    </div>
+    <form action="">
+        <section>
+            <div class="book-Container-cate">
+                <div>
+                    <span>총 </span><span th:text="${#lists.size(bookContainerList)}"></span><span>권</span>
+                </div>
+                <div class="book-Container-cate-list">
+<!--                    <span>담은날짜 순</span>-->
+<!--                    <div class="book-Container-cate-list-setting">-->
+<!--                        <img src="/images/mypage/up-arrow.png" alt="" id="list-setting-image">-->
+<!--                    </div>-->
+                </div>
+            </div>
+        </section>
+
+    </form>
+</div>
+
+<section class="my-book-get-list-section">
+    <div class="my-book-get-list">
+        <div th:each="bookContainerDto : ${bookContainerList}">
+            <div class="my-book-get-list-image" th:data-bookid="${bookContainerDto.bookId}" th:data-id="${bookContainerDto.bookHasId}" th:data-status="${bookContainerDto.bookHasPercent}">
+                <img th:src="${bookContainerDto.cover}"
+                     alt="">
+            </div>
+            <div class="my-book-get-list-detail">
+                <span th:text="${bookContainerDto.bookName}"></span>
+                <span class="writer" th:text="${bookContainerDto.bookCaseCreate}"></span>
+                <span class="writer" th:text="${bookContainerDto.bookHasPercent}"></span>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<footer>
+
+</footer>
+<section class="book-container-modal-bg">
+    <div>
+
+        <form action="" class="book-container-modal-list">
+            <div class="x-box">
+                <img src="" alt="">
+            </div>
+
+            <div class="book-container-modal-list-btn">
+                <input type="button" value="인생책 설정" class="best-book" data-id="">
+            </div>
+            <div class="book-container-modal-list-btn">
+                    <input type="button" value="책정보 보기" class="book-info-detail" data-bookid="">
+            </div>
+            <div class="book-container-modal-list-btn">
+                <input type="button" value="목록에서 삭제" class="book-list-delete" data-id="">
+            </div>
+            <div class="book-container-modal-list-btn">
+                <input type="button" value="책 상태 설정" class="book-status-set">
+            </div>
+
+
+        </form>
+    </div>
+
+</section>
+<section class="book-container-modal-bg2">
+    <div>
+
+        <form action="" class="book-container-modal-list2">
+            <div class="x-box2">
+                <img src="" alt="">
+            </div>
+            <div class="book-container-modal-list-btn2">
+                <input type="button" value="읽음" class="book-reading-finish-btn" data-status="읽음">
+            </div>
+            <div class="book-container-modal-list-btn2">
+                <input type="button" value="읽는 중" class="book-reading-btn" data-status="읽는중">
+            </div>
+            <div class="book-container-modal-list-btn2">
+                <input type="button" value="안읽음" class="book-no-reading-btn" data-status="안읽음">
+            </div>
+
+        </form>
+    </div>
+
+</section>
+</div>
+<!--카테고리 모달창-->
+    <div class="category_popup" id="category_wrap">
+        <div class="category_popup_inner">
+            <section class="category_popup_inner_layout">
+                <section class="category_popup_content_layout">
+                    <a th:href="@{/board/post/main}">
+                        <span class="category_popup_title">게시판</span>
+                    </a>
+
+                    <div class="category_popup_content_box">
+                        <span class="category_popup_content">소설 게시판</span>
+                        <span class="category_popup_content">중고 게시판</span>
+                        <span class="category_popup_content">자유 게시판</span>
+                    </div>
+
+                    <span class="category_popup_title">쪽지</span>
+                    <div class="category_popup_content_box">
+                        <a th:href="@{/message/letter/get}">
+                            <span class="category_popup_content">받은 쪽지함</span>
+                        </a>
+                        <a th:href="@{/message/letter/send}">
+                            <span class="category_popup_content">보낸 쪽지함</span>
+                        </a>
+                    </div>
+
+
+                    <a th:href="@{/feed}">
+                        <span class="category_popup_title">피드</span>
+                    </a>
+
+                    <div class="category_popup_content_box">
+                        <a th:href="@{/feed}">
+                            <span class="category_popup_content">포스트</span>
+                        </a>
+                        <a th:href="@{/feed/oneline}">
+                            <span class="category_popup_content">한 줄 리뷰</span>
+                        </a>
+                        <a th:href="@{/feed/read}">
+                            <span class="category_popup_content">독후감</span>
+                        </a>
+                    </div>
+
+                    <span class="category_popup_title">이벤트</span>
+                    <a th:href="@{/mypage/sticker}">
+                        <span class="category_popup_content">스티커 신청하기</span>
+                    </a>
+                </section>
+            </section>
+        </div>
+    </div>
+
+</body>
+</html>

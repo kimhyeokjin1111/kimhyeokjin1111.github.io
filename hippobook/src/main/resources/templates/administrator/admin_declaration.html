@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" th:href="@{/css/administrator/admin_declaration.css}" />
+    <script defer th:src="@{/js/administrator/admin_declaration.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/administrator/fragment/admin_header.css}" />
+    <script defer th:src="@{/js/administrator/fragment/admin_header.js}"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <header th:replace="~{/administrator/fragment/admin_header :: header}">
+
+    </header>
+    <div>
+      <main>
+        <div class="main__sidebar">
+          <section class="main__sidebar-show">
+            <div>
+              <img
+                th:src="@{/imgs/administrator/fragment/left_arrow.png}"
+                alt=""
+                class="main__sidebar--close-btn"
+              />
+            </div>
+          </section>
+          <section class="main__sidebar-content">
+            <div class="main__sidebar-content-icon">
+              <!-- a태그 경로 지정 -->
+              <ul>
+                <li>
+                  <a th:href="@{/admin/user}"><img th:src="@{/imgs/administrator/fragment/user.png}" alt="" /></a>
+                </li>
+                <li>
+                  <a th:href="@{/admin/chart}"><img th:src="@{/imgs/administrator/fragment/chart.png}" alt="" /></a>
+                </li>
+                <li class="active">
+                  <a th:href="@{/admin/declaration}"><img th:src="@{/imgs/administrator/fragment/declaration.png}" alt="" /></a>
+                </li>
+                <li>
+                  <a th:href="@{/admin/follow}"><img th:src="@{/imgs/administrator/fragment/hippo.png}" alt="" /></a>
+                </li>
+              </ul>
+            </div>
+            <div class="main__sidebar-conten-detail">
+              <!-- a태그 경로 지정 -->
+              <ul>
+                <li>
+                  <a th:href="@{/admin/user}"><span>회원 정보 조회</span></a>
+                </li>
+                <li>
+                  <a th:href="@{/admin/chart}"><span>방문수 통계 조회</span></a>
+                </li>
+                <li class="active">
+                  <a href=""><span>신고글 관리</span></a>
+                </li>
+                <li>
+                  <a th:href="@{/admin/follow}"><span>팔로우 스티커 승인</span></a>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </div>
+        <div class="main__center-container">
+          <div class="main__center-container-box">
+            <form action="">
+              <section class="main__center-container-box-search">
+                <div class="main__declaration-title-div">
+                  <h1>신고글 관리</h1>
+                  <select name="declaration" class="main__declaration-select" th:data-decltype="feed">
+                    <option value="feed" selected>피드 신고</option>
+                    <option value="post">게시글 신고</option>
+                    <option value="comment">코멘트 신고</option>
+                  </select>
+                </div>
+                <div>
+                  <table class="main__search-option">
+                    <colgroup>
+                      <col class="col1" />
+                      <col class="col2" />
+                    </colgroup>
+                    <tbody>
+                      <tr>
+                        <th>신고내용</th>
+                        <td>
+                          <input
+                            type="text"
+                            name="declarationContent"
+                            class="main__declarationDate-input"
+                          />
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>신고일</th>
+                        <td>
+                          <input
+                            type="date"
+                            name="startDeclarationDate"
+                            class="startDeclDate pair-options"
+                          /><span>~</span
+                          ><input
+                            type="date"
+                            name="endDeclarationDate"
+                            class="endDeclDate pair-options"
+                          />
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>처리일</th>
+                        <td>
+                          <input
+                            type="date"
+                            name="startPocecssDate"
+                            class="startPDate pair-options"
+                          /><span>~</span
+                          ><input
+                            type="date"
+                            name="endPocecssDate"
+                            class="endPDate pair-options"
+                          />
+                        </td>
+                      </tr>
+                      <tr class="feed-can-not-see decl-type">
+                        <th>신고글유형</th>
+                        <td class="main__declaration-type-td" >
+                          <label>
+                            <input
+                              type="radio"
+                              name="declarationType"
+                              value="deal"
+                              class="decl-opt-type"
+                              checked
+                            />
+                            중고
+                          </label>
+                          <label>
+                            <input
+                              type="radio"
+                              name="declarationType"
+                              class="decl-opt-type"
+                              value="board"
+                            />
+                            자유
+                          </label>
+                          <label>
+                            <input
+                              type="radio"
+                              name="declarationType"
+                              class="decl-opt-type"
+                              value="novel"
+                            />
+                            소설
+                          </label>
+                          <label>
+                            <input
+                              type="radio"
+                              name="declarationType"
+                              class="decl-opt-type"
+                              value="claim"
+                            />
+                            사용자문의
+                          </label>
+                          <label class="book-can-see type-book">
+                            <input
+                              type="radio"
+                              name="declarationType"
+                              class="decl-opt-type"
+                              value="book"
+                            />
+                            책
+                          </label>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>처리유형</th>
+                        <td class="main__process-type-td">
+                          <label>
+                            <input
+                              type="radio"
+                              name="pocessType"
+                              value=""
+                              class="decl-opt-p-type"
+                              checked
+                            />
+                            전체
+                          </label>
+                          <label>
+                            <input type="radio" name="pocessType" value="Y" class="decl-opt-p-type"/>
+                            처리
+                          </label>
+                          <label>
+                            <input type="radio" name="pocessType" value="N" class="decl-opt-p-type"/>
+                            미처리
+                          </label>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div class="main__user-search-btn-div">
+                    <button type="button" class="decl-search-btn"
+                      ><span class="main__user-search-btn">검색</span></button
+                    >
+                  </div>
+                </div>
+              </section>
+              <section class="main__center-container-box-list">
+                <div><h4>신고 목록</h4></div>
+                <div class="main__result-box-container">
+                  <div class="main__list-rownum-box">
+                    <p>[검색결과 <span>0</span>건]</p>
+                    <input type="hidden" class="decl-id-store">
+                    <select name="rownum" class="main__rownum-select" th:data-row="10">
+                      <option value="10">10개씩 보기</option>
+                      <option value="20">20개씩 보기</option>
+                      <option value="30">30개씩 보기</option>
+                      <option value="50">50개씩 보기</option>
+                    </select>
+                  </div>
+
+                  <table class="main__result-table">
+                    <colgroup>
+                      <col style="width: 13%" />
+                      <col style="width: 55%" />
+                      <col style="width: 14%" />
+                      <col style="width: 13%" />
+                      <col style="width: 10%" />
+                    </colgroup>
+                    <tr>
+                      <th>신고일</th>
+                      <th>신고내용</th>
+                      <th>신고자</th>
+                      <th>처리일</th>
+                      <th>처리여부</th>
+                    </tr>
+                  </table>
+                  <div class="main__result-list-container" >
+                    <ul>
+
+                    </ul>
+                  </div>
+                  <section class="main__declaration-content-view-box">
+                    <div>
+                      <div class="declaration-content-view-header">
+                        <span>신고 내용 보기</span>
+                        <img
+                          th:src="@{/imgs/administrator/fragment/close_btn.png}"
+                          alt=""
+                          class="main__declaration-close_btn"
+                        />
+                      </div>
+                      <div class="declaration-content-view-main">
+                        <div class="declaration-type-title-box">신고대상</div>
+                        <table class="declaration-to-content-table">
+                          <tr>
+                            <th>신고타입</th>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <th>작성자</th>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <th>작성일</th>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <th>내용</th>
+                            <td></td>
+                          </tr>
+                        </table>
+                        <div class="declaration-type-title-box">
+                          <span>신고내용</span>
+                          <div>
+                            <button type="button" id="declaration-ignore-btn">
+                              신고 무시
+                            </button>
+                            <button
+                              type="button"
+                              id="declaration-to-content-delete-btn"
+                            >
+                              신고글 삭제
+                            </button>
+                          </div>
+                        </div>
+                        <table class="declaration-to-content-table">
+                          <tr>
+                            <th>신고자</th>
+                            <td class="decl-writer"></td>
+                          </tr>
+                          <tr>
+                            <th>신고일</th>
+                            <td class="decl-write-date"></td>
+                          </tr>
+                          <tr>
+                            <th>신고내용</th>
+                            <td class="decl-write-content"></td>
+                          </tr>
+                        </table>
+                        <div class="declaration-content-view-bottom">
+                          <button
+                            type="button"
+                            class="main__declaration-close_btn"
+                          >
+                            닫기
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+                  <div class="main__no-searched-declaration-result">
+                    검색된 신고 내역이 없습니다.
+                  </div>
+                  <div class="main__searched-result-page-btn">
+                    <ul>
+<!--                      <span class="lf-arrow"><a>&lt;</a></span>-->
+                        <li><a href=""><strong>1</strong></a></li>
+<!--                        <li><a href=""><strong>2</strong></a></li>-->
+<!--                        <li><a href=""><strong>3</strong></a></li>-->
+<!--                        <li><a href=""><strong>4</strong></a></li>-->
+<!--                        <li><a href=""><strong>5</strong></a></li>-->
+<!--                      <span class="rt-arrow"><a href="">&gt;</a></span>-->
+                    </ul>
+                  </div>
+                </div>
+              </section>
+            </form>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

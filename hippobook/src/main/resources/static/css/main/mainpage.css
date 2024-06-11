@@ -1,0 +1,1082 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 5;
+}
+.header_layout {
+  background-color: white;
+  display: flex;
+  align-items: center;
+  height: 64px;
+  padding: 0 24px;
+  width: 1440px;
+  margin: 0 auto;
+}
+
+.header_logo {
+  width: 100px;
+}
+
+.header_logo_layout {
+  overflow: hidden;
+  display: block;
+  height: 35px;
+}
+
+.header_logo_images {
+  width: 100px;
+  height: 40px;
+}
+
+.header_right_layout {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+.header_right_alarm {
+  justify-content: center;
+  position: relative;
+  width: 24px;
+  height: 24px;
+}
+
+.header_right_login {
+  margin-left: 16px;
+}
+
+.header_right_login_btn {
+  border-radius: 8px;
+  border: 1px solid #2bc1bf;
+  background-color: white;
+}
+
+.header_right_login_box {
+  color: black;
+  width: 80px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  text-decoration: none;
+  border: none;
+}
+
+.header_right_login_box:hover {
+  background-color: #89d8d7;
+  color: rgb(2, 2, 2);
+}
+
+main {
+  max-width: unset;
+  padding: 0;
+}
+
+.main_top {
+  position: sticky;
+  top: 64px;
+  z-index: 4;
+  width: 100%;
+  height: 44px;
+  border-top: 1px solid #dfdfdf;
+}
+
+.main_top_layout {
+  background-color: white;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding-left: 24px;
+  margin: 0 auto;
+  width: 1440px;
+}
+
+.main_top_category {
+  display: block;
+  position: relative;
+  width: 24px;
+  height: 24px;
+  margin-top: -1px;
+  margin-right: 12px;
+}
+.main_top_category_tap {
+  position: relative;
+  left: 0;
+  top: 0;
+}
+
+.main_top_category_list {
+  display: flex;
+}
+
+.main_top_category_list2 {
+  list-style: none;
+  padding: 11px 12px;
+  line-height: 22px;
+}
+
+.header_alarm_btn{
+  border: none;
+  background-color: white;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
+
+.main_top_category_list_title:hover {
+  color: #2bc1bf;
+}
+
+/* 카테고리 이미지 */
+
+.category_openBtn {
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+}
+
+/* 카테고리 모달 창 */
+
+.category_popup {
+  position: fixed;
+  display: none;
+  left: 0;
+  right: 0;
+  top: 109px;
+  bottom: 0;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.3);
+}
+.category_popup_inner {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.category_popup_inner_layout {
+  overflow: hidden;
+  display: flex;
+  align-items: stretch;
+  max-width: 350px;
+  min-height: 500px;
+  max-height: 600px;
+  background-color: #fdffff;
+  border-radius: 20px 20px 20px 20px;
+  border: 2px solid #29a7a4;
+}
+
+.category_popup_content_layout {
+  right: 0;
+  left: 0;
+  position: sticky;
+  padding: 24px 24px 32px;
+  margin: 15px 25px;
+}
+
+.category_popup_title {
+  display: flex;
+  /*padding: 5px 0 15px;*/
+  font-weight: 700;
+  font-size: 15px;
+  color: #2bc1bf;
+}
+.category_popup_content {
+  display: flex;
+  margin: 10px 20px;
+  cursor: pointer;
+}
+
+.category_popup_content_box{
+  margin-bottom: 25px;
+}
+
+.main_content {
+  height: auto;
+}
+
+/* 슬라이드 */
+
+.slides_wrap {
+  max-width: 1017px;
+  height: 400px;
+  /* padding-left: 30px;
+  padding-right: 30px; */
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.slides_content {
+  width: 1017px;
+  height: 400px;
+}
+
+/* ul */
+.slides_banner {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: all 0.5s linear;
+  list-style: none;
+}
+
+.btn_wrap {
+  z-index: 1;
+  position: absolute;
+  /* font-size: 60px; */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  margin: 0 3px;
+}
+
+.btn_wrap_left {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  background: #ffffff;
+  box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.06);
+  border-radius: 50%;
+  border: 1px solid #f0f0f0;
+  pointer-events: auto;
+  color: #141414;
+  font-size: 16px;
+  position: absolute;
+  top: 50%;
+  left: 0;
+}
+
+.btn_wrap_right {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  background: #ffffff;
+  box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.06);
+  border-radius: 50%;
+  border: 1px solid #f0f0f0;
+  pointer-events: auto;
+  color: #141414;
+  font-size: 16px;
+  position: absolute;
+  top: 50%;
+  right: 0;
+}
+
+.none {
+  display: none;
+}
+/* 메인페이지 배너 밑 부분  */
+.main_layout {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.main_content_layout {
+  position: relative;
+  height: 500px;
+}
+
+/* 히포 랭킹 */
+.hipppo_ranking {
+  padding: 32px 0;
+  margin-bottom: -16px;
+  height: 500px;
+}
+/*.reanking_box{*/
+/*  height: 400px;*/
+/*}*/
+
+
+.ranking_border_box{
+  max-height: 350px;
+  max-width: 400px;
+}
+
+.hipppo_ranking-box {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+.ranking_border_box_wrap{
+  width: 30%;
+}
+
+
+.hipppo_ranking_layout {
+  max-width: 1440px;
+  position: relative;
+  padding: 0 24px;
+  margin: 0 auto;
+  height: 500px;
+}
+
+.hipppo_ranking_title {
+  font-size: 20px;
+  align-items: center;
+  display: flex;
+  color: #2bc1bf;
+}
+
+.hipppo_ranking_content {
+  margin-top: 40px;
+  height: 400px;
+  width: 80px;
+}
+
+
+.ranking_content {
+  width: 300px;
+  display: flex;
+  position: relative;
+  align-items: center;
+  margin-top: 16px;
+  padding: 0 24px;
+  min-height: 84px;
+  cursor: pointer;
+}
+
+.rank_num1 {
+  background-position-x: -20px;
+  background-position-y: -20px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  width: 62px;
+  height: 44px;
+  background-repeat: no-repeat;
+  background-image: url(https://d3udu241ivsax2.cloudfront.net/v3/images/home/ranking_num.2f98001e194689a8fccea11bd68e9ba4.svg);
+}
+
+.rank_num2 {
+  background-position-x: -94px;
+  background-position-y: -20px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  width: 62px;
+  height: 44px;
+  background-repeat: no-repeat;
+  background-image: url(https://d3udu241ivsax2.cloudfront.net/v3/images/home/ranking_num.2f98001e194689a8fccea11bd68e9ba4.svg);
+}
+
+.rank_num3 {
+  background-position-x: -168px;
+  background-position-y: -20px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  width: 62px;
+  height: 44px;
+  background-repeat: no-repeat;
+  background-image: url(https://d3udu241ivsax2.cloudfront.net/v3/images/home/ranking_num.2f98001e194689a8fccea11bd68e9ba4.svg);
+}
+
+.rank_num4 {
+  background-position-x: -242px;
+  background-position-y: -20px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  width: 62px;
+  height: 44px;
+  background-repeat: no-repeat;
+  background-image: url(https://d3udu241ivsax2.cloudfront.net/v3/images/home/ranking_num.2f98001e194689a8fccea11bd68e9ba4.svg);
+}
+
+.rank_num5 {
+  background-position-x: -316px;
+  background-position-y: -20px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  width: 62px;
+  height: 44px;
+  background-repeat: no-repeat;
+  background-image: url(https://d3udu241ivsax2.cloudfront.net/v3/images/home/ranking_num.2f98001e194689a8fccea11bd68e9ba4.svg);
+}
+
+.rank_num6 {
+  background-position-x: -390px;
+  background-position-y: -20px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  width: 62px;
+  height: 44px;
+  background-repeat: no-repeat;
+  background-image: url(https://d3udu241ivsax2.cloudfront.net/v3/images/home/ranking_num.2f98001e194689a8fccea11bd68e9ba4.svg);
+}
+
+.rank_num7 {
+  background-position-x: -20px;
+  background-position-y: -102px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  width: 62px;
+  height: 44px;
+  background-repeat: no-repeat;
+  background-image: url(https://d3udu241ivsax2.cloudfront.net/v3/images/home/ranking_num.2f98001e194689a8fccea11bd68e9ba4.svg);
+}
+
+.rank_num8 {
+  background-position-x: -94px;
+  background-position-y: -102px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  width: 62px;
+  height: 44px;
+  background-repeat: no-repeat;
+  background-image: url(https://d3udu241ivsax2.cloudfront.net/v3/images/home/ranking_num.2f98001e194689a8fccea11bd68e9ba4.svg);
+}
+
+.rank_num9 {
+  background-position-x: -168px;
+  background-position-y: -102px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  width: 62px;
+  height: 44px;
+  background-repeat: no-repeat;
+  background-image: url(https://d3udu241ivsax2.cloudfront.net/v3/images/home/ranking_num.2f98001e194689a8fccea11bd68e9ba4.svg);
+}
+
+.ir {
+  position: absolute;
+  left: -10000em;
+  top: 0;
+}
+
+.thumbnail {
+  position: relative;
+  margin-right: 20px;
+}
+
+.book_picture {
+  min-width: 80px;
+  max-width: 80px;
+  min-height: 120px;
+  max-height: 120px;
+  padding-top: 0;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ir {
+  font-size: 30px;
+}
+
+.thumbnail_title {
+  flex: 1;
+}
+
+.book_data {
+  display: flex;
+  position: relative;
+  width: 150px;
+}
+
+.rank_book_author {
+  margin-bottom: 0;
+  font-size: 14px;
+  line-height: 18px;
+}
+.rank_book_title {
+  margin-bottom: 2px;
+  font-size: 16px;
+  line-height: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  max-height: 1.35em;
+}
+
+.book_content {
+  padding-top: 0;
+  font-size: 12px;
+  text-align: left;
+  position: relative;
+}
+
+.ranking_box2 {
+  min-width: 327px;
+  max-width: 327px;
+}
+
+.ranking_content2 {
+  width: 400px;
+  display: flex;
+  position: relative;
+  align-items: center;
+  margin-top: 20px;
+  padding: 0 24px;
+  min-height: 84px;
+  bottom: 380px;
+  left: 500px;
+  cursor: pointer;
+}
+
+.ranking_content3 {
+  width: 400px;
+  display: flex;
+  position: relative;
+  align-items: center;
+  margin-top: 16px;
+  padding: 0 24px;
+  min-height: 84px;
+  left: 1000px;
+  bottom: 760px;
+  cursor: pointer;
+}
+
+/* 소설 미리보기 */
+.novel_preview {
+  padding: 32px 24px;
+  height: 350px;
+
+}
+
+
+.novel_preview_title {
+  margin-bottom: 20px;
+  font-size: 20px;
+  color: #2bc1bf;
+  line-height: 24px;
+}
+
+.novel_content {
+  margin: 12px -16px 16px 0;
+  height: 350px;
+}
+.novel_content_wrapper {
+  position: static;
+  width: auto;
+
+  height: 350px;
+}
+
+
+.novel_box {
+  display: flex;
+  min-width: 306px;
+  max-width: 100%;
+
+
+}
+.novel_box_border {
+  padding: 16px;
+  width: 300px;
+  height: 212px;
+  position: relative;
+  box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.06), 2px 2px 10px rgba(0, 0, 0, 0.04);
+  border-radius: 12px;
+  margin-right: 50px;
+  text-overflow: ellipsis;
+}
+
+.novel_data {
+  position: relative;
+  display: flex;
+}
+
+.novel_box_inner {
+  display: flex;
+  flex-direction: row-reverse;
+  width: 100%;
+  min-width: 145px;
+}
+
+.novel_url {
+  max-width: 100px;
+  display: flex;
+  align-items: flex-end;
+}
+
+.novel_thumbnail_inner {
+  overflow: hidden;
+  position: relative;
+  width: inherit;
+  border-radius: 0 4px 4px 0;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1), 0 0 2px rgba(0, 0, 0, 0.2);
+}
+
+.novel_thumbnail_inner2 {
+  padding-top: 0;
+  overflow: hidden;
+  position: relative;
+  max-height: 240px;
+}
+
+.novel_thumbnail_inner_picture {
+  opacity: 1;
+  position: static;
+}
+.novel_thumbnail_inner_picture2 {
+  /*min-height: 0px;*/
+  height: 140px;
+  width: 105px;
+  display: block;
+}
+
+.thumbnail2 {
+  position: relative;
+  align-items: center;
+  display: flex;
+  width: 100%;
+}
+
+.book_data2 {
+  padding: 0 16px 0 0;
+  width: 100%;
+  position: relative;
+  display: block;
+  overflow: hidden;
+}
+
+.novel_box_content {
+  padding-top: 12px;
+  font-size: 12px;
+  text-align: left;
+  position: relative;
+}
+
+.novel_box_content_title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 3px;
+  font-weight: 700;
+  font-size: 18px;
+  max-height: 3em;
+}
+
+.novel_box_content_content {
+  -webkit-line-clamp: 1;
+  max-height: 1.35em;
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  margin-bottom: 3px;
+}
+
+.novel_box_bottom {
+  padding-top: 20px;
+  padding-right: 16px;
+  overflow-wrap: break-word;
+  text-overflow: ellipsis;
+  height: 100px;
+  /*justify-content: center;*/
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  display: flex;
+  flex-direction: column;
+  min-height: 72px;
+  padding-left: 16px;
+  backdrop-filter: blur(40px);
+  background: rgba(176, 179, 188, 0.1)
+    url(https://d3udu241ivsax2.cloudfront.net/v3/images/common/millie-logo-white.02b2313….svg);
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.novel_box_bottom_content {
+  overflow-wrap: break-word;
+  color: #6f6f6f;
+  /*overflow: hidden;*/
+  text-overflow: ellipsis;
+  max-height: 1.35em;
+}
+
+.main_book_report_writer_content_icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 4px;
+  background-size: cover;
+  background-position: 50%;
+  border-radius: 50px;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.25);
+}
+
+
+.main_book_report {
+  padding: 32px 0;
+}
+
+.main_book_report_layout {
+  overflow: hidden;
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+  width: 1440px;
+}
+
+.main_report_title {
+  font-size: 20px;
+  line-height: 24px;
+  position: relative;
+  margin-bottom: 25px;
+  color: #2bc1bf;
+}
+
+.main_report_title_url {
+  display: flex;
+  -ms-flex: 1;
+  flex: 1;
+  -ms-flex-align: center;
+  align-items: center;
+  padding-right: 30px;
+  word-break: keep-all;
+  position: relative;
+  font-size: 20px;
+  font-weight: 700;
+  width: 100%;
+}
+
+.main_report_section {
+  margin: 12px -24px 0;
+}
+
+.main_report_container {
+  display: flex;
+  overflow: hidden;
+  margin-top: -16px;
+}
+
+.main_report_content {
+   width: 1440px;
+  padding-top: 16px;
+  align-items: baseline;
+  display: inline-flex;
+  flex-wrap: nowrap;
+  /*padding-right: 24px;*/
+  margin-bottom: 20px;
+  list-style: none;
+}
+
+.main_report_item {
+  margin-left: 25px;
+  width: 500px;
+  min-width: 327px;
+  max-width: 327px;
+}
+
+.main_report_section_box {
+  box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.06), 2px 2px 10px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+  border-radius: 12px;
+
+}
+
+.main_report_detail_box {
+  display: block;
+  text-decoration: none;
+  overflow: hidden;
+  position: relative;
+  /* height: 183px; */
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.main_book_report_thumbnail_img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.main_book_report_box {
+  height: 180px;
+  padding: 16px 24px;
+}
+
+.main_book_report_content_title {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 1.35em;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.main_book_report_content{
+  overflow-wrap: break-word;
+  min-height: 19px;
+  margin-top: 4px;
+  color: #6f6f6f;
+  height: 100px;
+  text-overflow: ellipsis;
+}
+
+.main_book_report_writer_content {
+  position: relative;
+  display: flex;
+  padding: 16px 24px;
+  align-items: center;
+}
+
+
+
+.main_book_report_writer_content_username {
+  color: #6f6f6f;
+}
+
+/* 중고거래 */
+.main_deal {
+  padding: 32px 0;
+}
+
+.main_deal_inner {
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.main_deal_title {
+  padding-bottom: 30px;
+  font-size: 20px;
+  line-height: 40px;
+  letter-spacing: -0.01em;
+  color: #2bc1bf;
+}
+
+.main_deal_layout {
+  overflow: hidden;
+  scrollbar-width: none;
+  /* margin-top: -16px; */
+}
+
+.main_deal_layout {
+  display: inline-flex;
+}
+
+.main_deal_wrap {
+  display: flex;
+}
+.main_deal_item {
+  margin: 0 140px;
+  list-style: none;
+  max-width: 125px;
+  min-width: 125px;
+  margin-left: 24px;
+}
+
+.main_deal_box {
+  max-width: 125px;
+  min-width: 125px;
+}
+
+/*.main_deal_book_imgbox {*/
+/*  display: flex;*/
+/*  align-items: flex-end;*/
+/*  min-height: auto;*/
+/*  padding-top: 0;*/
+/*  height: 100%;*/
+/*}*/
+
+
+.main_deal_book_thumbnail {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.main_deal_book_thumbnail_inner {
+  height: 140px;
+  overflow: hidden;
+  position: relative;
+  border-radius: 0 4px 4px 0;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1), 0 0 2px rgba(0, 0, 0, 0.2);
+}
+
+.main_deal_book_img{
+  width: 100px;
+  height: 140px;
+}
+
+
+.main_deal_book_thumbnail_img {
+  max-height: 175px;
+  padding-top: 0;
+  min-height: 0px;
+  position: static;
+  opacity: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.main_deal_boox_content {
+  display: block;
+  width: 100%;
+  position: relative;
+}
+
+.main_deal_boox_content_box {
+  padding-top: 8px;
+  font-size: 12px;
+  text-align: left;
+  position: relative;
+}
+
+.author {
+  font-size: 11px;
+  line-height: 18px;
+  color: #6f6f6f;
+}
+
+.title {
+  -webkit-line-clamp: 1;
+  font-size: 15px;
+  line-height: 18px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  word-wrap: break-word;
+  margin-bottom: 3px;
+}
+
+
+
+.main_event {
+  padding: 32px 0;
+  padding-bottom: 80px;
+}
+
+.main_event_inner {
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.main_event_title {
+  font-weight: bold;
+  padding-bottom: 30px;
+  font-size: 20px;
+  line-height: 40px;
+  letter-spacing: -0.01em;
+  color: #2bc1bf;
+}
+.main_event_content {
+  max-width: 14400px;
+  padding-left: 30px;
+  padding-right: 30px;
+  margin: 0 auto;
+}
+
+.main_event_content_layout {
+  display: flex;
+  list-style: none;
+}
+.main_event_content_box {
+  width: 400px;
+  height: 180px;
+  margin-right: 80px;
+}
+
+footer {
+  border-top: 1px solid #dfdfdf;
+  /* margin-right: 12px; */
+}
+
+.footer_inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 24px 16px 32px;
+}
+
+.footer_head {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.footer_header_title {
+  font-weight: 700;
+  font-size: 16px;
+  margin: 0;
+}
+
+.footer_link {
+  display: flex;
+}
+
+.footer_link_img {
+  margin-left: 8px;
+  width: 24px;
+  height: 24px;
+  list-style: none;
+}
+
+.footer_link_insta {
+  display: block;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 100%;
+  background-image: url(https://d3udu241ivsax2.cloudfront.net/v3/images/common/sns-instagram.ba9357bd6c1bb50854389e9f15f76d76.png);
+}
+
+.footer_link_kakao {
+  display: block;
+  height: 100%;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url(https://d3udu241ivsax2.cloudfront.net/v3/images/common/sns-kakaotalk.fa50e1326498ebcac6ba4a1e68f66882.png);
+}
+
+.footer_services {
+  display: flex;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+.footer_services_content {
+  margin-right: 12px;
+  list-style: none;
+}
+
+.footer_services_link {
+  padding-right: 12px;
+  font-size: 12px;
+  color: #6f6f6f;
+}
+
+.footer_copyright {
+  color: #6f6f6f;
+  font-size: 10px;
+  margin-top: 24px;
+}

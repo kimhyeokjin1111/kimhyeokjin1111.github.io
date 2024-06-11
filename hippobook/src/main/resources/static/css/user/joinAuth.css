@@ -1,0 +1,100 @@
+.login-container:before {
+  flex: 1;
+  content: "";
+  background: url("../../images/user/BigLogo.png") no-repeat 50% / cover;
+}
+
+@media (max-width: 999px)
+  .login-container {
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
+
+.login-container {
+  display: -ms-flexbox;
+  display: flex;
+  min-height: 100vh;
+}
+
+@media (max-width: 999px)
+  .login-container .login-content {
+    -ms-flex: 1;
+    flex: 1;
+    padding: 24px;
+  }
+
+
+.login-container .login-content {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  /*flex: 1;*/
+  flex-basis: 520px;
+  padding: 20px 40px;
+  max-width: 1000px;
+}
+
+@media (max-width: 999px)
+  .login-container .back-component {
+    display: block;
+    width: 100%
+  }
+
+.login-container .title {
+  color: #2BC1BF;
+  font-size: 24px;
+  margin-block-start: 1em;
+  margin-bottom: 4px;
+}
+
+.login-container .sub-title {
+  color: #2BC1BF;
+  font-size: 16px;
+  margin-bottom: 24px;
+}
+
+.login-container .jumin-number .jumin1 {
+  -ms-flex: 1;
+  flex: 1;
+}
+
+.login-container .input-item {
+  margin-bottom: 8px;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.login-container .input-item>.mds-input {
+  -ms-flex: 1;
+  /*flex: 1;*/
+  width: 100%;
+}
+
+.mds-input[data-g-1180] {
+  margin-bottom: 8px;
+}
+
+.login-container .agency-popup .contents {
+  margin-top: 6px;
+  flex: 1;
+}
+
+.login-container .agency-popup .contents li {
+  height: 48px;
+  font-size: 16px;
+  line-height: 48px;
+}
+
+.login-container .agency-popup .contents li button {
+  color: #242424;
+  display: block;
+  height: 100%;
+  width: 100%;
+  text-align: left;
+}

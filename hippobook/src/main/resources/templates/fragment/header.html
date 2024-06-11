@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<header th:fragment="header">
+    <div class="header_layout">
+        <h1 class="header_logo">
+            <div class="header_logo_layout">
+                <!--홈페이지 버튼 -->
+                <a th:href="@{/}">
+                    <img
+                            th:src="@{/images/book/HippoBook_logo.png}"
+                            alt=""
+                            class="header_logo_images"
+                    />
+                </a>
+            </div>
+        </h1>
+        <div class="header_right_layout">
+            <a th:href="@{/alarm}">
+                <!-- 알람 페이지 이동  -->
+                <button th:if="${alarmCheck}" class="header_alarm_btn" >
+                    <img th:src="@{/images/main/alarm_new.png}" alt="" class="header_right_alarm" />
+                </button>
+                <button th:unless="${alarmCheck}" class="header_alarm_btn">
+                    <img th:src="@{/images/main/alarm.png}" alt="" class="header_right_alarm" />
+                </button>
+            </a>
+            <!-- 로그인 박스 -->
+            <ul class="header_right_login">
+                <button type="button" th:if="${session.userId == null}" class="header_right_login_btn"  >
+                    <a th:href="@{/user/login}" class="header_right_login_box">로그인</a>
+                </button>
+                <button type="button" class="header_right_login_btn" th:unless="${session.userId == null}">
+                    <a th:href="@{/logout}" class="header_right_login_box">로그아웃</a>
+                </button>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main_top">
+        <div class="main_top_layout">
+            <button type="button" class="category_openBtn" id="OpenBtn">
+                <!-- 모달창 띄우는 버튼  -->
+                <img
+                        th:src="@{/images/book/category.png}"
+                        alt=""
+                        class="main_top_category"
+                />
+            </button>
+            <div class="main_top_category_tap">
+                <ul class="main_top_category_list">
+                    <li class="main_top_category_list2">
+                        <a th:href="@{/mypage/int}" class="main_top_category_list_title">내 서재</a>
+                        <!-- 내 서재 이동 -->
+                    </li>
+                    <li class="main_top_category_list2">
+                        <a th:href="@{/message/letter/get}" class="main_top_category_list_title">쪽지</a>
+                        <!-- 쪽지 이동 -->
+                    </li>
+                    <li class="main_top_category_list2">
+                        <a th:href="@{/search}" class="main_top_category_list_title">검색</a>
+                        <!-- 검색 이동 -->
+                    </li>
+                    <li class="main_top_category_list2">
+                        <a th:href="@{/categorie/Categoriepage}" class="main_top_category_list_title">카테고리</a>
+                        <!-- 카테고리 이동 -->
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+</header>
+</body>
+</html>
+

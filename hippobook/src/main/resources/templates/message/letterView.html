@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/message/letterView.css}" />
+    <link rel="stylesheet" th:href="@{/css/main/mainpage.css}" />
+    <script defer th:src="@{/js/main/mainpage.js}"></script>
+    <script defer th:src="@{/js/message/letterView.js}"></script>
+  </head>
+  <body>
+    <form action="">
+      <header class="header" th:replace="~{/fragment/header :: header}"></header>
+
+
+    </form>
+
+
+    <form action="">
+      <div class="letter-cate">
+        <div class="letter-cate-box">
+      
+        </div>
+      </div>
+    </form>
+    <div class="letter-wrap-all">
+      <div class="letter-wrap">
+        <div class="letter-header">
+          <h2 th:text="${messageViewDto.messageTitle}" class="letter-title"></h2>
+          <p class="letter-info">
+            작성자: <span th:text="${messageViewDto.userNickname}"></span> | 보낸날짜: <span th:text="${messageViewDto.messageDate}"></span>
+          </p>
+        </div>
+      </div>
+      <div class="letter-content"><span th:text="${messageViewDto.messageContent}"></span></div>
+    </div>
+
+    <div class="letter-reply-box">
+      <button type="button" class="letter-reply">답장하기</button>
+      <button type="button" class="letter-back">뒤로가기</button>
+    </div>
+    <!--카테고리 모달창-->
+    <div class="category_popup" id="category_wrap">
+      <div class="category_popup_inner">
+        <section class="category_popup_inner_layout">
+          <section class="category_popup_content_layout">
+            <a th:href="@{/board/post/main}">
+              <span class="category_popup_title">게시판</span>
+            </a>
+
+            <div class="category_popup_content_box">
+              <span class="category_popup_content">소설 게시판</span>
+              <span class="category_popup_content">중고 게시판</span>
+              <span class="category_popup_content">자유 게시판</span>
+            </div>
+
+            <span class="category_popup_title">쪽지</span>
+            <div class="category_popup_content_box">
+              <a th:href="@{/message/letter/get}">
+                <span class="category_popup_content">받은 쪽지함</span>
+              </a>
+              <a th:href="@{/message/letter/send}">
+                <span class="category_popup_content">보낸 쪽지함</span>
+              </a>
+            </div>
+
+
+            <a th:href="@{/feed}">
+              <span class="category_popup_title">피드</span>
+            </a>
+
+            <div class="category_popup_content_box">
+              <a th:href="@{/feed}">
+                <span class="category_popup_content">포스트</span>
+              </a>
+              <a th:href="@{/feed/oneline}">
+                <span class="category_popup_content">한 줄 리뷰</span>
+              </a>
+              <a th:href="@{/feed/read}">
+                <span class="category_popup_content">독후감</span>
+              </a>
+            </div>
+
+            <span class="category_popup_title">이벤트</span>
+            <a th:href="@{/mypage/sticker}">
+              <span class="category_popup_content">스티커 신청하기</span>
+            </a>
+          </section>
+        </section>
+      </div>
+    </div>
+
+    <footer>
+      <div></div>
+    </footer>
+  </body>
+</html>

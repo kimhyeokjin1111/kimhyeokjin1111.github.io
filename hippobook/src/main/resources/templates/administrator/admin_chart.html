@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" th:href="@{/css/administrator/admin_chart.css}" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script defer th:src="@{/js/administrator/admin_chart.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/administrator/fragment/admin_header.css}" />
+    <script defer th:src="@{/js/administrator/fragment/admin_header.js}"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <header th:replace="~{/administrator/fragment/admin_header :: header}">
+
+    </header>
+    <div>
+      <main>
+        <div class="main__sidebar">
+          <section class="main__sidebar-show">
+            <div>
+              <img
+                th:src="@{/imgs/administrator/fragment/left_arrow.png}"
+                alt=""
+                class="main__sidebar--close-btn"
+              />
+            </div>
+          </section>
+          <section class="main__sidebar-content">
+            <div class="main__sidebar-content-icon">
+              <!-- a태그 경로 지정 -->
+              <ul>
+                <li>
+                  <a th:href="@{/admin/user}"><img th:src="@{/imgs/administrator/fragment/user.png}" alt="" /></a>
+                </li>
+                <li class="active">
+                  <a th:href="@{/admin/chart}"><img th:src="@{/imgs/administrator/fragment/chart.png}" alt="" /></a>
+                </li>
+                <li>
+                  <a th:href="@{/admin/declaration}"><img th:src="@{/imgs/administrator/fragment/declaration.png}" alt="" /></a>
+                </li>
+                <li>
+                  <a th:href="@{/admin/follow}"><img th:src="@{/imgs/administrator/fragment/hippo.png}" alt="" /></a>
+                </li>
+              </ul>
+            </div>
+            <div class="main__sidebar-conten-detail">
+              <!-- a태그 경로 지정 -->
+              <ul>
+                <li>
+                  <a th:href="@{/admin/user}"><span>회원 정보 조회</span></a>
+                </li>
+                <li class="active">
+                  <a th:href="@{/admin/chart}"><span>방문수 통계 조회</span></a>
+                </li>
+                <li>
+                  <a th:href="@{/admin/declaration}"><span>신고글 관리</span></a>
+                </li>
+                <li>
+                  <a th:href="@{/admin/follow}"><span>팔로우 스티커 승인</span></a>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </div>
+        <div class="main__center-container">
+          <div class="main__center-container-box">
+            <form action="/admin/chart" method="post">
+              <section class="main__center-container-box-search">
+                <div class="main__declaration-title-div">
+                  <h1>방문수 통계 조회</h1>
+                </div>
+                <div>
+                  <table class="main__search-option">
+                    <colgroup>
+                      <col class="col1" />
+                      <col class="col2" />
+                    </colgroup>
+                    <tbody>
+                      <tr>
+                        <th>기간</th>
+                        <td class="main__chart-search-date" data-nowterm="0">
+                          <div>
+                            <label
+                              ><input
+                                    class="chart-day-ranges"
+                                type="radio"
+                                name="term"
+                                value="1"
+                                    th:checked="${term} == 1"/>
+                            오늘
+                            </label>
+                          </div>
+                          <div>
+                            <label
+                              ><input
+                                    class="chart-day-ranges"
+                                type="radio"
+                                name="term"
+                                value="2"
+                                    th:checked="${term} == 2"
+                              />어제 
+                            </label>
+                          </div>
+                          <div>
+                            <label
+                              ><input
+                                    class="chart-day-ranges"
+                                type="radio"
+                                name="term"
+                                value="3"
+                                    th:checked="${term} == 3"
+                              />3일
+                            </label>
+                          </div>
+                          <div>
+                            <label
+                              ><input
+                                    class="chart-day-ranges"
+                                type="radio"
+                                name="term"
+                                value="7"
+                                    th:checked="${term} == 7"
+                              />7일
+                            </label>
+                          </div>
+                          <div>
+                            <label
+                              ><input
+                                    class="chart-day-ranges"
+                                type="radio"
+                                name="term"
+                                value="30"
+                                    th:checked="${term} == 30"
+                              />1개월
+                            </label>
+                          </div>
+                          <div>
+                            <label
+                              ><input
+                                    class="chart-day-ranges"
+                                type="radio"
+                                name="term"
+                                value="90"
+                                    th:checked="${term} == 90"
+                              />3개월
+                            </label>
+                          </div>
+                          <div>
+                            <label
+                              ><input
+                                    class="chart-day-ranges"
+                                type="radio"
+                                name="term"
+                                value="180"
+                                    th:checked="${term} == 180"
+                              />6개월</label
+                            >
+                          </div>
+                          <input
+                            type="date"
+                            name="startvisitDate"
+                            class="startDate"
+                          /><span>~</span
+                          ><input
+                            type="date"
+                            name="endvisitDate"
+                            class="endDate"
+                          />
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div class="main__user-search-btn-div">
+                    <button type="button"
+                    ><span class="main__user-search-btn">검색</span></button>
+
+                  </div>
+                </div>
+              </section>
+              <div class="main__chart-view-box">
+                <canvas id="visitChart" width="1000px" height="600px"></canvas>
+              </div>
+            </form>
+          </div>
+        </div>
+      </main>
+    </div>
+    <input type="hidden" class="chart-info-input" th:value="${visitJson}" th:data-term="${term}">
+  </body>
+</html>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.hippobookproject.mapper.administrator.AdministratorStickerMapper">
+    <select id="selectStickerReqList" resultType="ResultStickerDto">
+        SELECT STIKER_ID sticker_id, STIKER_DATE skicker_date,USER_ID, USER_NAME, USER_LOGIN_ID user_nickname,
+        USER_GENDER, USER_AGE, FCNT FOLLOW_CNT
+        FROM(SELECT ROWNUM AS RNUM, STIKER_ID, STIKER_DATE,USER_ID, USER_NAME, USER_LOGIN_ID,
+        USER_GENDER, USER_AGE, FCNT
+        FROM  (SELECT STIKER_ID, STIKER_DATE,USER_ID, USER_NAME, USER_LOGIN_ID,
+        USER_GENDER, USER_AGE, FCNT
+        FROM (SELECT STIKER_ID, STIKER_DATE,USER_ID, USER_NAME, USER_LOGIN_ID,
+        USER_GENDER, USER_AGE, FCNT
+        FROM (
+            SELECT STIKER_ID, STIKER_DATE,U.USER_ID, USER_NAME, USER_LOGIN_ID,
+                     USER_GENDER, USER_AGE
+              FROM TBL_STICKER S JOIN TBL_USER U
+                                      ON
+                                    <trim prefixOverrides="AND" >
+                                        <if test="selectSticker.startFollowDate != null and selectSticker.endFollowDate != null">
+                                          TO_CHAR(S.STIKER_DATE, 'YYYY-MM-DD') BETWEEN #{selectSticker.startFollowDate} AND #{selectSticker.endFollowDate}
+                                        </if>
+                                        <if test="selectSticker.userName != null">
+                                          AND USER_NICKNAME LIKE '%'|| #{selectSticker.userName} ||'%'
+                                        </if>
+                                        <if test="selectSticker.fPermission != null and selectSticker.fPermission.length() == 1">
+                                          AND STICKER_PERMISSION_CHECK = 'N'
+                                        </if>
+                                          AND S.USER_ID = U.USER_ID) R
+                                    </trim>
+                 JOIN (SELECT FOLLOW_TO, COUNT(FOLLOW_FROM) FCNT
+                       FROM TBL_FOLLOW
+                       GROUP BY FOLLOW_TO) F
+                      ON R.USER_ID = F.FOLLOW_TO)
+                ORDER BY STIKER_ID)
+        <![CDATA[
+            WHERE ROWNUM <= #{criteria.page} * #{criteria.amount})
+        WHERE RNUM > (#{criteria.page} - 1) * #{criteria.amount}
+        ]]>
+    </select>
+
+    <select id="selectFollowReqTotal">
+        SELECT count(STIKER_ID)
+        FROM (
+        SELECT STIKER_ID, STIKER_DATE,U.USER_ID, USER_NAME, USER_NICKNAME,
+        USER_GENDER, USER_AGE
+        FROM TBL_STICKER S JOIN TBL_USER U
+        ON
+        <trim prefixOverrides="AND" >
+            <if test="selectSticker.startFollowDate != null and selectSticker.endFollowDate != null">
+                TO_CHAR(S.STIKER_DATE, 'YYYY-MM-DD') BETWEEN #{selectSticker.startFollowDate} AND #{selectSticker.endFollowDate}
+            </if>
+            <if test="selectSticker.userName != null">
+                AND USER_NAME LIKE '%'|| #{selectSticker.userName} ||'%'
+            </if>
+            <if test="selectSticker.fPermission != null and selectSticker.fPermission.length() == 1">
+                AND STICKER_PERMISSION_CHECK = 'N'
+            </if>
+            AND S.USER_ID = U.USER_ID) R
+        </trim>
+        JOIN (SELECT FOLLOW_TO, COUNT(FOLLOW_FROM) FCNT
+        FROM TBL_FOLLOW
+        GROUP BY FOLLOW_TO) F
+        ON R.USER_ID = F.FOLLOW_TO
+    </select>
+
+    <update id="updateUserStickerCheck" parameterType="Long">
+        UPDATE TBL_USER
+        SET USER_STIKER_CHECK = 'Y'
+        WHERE USER_ID IN
+        <foreach collection="idList" item="list" index="index"
+                 separator="," open="(" close=")">
+            #{list}
+        </foreach>
+    </update>
+</mapper>

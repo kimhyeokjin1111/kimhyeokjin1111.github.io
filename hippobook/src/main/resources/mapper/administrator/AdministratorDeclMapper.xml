@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.hippobookproject.mapper.administrator.AdministratorDeclMapper">
+    <select id="selectDeclList" resultType="ResultDeclAdminDto">
+        SELECT POST_DECLARATION_ID DECLARATION_ID, POST_DECLARATION_DATE DECLARATION_DATE, POST_DECLARATION_CONTENT DECLARATION_CONTENT,
+            USER_ID,NICKNAME, POST_DECLARATION_CHECK DECLARATION_CHECK, POST_ID type_id, POST_CATE CATE, POST_PROCESS_DATE DECL_PROCESS_DATE
+            FROM (SELECT ROWNUM AS RNUM, POST_DECLARATION_ID, POST_DECLARATION_DATE, POST_DECLARATION_CONTENT,
+                    USER_ID,NICKNAME, POST_DECLARATION_CHECK, POST_ID, POST_CATE,  POST_PROCESS_DATE
+                    FROM (SELECT POST_DECLARATION_ID, POST_DECLARATION_DATE, POST_DECLARATION_CONTENT,
+        S.USER_ID, USER_NICKNAME NICKNAME, POST_DECLARATION_CHECK, POST_ID, POST_CATE,  POST_PROCESS_DATE
+        FROM (SELECT POST_DECLARATION_ID, POST_DECLARATION_DATE, POST_DECLARATION_CONTENT,
+                            USER_ID, POST_DECLARATION_CHECK, POST_ID, POST_CATE,  POST_PROCESS_DATE
+                            FROM TBL_POST_DECLARATION
+                            <trim prefix="WHERE" prefixOverrides="AND">
+                                <if test="selectDecl.declarationContent != null">
+                                    POST_DECLARATION_CONTENT LIKE '%' || #{selectDecl.declarationContent} || '%'
+                                </if>
+                                <if test="selectDecl.startDeclarationDate != null and selectDecl.endDeclarationDate != null" >
+                                    AND TO_CHAR(POST_DECLARATION_DATE, 'YYYY-MM-DD') BETWEEN
+                                    #{selectDecl.startDeclarationDate} AND #{selectDecl.endDeclarationDate}
+                                </if>
+                                <if test="selectDecl.startPocecssDate != null and selectDecl.endPocecssDate != null" >
+                                    AND TO_CHAR(POST_PROCESS_DATE, 'YYYY-MM-DD') BETWEEN
+                                    #{selectDecl.startPocecssDate} AND #{selectDecl.endPocecssDate}
+                                </if>
+                                <if test="selectDecl.declarationType != null and selectDecl.declarationType.length() >= 1">
+                                    AND POST_CATE = #{selectDecl.declarationType}
+                                </if>
+                                <if test="selectDecl.processType != null and selectDecl.processType.length() == 1">
+                                    AND POST_DECLARATION_CHECK = #{selectDecl.processType}
+                                </if>
+                            </trim>) S JOIN TBL_USER U
+        ON S.USER_ID = U.USER_ID
+                        ORDER BY POST_DECLARATION_ID)
+        <![CDATA[
+                WHERE ROWNUM <= #{criteria.page} * #{criteria.amount})
+        WHERE RNUM > (#{criteria.page} - 1) * #{criteria.amount}
+        ]]>
+    </select>
+
+    <select id="selectCommentDecl" resultType="ResultDeclAdminDto">
+        SELECT COMMENT_DECLARATION_ID DECLARATION_ID, COMMENT_DECLARATION_DATE DECLARATION_DATE, COMMENT_DECLARATION_CONTENT DECLARATION_CONTENT,
+        USER_ID, nickname, COMMENT_DECLARATION_CHECK DECLARATION_CHECK, COMMENT_ID type_id, COMMENT_CATE CATE, COMMENT_PROCESS_DATE DECL_PROCESS_DATE
+        FROM (SELECT ROWNUM AS RNUM, COMMENT_DECLARATION_ID, COMMENT_DECLARATION_DATE, COMMENT_DECLARATION_CONTENT,
+        USER_ID, NICKNAME,COMMENT_DECLARATION_CHECK, COMMENT_ID, COMMENT_CATE,  COMMENT_PROCESS_DATE
+        FROM (SELECT COMMENT_DECLARATION_ID, COMMENT_DECLARATION_DATE, COMMENT_DECLARATION_CONTENT,
+        S.USER_ID, USER_NICKNAME NICKNAME, COMMENT_DECLARATION_CHECK, COMMENT_ID, COMMENT_CATE,  COMMENT_PROCESS_DATE
+        FROM(SELECT COMMENT_DECLARATION_ID, COMMENT_DECLARATION_DATE, COMMENT_DECLARATION_CONTENT,
+        USER_ID, COMMENT_DECLARATION_CHECK, COMMENT_ID, COMMENT_CATE, COMMENT_PROCESS_DATE
+        FROM TBL_COMMENT_DECLARATION
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <if test="selectDecl.declarationContent != null">
+                COMMENT_DECLARATION_CONTENT LIKE '%' || #{selectDecl.declarationContent} || '%'
+            </if>
+            <if test="selectDecl.startDeclarationDate != null and selectDecl.endDeclarationDate != null">
+                AND TO_CHAR(COMMENT_DECLARATION_DATE, 'YYYY-MM-DD') BETWEEN
+                #{selectDecl.startDeclarationDate} AND #{selectDecl.endDeclarationDate}
+            </if>
+            <if test="selectDecl.startPocecssDate != null and selectDecl.endPocecssDate != null">
+                AND TO_CHAR(COMMENT_PROCESS_DATE, 'YYYY-MM-DD') BETWEEN
+                #{selectDecl.startPocecssDate} AND #{selectDecl.endPocecssDate}
+            </if>
+            <if test="selectDecl.declarationType != null and selectDecl.declarationType.length() >= 1">
+                AND COMMENT_CATE = #{selectDecl.declarationType}
+            </if>
+            <if test="selectDecl.processType != null and selectDecl.processType.length() == 1">
+                AND COMMENT_DECLARATION_CHECK = #{selectDecl.processType}
+            </if>
+        </trim>) S JOIN TBL_USER U
+        ON S.USER_ID = U.USER_ID
+        ORDER BY COMMENT_DECLARATION_ID)
+        <![CDATA[
+                WHERE ROWNUM <= #{criteria.page} * #{criteria.amount})
+        WHERE RNUM > (#{criteria.page} - 1) * #{criteria.amount}
+        ]]>
+    </select>
+
+    <select id="selectFeedDeclList" resultType="ResultDeclAdminDto">
+        SELECT FEED_DECLARATION_ID DECLARATION_ID, FEED_DECLARATION_DATE DECLARATION_DATE, FEED_DECLARATION_CONTENT DECLARATION_CONTENT,
+        USER_ID, FEED_DECLARATION_CHECK DECLARATION_CHECK,FEED_ID type_id, FEED_PROCESS_DATE DECL_PROCESS_DATE
+        FROM (SELECT ROWNUM AS RNUM, FEED_DECLARATION_ID, FEED_DECLARATION_DATE, FEED_DECLARATION_CONTENT,
+        USER_ID, FEED_DECLARATION_CHECK, FEED_ID, FEED_PROCESS_DATE
+        FROM (SELECT FEED_DECLARATION_ID, FEED_DECLARATION_DATE, FEED_DECLARATION_CONTENT,
+        USER_ID, FEED_DECLARATION_CHECK, FEED_ID, FEED_PROCESS_DATE
+        FROM TBL_FEED_DECLARATION
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <if test="selectDecl.declarationContent != null">
+                FEED_DECLARATION_CONTENT LIKE '%' || #{selectDecl.declarationContent} || '%'
+            </if>
+            <if test="selectDecl.startDeclarationDate != null and selectDecl.endDeclarationDate != null" >
+                AND TO_CHAR(FEED_DECLARATION_DATE, 'YYYY-MM-DD') BETWEEN
+                #{selectDecl.startDeclarationDate} AND #{selectDecl.endDeclarationDate}
+            </if>
+            <if test="selectDecl.startPocecssDate != null and selectDecl.endPocecssDate != null" >
+                AND TO_CHAR(FEED_PROCESS_DATE, 'YYYY-MM-DD') BETWEEN
+                #{selectDecl.startPocecssDate} AND #{selectDecl.endPocecssDate}
+            </if>
+            <if test="selectDecl.processType != null and selectDecl.processType.length() == 1">
+                AND FEED_DECLARATION_CHECK = #{selectDecl.processType}
+            </if>
+        </trim>
+        ORDER BY FEED_DECLARATION_ID)
+        <![CDATA[
+                WHERE ROWNUM <= #{criteria.page} * #{criteria.amount})
+        WHERE RNUM > (#{criteria.page} - 1) * #{criteria.amount}
+        ]]>
+    </select>
+
+    <select id="selectFDeclTotal" parameterType="SelectDeclAdminDto" resultType="int">
+        SELECT count(FEED_DECLARATION_ID)
+        FROM TBL_FEED_DECLARATION
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <if test="selectDecl.declarationContent != null">
+                FEED_DECLARATION_CONTENT LIKE '%' || #{selectDecl.declarationContent} || '%'
+            </if>
+            <if test="selectDecl.startDeclarationDate != null and selectDecl.endDeclarationDate != null" >
+                AND TO_CHAR(FEED_DECLARATION_DATE, 'YYYY-MM-DD') BETWEEN
+                #{selectDecl.startDeclarationDate} AND #{selectDecl.endDeclarationDate}
+            </if>
+            <if test="selectDecl.startPocecssDate != null and selectDecl.endPocecssDate != null" >
+                AND TO_CHAR(FEED_PROCESS_DATE, 'YYYY-MM-DD') BETWEEN
+                #{selectDecl.startPocecssDate} AND #{selectDecl.endPocecssDate}
+            </if>
+            <if test="selectDecl.processType != null and selectDecl.processType.length() == 1">
+                AND FEED_DECLARATION_CHECK = #{selectDecl.processType}
+            </if>
+        </trim>
+    </select>
+
+    <select id="selectDeclTotal" parameterType="SelectDeclAdminDto" resultType="int">
+        SELECT count(POST_DECLARATION_ID)
+        FROM TBL_POST_DECLARATION
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <if test="selectDecl.declarationContent != null">
+                POST_DECLARATION_CONTENT LIKE '%' || #{selectDecl.declarationContent} || '%'
+            </if>
+            <if test="selectDecl.startDeclarationDate != null and selectDecl.endDeclarationDate != null" >
+                AND TO_CHAR(POST_DECLARATION_DATE, 'YYYY-MM-DD') BETWEEN
+                #{selectDecl.startDeclarationDate} AND #{selectDecl.endDeclarationDate}
+            </if>
+            <if test="selectDecl.startPocecssDate != null and selectDecl.endPocecssDate != null" >
+                AND TO_CHAR(POST_PROCESS_DATE, 'YYYY-MM-DD') BETWEEN
+                #{selectDecl.startPocecssDate} AND #{selectDecl.endPocecssDate}
+            </if>
+            <if test="selectDecl.declarationType != null and selectDecl.declarationType.length() >= 1">
+                AND POST_CATE = #{selectDecl.declarationType}
+            </if>
+            <if test="selectDecl.processType != null and selectDecl.processType.length() == 1">
+                AND POST_DECLARATION_CHECK = #{selectDecl.processType}
+            </if>
+        </trim>
+    </select>
+
+    <select id="selectCommentDeclTotal" parameterType="SelectDeclAdminDto" resultType="int">
+        SELECT count(COMMENT_DECLARATION_ID)
+        FROM TBL_COMMENT_DECLARATION
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <if test="selectDecl.declarationContent != null">
+                COMMENT_DECLARATION_CONTENT LIKE '%' || #{selectDecl.declarationContent} || '%'
+            </if>
+            <if test="selectDecl.startDeclarationDate != null and selectDecl.endDeclarationDate != null" >
+                AND TO_CHAR(COMMENT_DECLARATION_DATE, 'YYYY-MM-DD') BETWEEN
+                #{selectDecl.startDeclarationDate} AND #{selectDecl.endDeclarationDate}
+            </if>
+            <if test="selectDecl.startPocecssDate != null and selectDecl.endPocecssDate != null" >
+                AND TO_CHAR(COMMENT_PROCESS_DATE, 'YYYY-MM-DD') BETWEEN
+                #{selectDecl.startPocecssDate} AND #{selectDecl.endPocecssDate}
+            </if>
+            <if test="selectDecl.declarationType != null and selectDecl.declarationType.length() >= 1">
+                AND COMMENT_CATE = #{selectDecl.declarationType}
+            </if>
+            <if test="selectDecl.processType != null and selectDecl.processType.length() == 1">
+                AND COMMENT_DECLARATION_CHECK = #{selectDecl.processType}
+            </if>
+        </trim>
+    </select>
+
+    <select id="selectDealDecl" parameterType="Long" resultType="ResultPostInfoDto">
+        SELECT DEAL_ID post_id, DEAL_TITLE post_title, DEAL_CONTENT post_content, DEAL_DATE post_date, U.USER_NICKNAME nickname
+            FROM TBL_DEAL D JOIN TBL_USER U
+                            ON D.USER_ID = U.USER_ID
+        WHERE DEAL_ID = #{postId}
+    </select>
+
+    <select id="selectBoardDecl" parameterType="Long" resultType="ResultPostInfoDto">
+        SELECT BOARD_ID post_id, BOARD_TITLE post_title, BOARD_CONTENT post_content, BOARD_DATE post_date, U.USER_NICKNAME nickname
+            FROM TBL_BOARD B JOIN TBL_USER U
+                            ON B.USER_ID = U.USER_ID
+        WHERE BOARD_ID = #{postId}
+    </select>
+
+    <select id="selectNovelDecl" parameterType="Long" resultType="ResultPostInfoDto">
+        SELECT NOVEL_ID post_id, NOVEL_TITLE post_title, NOVEL_CONTENT post_content, NOVEL_DATE post_date, U.USER_NICKNAME nickname
+        FROM TBL_NOVEL N JOIN TBL_USER U
+                            ON N.USER_ID = U.USER_ID
+        WHERE NOVEL_ID = #{postId}
+    </select>
+
+    <select id="selectClaimDecl" parameterType="Long" resultType="ResultPostInfoDto">
+        SELECT CLAIM_ID post_id, CLAIM_TITLE post_title, CLAIM_CONTENT post_content, CLAIM_DATE post_date, U.USER_NICKNAME nickname
+        FROM TBL_CLAIM C JOIN TBL_USER U
+                            ON C.USER_ID = U.USER_ID
+        WHERE CLAIM_ID = #{postId}
+    </select>
+
+    <select id="selectDealCMDecl" parameterType="Long" resultType="ResultPostInfoDto">
+        SELECT DEAL_COMMENT_ID post_id, DEAL_COMMENT_CONTENT post_content, DEAL_COMMENT_CREATE post_date, U.USER_NICKNAME nickname
+        FROM TBL_DEAL_COMMENT D JOIN TBL_USER U
+                             ON D.USER_ID = U.USER_ID
+        WHERE DEAL_COMMENT_ID = #{postId}
+    </select>
+
+    <select id="selectBoardCMDecl" parameterType="Long" resultType="ResultPostInfoDto">
+        SELECT BOARD_COMMENT_ID post_id, BOARD_COMMENT_CONTENT post_content, BOARD_COMMENT_CREATE post_date, U.USER_NICKNAME nickname
+        FROM TBL_BOARD_COMMENT B JOIN TBL_USER U
+                              ON B.USER_ID = U.USER_ID
+        WHERE BOARD_COMMENT_ID = #{postId}
+    </select>
+
+    <select id="selectNovelCMDecl" parameterType="Long" resultType="ResultPostInfoDto">
+        SELECT NOVEL_COMMENT_ID post_id, NOVEL_COMMENT_CONTENT post_content, NOVEL_COMMENT_CREATE post_date, U.USER_NICKNAME nickname
+        FROM TBL_NOVEL_COMMENT N JOIN TBL_USER U
+                              ON N.USER_ID = U.USER_ID
+        WHERE NOVEL_COMMENT_ID = #{postId}
+    </select>
+
+    <select id="selectClaimCMDecl" parameterType="Long" resultType="ResultPostInfoDto">
+        SELECT CLAIM_COMMENT_ID post_id, CLAIM_COMMENT_CONTENT post_content, CLAIM_COMMENT_CREATE post_date, U.USER_NICKNAME nickname
+        FROM TBL_CLAIM_COMMENT C JOIN TBL_USER U
+                              ON C.USER_ID = U.USER_ID
+        WHERE CLAIM_COMMENT_ID = #{postId}
+    </select>
+
+    <select id="selectBookCMDecl" parameterType="Long" resultType="ResultPostInfoDto">
+        SELECT BOOK_COMMENT_ID post_id, BOOK_COMMENT_CONTENT post_content, BOOK_COMMENT_CREATE post_date, U.USER_NICKNAME nickname
+        FROM TBL_BOOK_COMMENT C JOIN TBL_USER U
+                              ON C.USER_ID = U.USER_ID
+        WHERE BOOK_COMMENT_ID = #{postId}
+    </select>
+
+    <select id="selectFeedDecl" parameterType="Long" resultType="ResultPostInfoDto">
+        SELECT FEED_ID post_id, FEED_CONTENT post_content, FEED_DATE post_date, U.USER_NICKNAME nickname
+            FROM TBL_FEED F JOIN TBL_USER U
+                                  ON F.USER_ID = U.USER_ID
+        WHERE FEED_ID = #{feedId}
+    </select>
+
+    <delete id="deleteDeclaration" parameterType="Long">
+        DELETE
+            FROM TBL_POST_DECLARATION
+        WHERE POST_DECLARATION_ID = #{declId}
+    </delete>
+
+    <delete id="deleteCMDeclaration" parameterType="Long">
+        DELETE
+        FROM TBL_COMMENT_DECLARATION
+        WHERE COMMENT_DECLARATION_ID = #{declId}
+    </delete>
+
+    <delete id="deleteFDeclaration" parameterType="Long">
+        DELETE
+        FROM TBL_FEED_DECLARATION
+        WHERE FEED_DECLARATION_ID = #{declId}
+    </delete>
+
+<!--    <delete id="deleteCMDeclaration" parameterType="Long">-->
+<!--        DELETE-->
+<!--        FROM TBL_COMMENT_DECLARATION-->
+<!--        WHERE COMMENT_DECLARATION_ID = #{declId}-->
+<!--    </delete>-->
+
+    <delete id="deleteDealDecl" parameterType="Long">
+        DELETE
+            FROM TBL_DEAL
+        WHERE DEAL_ID = #{postId}
+    </delete>
+
+    <delete id="deleteBoardDecl" parameterType="Long">
+        DELETE
+        FROM TBL_BOARD
+        WHERE BOARD_ID = #{postId}
+    </delete>
+
+    <delete id="deleteNovelDecl" parameterType="Long">
+        DELETE
+        FROM TBL_NOVEL
+        WHERE NOVEL_ID = #{postId}
+    </delete>
+
+    <delete id="deleteClaimDecl" parameterType="Long">
+        DELETE
+        FROM TBL_CLAIM
+        WHERE CLAIM_ID = #{postId}
+    </delete>
+
+    <delete id="deleteDealCMDecl" parameterType="Long">
+        DELETE
+        FROM TBL_DEAL_COMMENT
+        WHERE DEAL_COMMENT_ID = #{commentId}
+    </delete>
+    <delete id="deleteBoardCMDecl" parameterType="Long">
+        DELETE
+        FROM TBL_BOARD_COMMENT
+        WHERE BOARD_COMMENT_ID = #{commentId}
+    </delete>
+    <delete id="deleteNovelCMDecl" parameterType="Long">
+        DELETE
+        FROM TBL_NOVEL_COMMENT
+        WHERE NOVEL_COMMENT_ID = #{commentId}
+    </delete>
+    <delete id="deleteClaimCMDecl" parameterType="Long">
+        DELETE
+        FROM TBL_CLAIM_COMMENT
+        WHERE CLAIM_COMMENT_ID = #{commentId}
+    </delete>
+    <delete id="deleteBookCMDecl" parameterType="Long">
+        DELETE
+        FROM TBL_BOOK_COMMENT
+        WHERE BOOK_COMMENT_ID = #{commentId}
+    </delete>
+</mapper>

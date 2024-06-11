@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.hippobookproject.mapper.user.MypageMapper">
+    <select id="selectProfile" resultType="IntProfileDto">
+        SELECT U.USER_NICKNAME,U.USER_EMAIL,
+               (SELECT COUNT(FOLLOW_ID) FROM TBL_FOLLOW WHERE FOLLOW_TO = U.USER_ID) FOLLOWING_CNT,
+               (SELECT COUNT(FOLLOW_ID) FROM TBL_FOLLOW WHERE FOLLOW_FROM = U.USER_ID) FOLLOWER_CNT,
+               CF.COVER
+        FROM TBL_USER U
+                 LEFT JOIN TBL_BOOK_HAS H
+                      ON U.BEST_BOOK_ID= H.BOOK_HAS_ID
+                 LEFT JOIN TBL_BOOK CF
+                           ON H.BOOK_ID = CF.BOOK_ID
+        WHERE U.USER_ID = #{userId}
+    </select>
+
+    <insert id="insertIntBoardText" parameterType="IntBoardDto">
+        INSERT INTO TBL_INT_BOARD (INT_BOARD_ID, INT_BOARD_CONTENT, USER_ID)
+        VALUES (SEQ_INT_BOARD.nextval, #{intBoardContent}, #{userId})
+    </insert>
+
+    <select id="selectIntBoardText" resultType="IntBoardDto">
+        SELECT INT_BOARD_ID,INT_BOARD_CONTENT
+            FROM TBL_INT_BOARD
+        WHERE USER_ID = #{userId}
+    </select>
+
+    <update id="updateIntBoardText" parameterType="IntBoardDto">
+        UPDATE TBL_INT_BOARD
+        SET INT_BOARD_CONTENT = #{intBoardContent}
+        WHERE USER_ID =#{userId}
+    </update>
+
+    <select id="selectRecentBook" resultType="BookContainerDto">
+        <![CDATA[
+        SELECT BOOK_HAS_ID,
+               T.BOOKCASE_ID,
+               T.BOOK_ID,
+               T.USER_ID,
+               B.BOOK_NAME,
+               B.BOOK_WRITER,
+               TO_CHAR(T.BOOK_HAS_RECENT_DATE, 'YYYY-MM-DD') AS BOOK_HAS_RECENT_DATE,
+               B.COVER
+        FROM TBL_USER U
+                 JOIN (SELECT BOOK_HAS_RECENT_DATE, BOOK_HAS_ID, BOOK_HAS_PERCENT, H.BOOKCASE_ID, BOOK_ID, USER_ID
+                       FROM TBL_BOOK_HAS H) T
+                      ON T.USER_ID = #{userId} AND U.USER_ID = T.USER_ID
+                 JOIN TBL_BOOK B
+                      ON T.BOOK_ID = B.BOOK_ID
+        WHERE ROWNUM <= 2
+        ORDER BY T.BOOK_HAS_RECENT_DATE DESC
+        ]]>
+    </select>
+
+    <select id="selectMyContent">
+        SELECT
+            F.FEED_ID,
+            F.FEED_TITLE,
+            F.FEED_TYPE,
+            F.FEED_DATE,
+            F.USER_ID,
+            CF.BOOK_ID,
+            COALESCE(FL.TOTAL_LIKE, 0) AS TOTAL_LIKE,
+            B.BOOK_WRITER,
+            B.BOOK_NAME,
+            B.COVER
+        FROM
+            TBL_FEED F
+                LEFT JOIN
+            (SELECT
+                 FEED_ID,
+                 COUNT(FEED_LIKE_ID) AS TOTAL_LIKE
+             FROM
+                 TBL_FEED_LIKE
+             GROUP BY
+                 FEED_ID) FL
+            ON
+                F.FEED_ID = FL.FEED_ID
+                JOIN
+            TBL_COVERFILE CF
+            ON
+                F.BOOK_ID = CF.BOOK_ID
+                JOIN
+            TBL_BOOK B
+            ON
+                CF.BOOK_ID = B.BOOK_ID
+        WHERE
+            F.USER_ID = #{userId}
+    </select>
+
+    <select id="selectReviewCount" resultType="Long">
+        SELECT COUNT(FEED_ID) AS REVIEW_COUNT
+        FROM TBL_FEED
+        WHERE USER_ID = #{userId} AND FEED_TYPE = 'Review'
+    </select>
+
+    <select id="selectPostCount" resultType="Long">
+        SELECT COUNT(FEED_ID) AS POST_COUNT
+        FROM TBL_FEED
+        WHERE USER_ID = #{userId} AND FEED_TYPE = 'Post'
+    </select>
+
+    <select id="selectProfilePhoto" parameterType="IntProfileDto">
+        SELECT USER_PROFILE_ID, USER_PROFILE_UPLOAD_PATH, USER_PROFILE_UUID, USER_PROFILE_NAME, USER_ID
+        FROM TBL_USER_PROFILE
+        WHERE USER_ID= #{userId}
+    </select>
+
+    <insert id="insertSticker">
+        INSERT INTO TBL_STICKER (STIKER_ID, USER_ID, STICKER_PERMISSION_CHECK, STICKER_READ)
+        VALUES (SEQ_STICKER.nextval,#{userId},'N','N')
+    </insert>
+
+    <select id="selectSticker" resultType="Long">
+        SELECT COUNT(USER_ID) AS USERID_CNT
+        FROM TBL_STICKER
+        WHERE USER_ID = #{userId}
+    </select>
+
+    <select id="selectCheckSticker" resultType="String">
+        SELECT STICKER_READ
+        FROM TBL_STICKER
+        WHERE USER_ID = #{userId}
+    </select>
+
+    <delete id="deleteUser">
+        DELETE FROM TBL_USER
+        WHERE USER_ID = #{userId}
+    </delete>
+
+    <select id="selectNickName">
+        SELECT COUNT(USER_NICKNAME)
+        FROM TBL_USER
+        WHERE #{userNickName}
+    </select>
+
+    <update id="updateUserNickName">
+        UPDATE TBL_USER
+        SET USER_NICKNAME = #{userNickName}
+        WHERE USER_ID = #{userId}
+    </update>
+
+    <update id="updateUserProfilePhoto">
+        UPDATE TBL_USER_PROFILE
+        SET USER_PROFILE_UPLOAD_PATH = #{userProfileUploadPath} ,
+            USER_PROFILE_UUID = #{userProfileUuid} ,
+            USER_PROFILE_NAME =#{userProfileName}
+        WHERE USER_ID = #{userId}
+    </update>
+
+    <select id="selectProfilePhotoList" parameterType="Long" resultType="IntProfileDto">
+        SELECT USER_PROFILE_ID, USER_PROFILE_UPLOAD_PATH, USER_PROFILE_UUID, USER_PROFILE_NAME, USER_ID
+        FROM TBL_USER_PROFILE
+        WHERE USER_ID = #{userId}
+    </select>
+
+    <select id="selectOldProfilePhoto" resultType="IntProfileDto">
+        SELECT USER_PROFILE_ID, USER_PROFILE_UPLOAD_PATH, USER_PROFILE_UUID, USER_PROFILE_NAME, USER_ID
+        FROM TBL_USER_PROFILE
+        WHERE USER_PROFILE_UPLOAD_PATH = TO_CHAR(SYSDATE, 'YYYY/MM/DD')
+    </select>
+
+
+</mapper>

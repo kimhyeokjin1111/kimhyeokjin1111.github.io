@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.hippobookproject.mapper.board.BoardMapper">
+    <select id="selectDeclById" parameterType="Long" resultType="PostSearchResultDto">
+    SELECT  post_id, post_title, post_content,
+                USER_ID, USER_NICKNAME, LIKE_COUNT, post_date, NVL(V.DV_CONNT, 0) post_view
+        FROM (SELECT S.DEAL_ID post_id, DEAL_TITLE post_title, DEAL_CONTENT post_content,
+           S.USER_ID, USER_NICKNAME, NVL(DL.DL_CONNT, 0) LIKE_COUNT, DEAL_DATE post_date
+    FROM(SELECT DEAL_ID, DEAL_TITLE, DEAL_CONTENT, D.USER_ID, USER_NICKNAME, DEAL_DATE
+        FROM TBL_DEAL D JOIN TBL_USER U
+        ON
+            DEAL_ID = #{postId}
+            AND D.USER_ID = U.USER_ID
+    ) S LEFT JOIN (SELECT DEAL_ID ,COUNT(DL.USER_ID) DL_CONNT
+    FROM TBL_DEAL_LIKE DL
+    GROUP BY DL.DEAL_ID) DL
+    ON S.DEAL_ID = DL.DEAL_ID) S LEFT JOIN (SELECT DEAL_ID ,COUNT(DV.USER_ID) DV_CONNT
+                                            FROM TBL_DEAL_VIEW DV
+                                            GROUP BY DV.DEAL_ID) V
+                                           ON S.post_id = V.DEAL_ID
+    </select>
+
+    <select id="selectBoardById" parameterType="Long" resultType="PostSearchResultDto">
+        SELECT  post_id, post_title, post_content,
+                USER_ID, USER_NICKNAME, LIKE_COUNT, post_date, NVL(V.DV_CONNT, 0) post_view
+        FROM (SELECT S.BOARD_ID post_id, BOARD_TITLE post_title, BOARD_CONTENT post_content,
+               S.USER_ID, USER_NICKNAME, NVL(DL.DL_CONNT, 0) LIKE_COUNT, BOARD_DATE post_date
+        FROM(SELECT BOARD_ID, BOARD_TITLE, BOARD_CONTENT, D.USER_ID, USER_NICKNAME, BOARD_DATE
+             FROM TBL_BOARD D JOIN TBL_USER U
+                                  ON
+                                      BOARD_ID = #{postId}
+                                          AND D.USER_ID = U.USER_ID
+            ) S LEFT JOIN (SELECT BOARD_ID ,COUNT(DL.USER_ID) DL_CONNT
+                           FROM TBL_BOARD_LIKE DL
+                           GROUP BY DL.BOARD_ID) DL
+                          ON S.BOARD_ID = DL.BOARD_ID) S LEFT JOIN (SELECT BOARD_ID ,COUNT(DV.USER_ID) DV_CONNT
+                                            FROM TBL_BOARD_VIEW DV
+                                            GROUP BY DV.BOARD_ID) V
+        ON S.post_id = V.BOARD_ID
+    </select>
+
+    <select id="selectNovelById" parameterType="Long" resultType="PostSearchResultDto">
+        SELECT  post_id, post_title, post_content,
+                USER_ID, USER_NICKNAME, LIKE_COUNT, post_date, NVL(V.DV_CONNT, 0) post_view
+        FROM (SELECT S.NOVEL_ID post_id, NOVEL_TITLE post_title, NOVEL_CONTENT post_content,
+               S.USER_ID, USER_NICKNAME, NVL(DL.DL_CONNT, 0) LIKE_COUNT, NOVEL_DATE post_date
+        FROM(SELECT NOVEL_ID, NOVEL_TITLE, NOVEL_CONTENT, D.USER_ID, USER_NICKNAME, NOVEL_DATE
+             FROM TBL_NOVEL D JOIN TBL_USER U
+                                  ON
+                                      NOVEL_ID = #{postId}
+                                          AND D.USER_ID = U.USER_ID
+            ) S LEFT JOIN (SELECT NOVEL_ID ,COUNT(DL.USER_ID) DL_CONNT
+                           FROM TBL_NOVEL_LIKE DL
+                           GROUP BY DL.NOVEL_ID) DL
+                          ON S.NOVEL_ID = DL.NOVEL_ID) S LEFT JOIN (SELECT NOVEL_ID ,COUNT(DV.USER_ID) DV_CONNT
+                                            FROM TBL_NOVEL_VIEW DV
+                                            GROUP BY DV.NOVEL_ID) V
+        ON S.post_id = V.NOVEL_ID
+    </select>
+
+    <select id="selectClaimById" parameterType="Long" resultType="PostSearchResultDto">
+        SELECT  post_id, post_title, post_content,
+                USER_ID, USER_NICKNAME, LIKE_COUNT, post_date, NVL(V.DV_CONNT, 0) post_view
+        FROM (SELECT S.CLAIM_ID post_id, CLAIM_TITLE post_title, CLAIM_CONTENT post_content,
+               S.USER_ID, USER_NICKNAME, NVL(DL.DL_CONNT, 0) LIKE_COUNT, CLAIM_DATE post_date
+        FROM(SELECT CLAIM_ID, CLAIM_TITLE, CLAIM_CONTENT, D.USER_ID, USER_NICKNAME, CLAIM_DATE
+             FROM TBL_CLAIM D JOIN TBL_USER U
+                                  ON
+                                      CLAIM_ID = #{postId}
+                                          AND D.USER_ID = U.USER_ID
+            ) S LEFT JOIN (SELECT CLAIM_ID ,COUNT(DL.USER_ID) DL_CONNT
+                           FROM TBL_CLAIM_LIKE DL
+                           GROUP BY DL.CLAIM_ID) DL
+                          ON S.CLAIM_ID = DL.CLAIM_ID) S LEFT JOIN (SELECT CLAIM_ID ,COUNT(DV.USER_ID) DV_CONNT
+                                            FROM TBL_CLAIM_VIEW DV
+                                            GROUP BY DV.CLAIM_ID) V
+        ON S.post_id = V.CLAIM_ID
+    </select>
+
+    <insert id="insertDealView">
+        INSERT INTO TBL_DEAL_VIEW (DEAL_VIEW_ID, DEAL_ID, USER_ID)
+        VALUES (SEQ_DEAL_VIEW.nextval, #{postId}, #{userId})
+    </insert>
+    <insert id="insertBoardView">
+        INSERT INTO TBL_BOARD_VIEW (BOARD_VIEW_ID, BOARD_ID, USER_ID)
+        VALUES (SEQ_BOARD_VIEW.nextval, #{postId}, #{userId})
+    </insert>
+    <insert id="insertNovelView">
+        INSERT INTO TBL_NOVEL_VIEW (NOVEL_VIEW_ID, NOVEL_ID, USER_ID)
+        VALUES (SEQ_NOVEL_VIEW.nextval, #{postId}, #{userId})
+    </insert>
+    <insert id="insertClaimView">
+        INSERT INTO TBL_CLAIM_VIEW (CLAIM_VIEW_ID, CLAIM_ID, USER_ID)
+        VALUES (SEQ_CLAIM_VIEW.nextval, #{postId}, #{userId})
+    </insert>
+
+    <select id="selectDealView">
+        SELECT COUNT(DEAL_ID)
+            FROM TBL_DEAL_VIEW
+        WHERE DEAL_ID = #{postId} AND USER_ID = #{userId}
+    </select>
+    <select id="selectBoardView">
+        SELECT COUNT(BOARD_ID)
+        FROM TBL_BOARD_VIEW
+        WHERE BOARD_ID = #{postId} AND USER_ID = #{userId}
+    </select>
+    <select id="selectNovelView">
+        SELECT COUNT(NOVEL_ID)
+        FROM TBL_NOVEL_VIEW
+        WHERE NOVEL_ID = #{postId} AND USER_ID = #{userId}
+    </select>
+    <select id="selectClaimView">
+        SELECT COUNT(CLAIM_ID)
+        FROM TBL_CLAIM_VIEW
+        WHERE CLAIM_ID = #{postId} AND USER_ID = #{userId}
+    </select>
+</mapper>

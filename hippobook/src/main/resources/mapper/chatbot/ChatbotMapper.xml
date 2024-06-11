@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.hippobookproject.mapper.chatbot.ChatbotMapper">
+    <insert id="insertChatHistory" parameterType="ChatbotDto">
+        INSERT INTO TBL_CHAT_HISTORY (CHAT_HISTORY_ID, CHAT_HISTORY_USER, CHAT_HISTORY_AI, USER_ID)
+        VALUES (SEQ_CHAT_HISTORY.nextval, #{userChat}, #{botChat}, #{userId})
+    </insert>
+
+    <select id="selectChatHistory" parameterType="Long" resultType="ChatbotDto">
+        SELECT CHAT_HISTORY_USER USER_CHAT, CHAT_HISTORY_AI BOT_CHAT, CHAT_HISTORY_DATE TODAY, USER_ID
+            FROM TBL_CHAT_HISTORY
+        WHERE USER_ID = #{userId}
+    </select>
+
+    <delete id="deleteChatHistory" parameterType="Long">
+        DELETE FROM TBL_CHAT_HISTORY
+        WHERE USER_ID = #{userId}
+    </delete>
+</mapper>

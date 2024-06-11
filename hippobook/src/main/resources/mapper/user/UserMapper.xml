@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.hippobookproject.mapper.user.UserMapper">
+    <insert id="insertUser" parameterType="UserJoinDto">
+        <selectKey keyProperty="userId" resultType="Long" order="BEFORE">
+            SELECT SEQ_USER.nextval FROM DUAL
+        </selectKey>
+        INSERT INTO TBL_USER(USER_ID, USER_NICKNAME, USER_LOGIN_ID, USER_PASSWORD, USER_PHONENUMBER, USER_GENDER, USER_AGE)
+        VALUES (#{userId}, #{userNickname}, #{userLoginId}, #{userPassword}, #{userPhonenumber}, #{userGender}, #{userAge})
+    </insert>
+
+    <select id="selectId" resultType="Long">
+        SELECT USER_ID
+        FROM HR.TBL_USER
+        WHERE USER_LOGIN_ID = #{userLoginId} AND USER_PASSWORD = #{userPassword}
+    </select>
+
+    <insert id="insertUserProfile" parameterType="UserProfileDto">
+        INSERT INTO TBL_USER_PROFILE (USER_PROFILE_ID, USER_PROFILE_UPLOAD_PATH, USER_PROFILE_UUID, USER_PROFILE_NAME, USER_ID)
+        VALUES (SEQ_USER_PROFILE.nextval, #{userProfileUploadPath}, #{userProfileUuid}, #{userProfileName}, #{userId})
+    </insert>
+
+    <select id="checkUserId" resultType="boolean">
+        SELECT COUNT(*)
+        FROM HR.TBL_USER
+        WHERE USER_LOGIN_ID = #{userLoginId}
+    </select>
+</mapper>

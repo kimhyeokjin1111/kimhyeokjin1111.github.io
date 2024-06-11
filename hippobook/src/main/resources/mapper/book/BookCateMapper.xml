@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.hippobookproject.mapper.book.BookCateMapper">
+    <select id="findBookCateById" parameterType="java.lang.Long" resultType="com.example.hippobookproject.dto.Categorie.BookCateDto">
+        SELECT BOOKCATE_ID, CATE_ID, BOOK_ID
+        FROM TBL_BOOKCATE
+        WHERE BOOKCATE_ID = #{bookCateId}
+    </select>
+
+    <insert id="insertBookCate" parameterType="com.example.hippobookproject.dto.Categorie.BookCateDto">
+        INSERT INTO TBL_BOOKCATE (BOOKCATE_ID, CATE_ID, BOOK_ID)
+        VALUES (#{bookCateId}, #{cateId}, #{bookId})
+    </insert>
+
+    <update id="updateBookCate" parameterType="com.example.hippobookproject.dto.Categorie.BookCateDto">
+        UPDATE TBL_BOOKCATE
+        SET CATE_ID = #{cateId}, BOOK_ID = #{bookId}
+        WHERE BOOKCATE_ID = #{bookCateId}
+    </update>
+
+    <delete id="deleteBookCateById" parameterType="java.lang.Long">
+        DELETE FROM TBL_BOOKCATE
+        WHERE BOOKCATE_ID = #{bookCateId}
+    </delete>
+</mapper>

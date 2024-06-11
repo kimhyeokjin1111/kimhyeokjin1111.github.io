@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" th:href="@{/css/message/get_letter.css}" />
+    <link rel="stylesheet" th:href="@{/css/main/mainpage.css}" />
+    <script defer th:src="@{/js/main/mainpage.js}"></script>
+    <script type="module" defer th:src="@{/js/message/get_letter.js}"></script>
+    <title>Document</title>
+  </head>
+  <body>
+
+      <header class="header" th:replace="~{/fragment/header :: header}"></header>
+
+
+    <div class="main__post-content-container">
+      <form action="">
+        <main class="main__post-content-inner-box">
+          <div class="main__post-title-search-box">
+            <h1 class="main__title-box">
+              쪽지함
+              <div class="main__search-option-box">
+              
+              </div>
+            </h1>
+          </div>
+          <div class="main__post-type-menu-box">
+            <ul class="main__post-menu-ul">
+              <li class="post-menu-li post-menu-select-li">
+                <a th:href="@{/message/letter/get}">받은쪽지함</a><span class="post-menu-select-span"></span>
+              </li>
+              <li class="post-menu-li"><a th:href="@{/message/letter/send}">보낸쪽지함</a><span></span></li>
+             
+            </ul>
+            <div class="main__post-write-btn-box">
+              <a th:href="@{/message/letter/write}">쪽지쓰기</a>
+              <div class="get-letter-delete-btn">
+                <button type="button" class="delete-submit-btn" data-id="">삭제하기</button>
+              </div>
+            </div>
+            
+            <div class="main__post-order-type-box">
+              <ul>
+                <li><a href="">최신순</a></li>
+                <li><a href="">읽은순</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="main__post-search-result-box">
+            <ul>
+              <li class="main__post-result-li">
+                <p class="main__post-titie-info-box">
+                  <span>제목</span>
+                  <img src="" alt="" />
+                </p>
+                <div class="main__post-detail-info-box">
+                  <span>보낸사람</span>
+                  <ul>
+                    <li>날짜</li>
+                    <li></li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <form th:action="@{/message/letter/view}">
+          <div th:each="messageDto : ${getMessageList}" class="main__post-search-result-box">
+            <ul>
+              <li class="main__post-result-li" th:data-id="${messageDto.messageId}">
+                <p class="main__post-titie-info-box">
+                    <input type="checkbox" class="message-check" name="" th:data-id="${messageDto.messageId}"/>
+                  <a th:href="@{/message/letter/view(messageId=${messageDto.messageId})}">
+                  <span th:text="${messageDto.messageTitle}">
+
+                  </span>
+                    </a>
+                  <img src="" alt="" />
+                </p>
+                <div class="main__post-detail-info-box">
+                  <span th:text="${messageDto.userNickname}"></span>
+                  <ul>
+                    
+                    <li th:text="${messageDto.messageDate}"></li>
+                    <li th:text="${messageDto.messageCheck}"></li>
+                  </ul>
+                </div>
+              </li>
+
+
+            </ul>
+            
+          </div>
+          </form>
+          <div class="letter-page-container">
+            <ul class="page-box">
+              <a th:href="@{/message/letter/get(page=${page.startPage - 1})}" class="page-a" th:if="${page.prev}">
+                <li class="page-num prev">&lt</li>
+              </a>
+
+              <th:block th:each="i : ${#numbers.sequence(page.startPage, page.endPage)}">
+                <a th:href="@{/message/letter/get(page=${i})}" class="page-a" >
+                  <li class="page-num" th:classappend="${i == page.messageCriteria.page ? 'active' : ''}" th:text="${i}"></li>
+                </a>
+              </th:block>
+
+              <a th:href="@{/message/letter/get(page=${page.endPage + 1})}" class="page-a" th:if="${page.next}">
+                <li class="page-num next">&gt</li>
+              </a>
+            </ul>
+          </div>
+
+
+        </main>
+      </form>
+
+    </div>
+      <!--카테고리 모달창-->
+      <div class="category_popup" id="category_wrap">
+        <div class="category_popup_inner">
+          <section class="category_popup_inner_layout">
+            <section class="category_popup_content_layout">
+              <a th:href="@{/board/post/main}">
+                <span class="category_popup_title">게시판</span>
+              </a>
+
+              <div class="category_popup_content_box">
+                <span class="category_popup_content">소설 게시판</span>
+                <span class="category_popup_content">중고 게시판</span>
+                <span class="category_popup_content">자유 게시판</span>
+              </div>
+
+              <span class="category_popup_title">쪽지</span>
+              <div class="category_popup_content_box">
+                <a th:href="@{/message/letter/get}">
+                  <span class="category_popup_content">받은 쪽지함</span>
+                </a>
+                <a th:href="@{/message/letter/send}">
+                  <span class="category_popup_content">보낸 쪽지함</span>
+                </a>
+              </div>
+
+
+              <a th:href="@{/feed}">
+                <span class="category_popup_title">피드</span>
+              </a>
+
+              <div class="category_popup_content_box">
+                <a th:href="@{/feed}">
+                  <span class="category_popup_content">포스트</span>
+                </a>
+                <a th:href="@{/feed/oneline}">
+                  <span class="category_popup_content">한 줄 리뷰</span>
+                </a>
+                <a th:href="@{/feed/read}">
+                  <span class="category_popup_content">독후감</span>
+                </a>
+              </div>
+
+              <span class="category_popup_title">이벤트</span>
+              <a th:href="@{/mypage/sticker}">
+                <span class="category_popup_content">스티커 신청하기</span>
+              </a>
+            </section>
+          </section>
+        </div>
+      </div>
+
+      <footer></footer>
+  </body>
+</html>

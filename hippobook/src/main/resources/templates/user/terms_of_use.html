@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>회원가입 | 히포북</title>
+  <link rel="stylesheet" th:href="@{/css/user/login.css}">
+  <link rel="stylesheet" th:href="@{/css/user/hippobook.css}">
+  <!--  <link rel="stylesheet" href="/HBREGISTER/css/joinAuth.css">-->
+</head>
+<body data-theme="light">
+<div data-a-1120 id="wrap" class="web-mount">
+  <section data-a-1120 class="content">
+    <div data-b-1130 class="login-container">
+      <div data-d-1150 data-a-1120 class="login-container mobile">
+        <!--    <div data-c-1140 data-d-1150 class="back-component">-->
+        <!--      <div data-c-1140 class="back line">-->
+        <!--        <button data-c-1140 type="button" class="close-button">-->
+        <!--          <i data-c-1140 class="mds-icon&#45;&#45;arrow-left">-->
+        <!--          </i>-->
+        <!--        </button>-->
+        <!--      </div>-->
+        <!--    </div>-->
+        <div data-d-1150 class="login-content" style="width: 520px; height: 919px;">
+          <img data-b-1130 class="logo-picture" th:src="@{/images/user/Logo.png}" width="79px">
+          <h3 data-d-1150 class="title">히포북 회원가입</h3>
+          <p data-d-1150 class="sub-title">서비스를 이용하려면 약관 동의가 필요합니다</p>
+          <div data-d-1150 class="input-item row agreement-all">
+            <label data-d-1150 class="mds-check-box mds-check-box--primary
+        mds-check-box--circle">
+              <input type="checkbox" id="input-157" value="false">
+              <span class="mds-check-box-view">
+            <span class="check"></span>
+            <span class="label">전체 동의하기</span>
+          </span>
+            </label>
+          </div>
+          <div data-d-1150 class="agreement-list">
+            <div data-d-1150 class="input-item row agreement">
+              <div data-d-1150 class="inner">
+                <label data-d-1150 class="mds-check-box mds-check-box--primary">
+                  <input type="checkbox" id="input-158" name="checkAll" value="false">
+                  <span class="mds-check-box-view">
+                <span class="check"></span>
+                <span class="label">
+                  [필수] 히포북 서비스 이용약관 동의
+                </span>
+              </span>
+                </label>
+                <a data-d-1150 href="" class="more-button">보기</a>
+              </div>
+            </div>
+            <div data-d-1150 class="input-item row agreement">
+              <div data-d-1150 class="inner">
+                <label data-d-1150 class="mds-check-box mds-check-box--primary">
+                  <input type="checkbox" id="input-159" name="checkAll" value="false">
+                  <span class="mds-check-box-view">
+                <span class="check"></span>
+                <span class="label">
+                  [필수] 개인정보 수집 및 이용 동의
+                </span>
+              </span>
+                </label>
+                <a data-d-1150 href="" class="more-button">보기</a>
+              </div>
+            </div>
+            <div data-d-1150 class="input-item row agreement">
+              <div data-d-1150 class="inner">
+                <label data-d-1150 class="mds-check-box mds-check-box--primary">
+                  <input type="checkbox" id="input-150" name="checkAll" value="false">
+                  <span class="mds-check-box-view">
+            <span class="check"></span>
+            <span class="label">
+              [선택] 개인정보 수집 이용 동의
+              </span>
+            </span>
+                </label>
+                <a data-d-1150 href="" class="more-button">보기</a>
+              </div>
+            </div>
+            <div data-d-1150 class="input-item row agreement">
+              <div data-d-1150 class="inner">
+                <label class="mds-check-box mds-check-box--primary">
+                  <input type="checkbox" id="input-161" name="checkAll" value="false">
+                  <span class="mds-check-box-view">
+              <span class="check"></span>
+              <span class="label">
+                [선택] 개인정보 제 3자 제공 동의
+              </span>
+            </span>
+                </label>
+                <button data-d-1150 type="button">화살표</button>
+              </div>
+              <ul data-d-1150 style="display: none;">
+                <li data-d-1150 class>
+                  <label data-d-1150 class="mds-check-box mds-check-box--primary">
+                    <input type="checkbox" id="input-162" name="checkAll" value="false">
+                    <span class="mds-check-box-view">
+                <span class="check"></span>
+                <span class="label">[선택] KT 개인정보 제 3자 제공 동의</span>
+              </span>
+                  </label>
+                  <a data-d-1150 href="" class="more-button">보기</a>
+                </li>
+                <li data-d-1150 class>
+                  <label data-d-1150 class="mds-check-box mds-check-box--primary">
+                    <input type="checkbox" id="input-163" name="checkAll" value="false">
+                    <span class="mds-check-box-view">
+                 <span class="check"></span>
+                 <span class="label">[선택] 지니뮤직 개인정보 제 3자 제공 동의</span>
+               </span>
+                  </label>
+                  <a data-d-1150 href="" class="more-button">보기</a>
+                </li>
+                <li data-d-1150 class>
+                  <label data-d-1150 class="mds-check-box mds-check-box--primary">
+                    <input type="checkbox" id="input-164" name="checkAll" value="false">
+                    <span class="mds-check-box-view">
+                  <span class="check"></span>
+                  <span class="label">[선택] 광고성 정보 수신동의(KT, 지니뮤직)</span>
+                </span>
+                  </label>
+                  <a data-d-1150 href="" class="more-button">보기</a>
+                </li>
+              </ul>
+            </div>
+            <div data-d-1150 class="input-item row agreement">
+              <div data-d-1150 class="inner">
+                <label data-d-1150 class="mds-check-box mds-check-box--primary">
+                  <input type="checkbox" id="input-165" name="checkAll" value="false">
+                  <span class="mds-check-box-view">
+            <span class="check"></span>
+            <span class="label">
+              [선택] 마케팅 정보 수신동의
+              <span data-d-1150 class="sub-label">앱푸시, 이메일, 문자로 이벤트, 혜택이 제공됩니다.</span>
+              </span>
+            </span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div data-d-1150 class="button-area">
+            <button data-d-1150 type="button" disabled="disabled" class="next-button mds-button mds-button--primary mds-button--h56 mds-button--r4">
+              <span>다음</span>
+            </button>
+          </div>
+          <div data-d-1150 aria-model="false" role="alertdialog" aria-labelledby="dialog-198-title" class="mds-dialog mds-dialog--open">
+            <div class="mds-dialog--wrap">
+              <div class="mds-dialog--inner">
+                <div class="mds-dialog--header">
+                  <strong id="dialog-198-title">마케팅 정보 수신 동의</strong>
+                  <em class="mds-font--body02"></em>
+                </div>
+                <div class="mds-dialog--body">
+                  <p data-d-1150 class="popup-content">
+                    전송자 : 히포북
+                    <br>
+                    수신 동의 일자 : . .
+                    <br>
+                    처리내용 : 앱 푸시, 문자, 이메일 수신 동의 처리완료
+                    <br>
+                    <br>
+                    관리 > 알림 설정에서 변경 가능합니다.
+                  </p>
+                </div>
+              </div>
+              <div class="mds-dialog--footer">
+                <button data-d-1150 type="submit" class="apply mds-button mds-button--primary mds-button--h56" >
+                  <a th:href="@{/user/phoneinfo}">확인</a>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<script type="text/javascript" th:src="@{js/user/termsofuse}">
+</script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.hippobookproject.mapper.main.DealMapper">
+    <select id="selectByTitle" resultType="DealListDto">
+        SELECT DEAL_ID, DEAL_TITLE, USER_NICKNAME, DEAL_FILE_ID, DEAL_FILE_NAME, DEAL_UPLOAD_PATH, DEAL_UUID
+        FROM (
+        SELECT D.DEAL_ID, DEAL_TITLE, U.USER_NICKNAME,
+                FF.DEAL_FILE_ID, FF.DEAL_FILE_NAME, FF.DEAL_UPLOAD_PATH,FF.DEAL_UUID
+            FROM TBL_DEAL D JOIN TBL_USER U
+                ON D.USER_ID = U.USER_ID
+            LEFT JOIN TBL_DEAL_FILE FF
+                on D.DEAL_ID = FF.DEAL_ID
+            ORDER BY DEAL_ID DESC)
+        WHERE <![CDATA[ROWNUM < =5]]>
+    </select>
+
+
+</mapper>

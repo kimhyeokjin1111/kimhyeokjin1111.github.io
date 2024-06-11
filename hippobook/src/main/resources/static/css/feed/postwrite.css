@@ -1,0 +1,446 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header{
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    background-color: #fff;
+}
+
+
+.header_layout{
+    display: flex;
+    align-items: center;
+    height: 64px;
+    padding: 0 24px;
+    margin: 0 auto;
+}
+
+.header_logo{
+    width: 100px;
+    margin: 0 25px 0 0;
+    z-index: 1;
+}
+
+.header_logo_layout{
+    overflow: hidden;
+    display: block;
+    height: 50px;
+}
+
+.header_logo_images{
+    width: 100px;
+    height: 40px;
+}
+
+.header_right_layout{
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+
+.header_right_alarm{
+    justify-content: center;
+    position: relative;
+    width: 24px;
+    height: 24px;
+}
+.header_right_login{
+    margin-left: 16px;
+}
+.header_right_login_box{
+    color: black;
+    background-color: #2bc1bf;
+    width: 80px;
+    height: 32px;
+    display: flex;;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    font-size: 12px;
+    text-decoration: none;
+    
+}
+
+main{
+    max-width: unset;
+    padding: 0;
+}
+
+.main_top{
+    position: sticky;
+    top: 65px;
+    z-index: 50;
+    width: 100%;
+    height: 44px; 
+    border-bottom: 1px solid gray;
+}
+
+.main_top_layout{
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding-left: 24px;
+    margin: 0 auto;
+}
+
+.main_top_category{
+    display: block;
+    position: relative;
+    width: 24px;
+    height: 24px;
+    margin-top: -1px;
+    margin-right: 12px;
+}
+
+.main_category_btnbox{
+    cursor: pointer;
+  border: none;
+  background-color: transparent;
+  opacity: 1;
+}
+
+.main_category_btn{
+    opacity: 1;
+    border: none;
+}
+
+.main_top_category{
+    background-color: none;
+    border: none;
+}
+.main_top_category_tap{
+    position: 'relative';
+    left: 0;
+    top: 0;
+}
+
+.main_top_category_list{
+    display: flex;
+}
+
+
+li{
+    list-style: none;
+    padding: 11px 12px;
+    line-height: 22px;
+}
+
+a{
+    text-decoration: none;
+}
+
+.read_writebox{
+    max-width: 700px;
+    width: 100%;
+    margin: 0 auto;
+    padding-top: 50px;
+}
+
+.post_infoarea{
+    display: flex;
+    padding: 0 0 15px 0;
+}
+
+.post_infoarea > span{
+    width: 150px;
+    color: black;
+    background-color: #2bc1bf;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    font-size: 12px;
+    text-decoration: none;
+
+
+}
+
+.post_infoBtn > button{
+    height: 30px;
+    width: 40px;
+}
+
+.post_infoBtn{
+    padding-left: 10px;
+}
+
+
+.read_write_input > span{ 
+    width: 150px;
+    color: black;
+    background-color: #2bc1bf;
+    width: 80px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    font-size: 12px;
+    text-decoration: none;
+    
+}
+
+.read_onelinebox{
+    width: 100%;
+    height: 100%;
+    padding: 10px 0; 
+}
+
+.read_onelineinput{
+    width: 100%;
+    height: 50px;
+    font-size: 12px;
+}
+
+
+.read_titleinput{
+    width: 100%;
+    height: 50px;
+}
+
+.read_dateinput{
+    width: 200px;
+    height: 50px;
+    font-size: 17px;
+}
+
+
+.read_titlebox, .read_datebox{
+    width: 100%;
+    height: 80px;
+    padding: 10px 0; 
+}
+
+.read_contentbox{
+    padding-top: 20px;
+    width: 100%;
+    height: 885px;
+}
+
+textarea{
+    cursor: pointer;
+
+}
+
+.read—btnbox{
+    width: 100%;
+    padding-bottom: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.read_btn{
+    width: 150px;
+    color: black;
+    background-color: #2bc1bf;
+    width: 80px;
+    height: 32px;
+   
+    border-radius: 4px;
+    font-size: 12px;
+    text-decoration: none;
+}
+
+/* 카테고리 모달 창 */
+
+.category_popup {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 109px;
+    bottom: 0;
+    z-index: 1;
+    background: rgba(0, 0, 0, 0.3);
+    display: none;
+  }
+  
+  .category_popup_inner {
+    max-width: 1440px;
+    height: 95%;
+    min-height: 500px;
+    max-height: 800px;
+    margin: 0 auto;
+  }
+  
+  .category_popup_inner_layout {
+    overflow: hidden;
+    display: flex;
+    align-items: stretch;
+    max-width: 350px;
+    /* height: 100%; */
+    min-height: 500px;
+    max-height: 600px;
+    background-color: #fdffff;
+    border-radius: 20px 20px 20px 20px;
+    border: 2px solid #29a7a4;
+
+  }
+  
+  .category_popup_content_layout {
+    right: 0;
+    left: 0;
+    position: sticky;
+    padding: 24px 24px 32px;
+    margin: 15px 25px;
+  }
+  
+  .category_popup_title {
+    display: flex;
+    padding: 5px 0 15px;
+    font-weight: 700;
+    font-size: 15px;
+    color: #2bc1bf;
+  }
+  .category_popup_content {
+    display: flex;
+    margin: 10px 20px;
+    cursor: pointer;
+  }
+  
+  .category_popup_title2 {
+    display: flex;
+    padding: 20px 0 15px;
+    font-weight: 700;
+    font-size: 15px;
+    color: #2bc1bf;
+  }
+  
+  .category_popup_title3 {
+    font-size: 15px;
+    margin: 50px 0 0 25px;
+    color: #2bc1bf;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+
+.modal_sheet{
+    align-items: flex-end;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.modal{
+    max-width: 460px;
+    width: 100%;
+    border-radius: 40px 40px 0 0;
+    position: relative;
+    background: #f7f7f7;
+    padding: 49px 0 0;
+    display: none;
+}
+
+.modal_ul{
+    padding-bottom: 32px;
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
+/* book-info modal */
+
+.read_write_input{
+    position: relative;
+}
+
+.book_modal{
+    width: 600px;
+    height: 500px;
+    background-color: #f7f7f7;
+    border-radius: 40px;
+    border: 2px solid #2bc1bf;
+    position: absolute;
+    top: 300px;
+    left: 35%;
+    /*display: none;*/
+}
+
+.Xbtn-box{
+    text-align: right;
+    margin-top: 10px;
+    margin-right: 25px;
+    font-size: 35px;
+    color: #2bc1bf;
+}
+
+.book_selectbox{
+    padding: 35px 0 0 20px;
+
+}
+
+#book_info{
+    max-width: 60px;
+    height: 30px;
+}
+
+.book_search{
+    width: 90%;
+    height: 60px;
+    padding: 25px 0 0 20px;
+}
+
+.book_search > input{
+    width: 80%;
+    height: 30px;
+}
+
+
+
+.book_submitBtn{
+    width: 100%;
+    text-align: center;
+    margin-top: 65px;
+}
+
+.book_submitBtn > button{
+    color: black;
+    background-color: #2bc1bf;
+    width: 80px;
+    height: 32px;
+    border-radius: 4px;
+}
+
+/*책 조회 표*/
+.book_selectarea{
+    padding: 20px 10px 0 10px;
+}
+
+.book_select{
+    border: 1px solid #8d8d8d;
+    width: 100%;
+}
+
+
+.book_select th{
+    border: 1px solid #8d8d8d;
+    top: 0px;
+}
+
+.book_select tr{
+    border: 1px solid #8d8d8d;
+    text-align: center;
+}
+
+.book_select td{
+    border: 1px solid #8d8d8d;
+}
+
+.book_radioBox {
+    text-align: center;
+}
+
+

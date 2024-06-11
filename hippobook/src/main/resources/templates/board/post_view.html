@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" th:href="@{/css/board/post_view.css}"/>
+    <script defer th:src="@{/js/board/post_view.js}"></script>
+    <title>Document</title>
+</head>
+<body>
+<header></header>
+<div class="main__post-content-container">
+    <main class="main__post-content-inner-box">
+        <div class="main__post-type-modify-back-btn-box">
+            <h1 th:if="${postType == 'deal'}">중고게시글</h1>
+            <h1 th:if="${postType == 'board'}">자유게시글</h1>
+            <h1 th:if="${postType == 'novel'}">소설게시글</h1>
+            <h1 th:if="${postType == 'claim'}">사용자문의게시글</h1>
+            <div>
+                <span><button type="button">수정</button></span>
+                <span><button type="button">목록</button></span>
+            </div>
+        </div>
+        <div class="main__post-title-box">
+            <span th:text="${postDto.postTitle}"></span>
+        </div>
+        <div class="main__post-info-decl-box">
+            <span><a href="" th:text="${postDto.userNickname}"></a></span>
+            <div>
+                <p th:text="${postDto.postView}"></p>
+                <p th:text="${postDto.postDate}">2024.04.22</p>
+                <span><img data-type="post" th:src="@{/imgs/administrator/fragment/decl.png}" alt=""/></span>
+            </div>
+        </div>
+        <div class="main__post-content-box" th:utext="${postDto.postContent}">
+
+        </div>
+        <div class="main__post-like-btn-box">
+            <span><img th:src="@{/imgs/administrator/fragment/like.png}" alt=""/><span>좋아요</span></span>
+            <div><span th:text="${postDto.likeCount}">0</span>명</div>
+        </div>
+        <div class="main__post-comment-search-list-box">
+            <section class="main__post-comment-count-box">
+                <h2>댓글</h2>
+                <span>0</span>
+            </section>
+            <input class="post-hidden" type="hidden" th:data-type="${postType}" th:data-id="${postDto.postId}" th:data_user="${session.userId}">
+            <ul class="main__post-comment-result-box">
+                <li>
+                    <div>
+                        <p>
+                  <span>
+                    <a href="">commender</a>
+                    <span>2024.04.22 오후 01:59:25</span>
+                  </span>
+                            <img class="comment-decl-btn" th:src="@{/imgs/administrator/fragment/decl.png}" alt="">
+                        </p>
+                        <div>test comment</div>
+                    </div>
+                </li>
+            </ul>
+            <section class="main__post-comment-page-box">
+                <span>더보기</span>
+            </section>
+        </div>
+        <div class="main__post-comment-write-box">
+            <form action="" method="post">
+                <textarea name="" id="" cols="30" rows="10"></textarea>
+                <div class="main__post_comment-btn-box">
+                    <span>(<strong>0</strong>/200)</span>
+                    <button type="button">등록</button>
+                </div>
+            </form>
+        </div>
+    </main>
+</div>
+<div class="modal-decl-req-back">
+    <div class="modal-decl-req-box">
+        <h2>신고하기</h2>
+        <div class="modal-decl-opt-content-box">
+            <input type="hidden" data-reasonnow="-1"/>
+            <label>
+                <input
+                        type="radio"
+                        name="decl_reason"
+                        data-reasonnow="1"
+                        value="단순 비방, 욕설 등 불쾌감을 주는 내용"
+                />
+                <div class="modal-decl-reason-box">
+                    <p>단순 비방, 욕설 등 불쾌감을 주는 내용</p>
+                    <span></span>
+                </div>
+            </label>
+            <label>
+                <input
+                        type="radio"
+                        name="decl_reason"
+                        data-reasonnow="2"
+                        value="음란성 또는 청소년에게 부적합"
+                />
+                <div class="modal-decl-reason-box">
+                    <p>음란성 또는 청소년에게 부적합</p>
+                    <span></span>
+                </div>
+            </label>
+            <label>
+                <input
+                        type="radio"
+                        name="decl_reason"
+                        data-reasonnow="3"
+                        value="주제와 관련 없거나 부적절한 홍보"
+                />
+                <div class="modal-decl-reason-box">
+                    <p>주제와 관련 없거나 부적절한 홍보</p>
+                    <span></span>
+                </div>
+            </label>
+            <label>
+                <input
+                        type="radio"
+                        name="decl_reason"
+                        data-reasonnow="4"
+                        value="스포일러가 포함된 내용"
+                />
+                <div class="modal-decl-reason-box">
+                    <p>스포일러가 포함된 내용</p>
+                    <span></span>
+                </div>
+            </label>
+            <label>
+                <input
+                        type="radio"
+                        name="decl_reason"
+                        data-reasonnow="5"
+                        id="decl-reason"
+                        value=""
+                />
+                <div class="modal-decl-reason-box">
+                    <p>기타</p>
+                    <span></span>
+                </div>
+            </label>
+            <div class="decl-reason-other-box-outer">
+                <label class="decl-reason-other-box">
+                    <div class="decl-other-content-box">
+                        <span>신고사유*</span>
+                        <input
+                                type="text"
+                                placeholder="신고사유를 작성하세요"
+                                maxlength="50"
+                                class="other-reason"
+                        />
+                    </div>
+                    <div class="decl-other-text-delete">
+                        <button type="button"></button>
+                    </div>
+                </label>
+            </div>
+        </div>
+        <p>신고 사유를 선택 후 신고해주세요</p>
+        <div class="modal-decl-btn-box">
+            <button type="button" class="decl-close-btn">취소</button>
+            <button type="button" class="decl-process-btn">신고</button>
+        </div>
+    </div>
+</div>
+<footer></footer>
+</body>
+</html>

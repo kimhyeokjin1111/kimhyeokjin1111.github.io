@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>인증번호 확인 | 히포북</title>
+    <link rel="stylesheet" th:href="@{/css/user/login.css}">
+    <link rel="stylesheet" th:href="@{/css/user/hippobook.css}">
+    <script defer th:src="@{/js/time/time.js}"></script>
+</head>
+<body data-theme="light">
+<div data-a-1120 id="wrap" class="web-mount">
+    <section data-a-1120 class="content">
+        <div data-b-1130 class="login-container">
+            <div data-c-1140 class="back-component">
+                <div data-c-1140 class="back line">
+                    <button data-c-1140 type="button" class="close-button">
+                        <i data-c-1140 class="mds-icon--arrow-left"></i>
+                    </button>
+                </div>
+            </div>
+            <div data-b-1130 class="login-content">
+                <img data-b-1130 class="logo-picture" th:src="@{/images/user/Logo.png}">
+                <h3 data-b-1130 class="title">인증번호 확인</h3>
+                <p data-b-1130 class="sub-title">휴대폰으로 발송한 인증번호를 입력해주세요</p>
+                <div data-b-1130 class="input-item">
+                    <div data-b-1130 class="mds-input input mds-input--default mds-input--left">
+                        <label>
+                            <div class="inner">
+
+                                <div class="input">
+                                <span id="input-278-label" class="label">
+                                    인증번호
+
+                                </span>
+                                    <input autocomplete="off" id="input-278" aria-labelledby="input-278-label" type="text" placeholder="인증번호 6자리 입력"
+                                           class="mds-input-field">
+                                </div>
+                                <button type="button" aria-label="내용 삭제" class="mds-icon--input-delete clear-button" style="display: none;"></button>
+                                <span class="time">0:00</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+<!--                <p class="text">-->
+<!--                    인증번호가 오지 않는다면?-->
+<!--                    <button type="button" class="text-button">재발송</button>-->
+<!--                </p>-->
+                <div data-b-1130 class="button-area mt16">
+                    <button data-b-1130 type="button" disabled="disabled" class="next-button mds-button mds-button--primary mds-button--h56 mds-button--r4">
+                        <a th:href="@{/user/idpassword}">다음</a>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+</body>
+</html>

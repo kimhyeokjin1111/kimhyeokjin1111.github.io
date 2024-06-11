@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>히포북</title>
+    <link rel="stylesheet" th:href="@{/css/mypage/myPageInt_manage.css}"/>
+    <link rel="stylesheet" th:href="@{/css/main/mainpage.css}" />
+    <script defer th:src="@{/js/main/mainpage.js}"></script>
+    <script type="module" defer th:src="@{/js/mypage/myPageInt_manage.js}"></script>
+</head>
+<body>
+<header class="header" th:replace="~{/fragment/header :: header}"></header>
+
+<div>
+    <div>
+
+
+
+        <section class="profile" th:object="${profileDto}">
+            <div class="profile-all">
+                <div id="profile-photo">
+                    <img th:if="${profilePhoto.userProfileName == null}"
+                         th:src="@{/imgs/mypage/free-icon-hippo-3250992.png}" alt=""/>
+                    <img th:unless="${profilePhoto.userProfileName == null}"
+                         th:src="@{'/profile/' + ${profilePhoto.userProfileUploadPath} + '/' + ${profilePhoto.userProfileUuid} + '_' + ${profilePhoto.userProfileName}}"
+                         alt=""/>
+                </div>
+                <div id="profile-name">
+                    <span>
+                  <th:block>
+                  <img class="hippo-celeb" th:if="${checkSticker == 'Y'}"
+                       th:src="@{/images/mypage/hippo.png}" alt=""/>
+                  </th:block>
+                </span>
+                    <h3 class="mypage-user-nickname" th:text="${profileDto.userNickName}"></h3>
+                    <span class="profile-name-option">님의 서재</span>
+                </div>
+                <div id="follow">
+                    <span>팔로워 <span th:text="${profileDto.followerCnt}"></span></span>
+                    <span>팔로잉 <span th:text="${profileDto.followingCnt}"></span></span>
+                </div>
+            </div>
+            <div id="my-favorite-book">
+                <img th:if="*{cover == null}"
+                     th:src="@{/imgs/mypage/best_book_default.png}" alt=""/>
+                <img th:unless="*{cover == null}"
+                     th:src="${profileDto.cover}"
+                     id="best-book-img" alt=""/>
+            </div>
+        </section>
+    </div>
+    <div>
+        <div class="mypage-cate">
+            <div><a th:href="@{/mypage/int}">소개</a></div>
+            <div><a th:href="@{/mypage/book/container}">책장</a></div>
+            <div><a th:href="@{/mypage/book/write-content}">내 게시물</a></div>
+            <div><a th:href="@{/mypage/sticker}">스티커 신청</a></div>
+            <div><a th:href="@{/mypage/manage}">관리</a></div>
+        </div>
+    </div>
+</div>
+<div class="main__manage-content-container">
+    <div class="main__manage-center-content-box">
+        <div class="main__my-etc-info">
+            <div class="manage-profile-photo">
+                <img th:if="${profilePhoto.userProfileName == null}"
+                     th:src="@{/imgs/mypage/free-icon-hippo-3250992.png}" alt=""/>
+                <img th:unless="${profilePhoto.userProfileName == null}"
+                     th:src="@{'/profile/' + ${profilePhoto.userProfileUploadPath} + '/' + ${profilePhoto.userProfileUuid} + '_' + ${profilePhoto.userProfileName}}"
+                     alt=""/>
+            </div>
+
+            <h2 th:text="${profileDto.userNickName}"></h2>
+            <p th:text="${profileDto.userEmail}"></p>
+
+        </div>
+
+        <div class="main__func-contnet-box">
+            <table class="main__func-content-table">
+                <tr>
+                    <th>내 정보 관리</th>
+                    <td class="profile-photo-change-title">
+                        <label class="picture-change-button" for="file-input">
+                            프로필 사진 변경
+                        </label>
+                        <input type="file" id="file-input" accept=".jpg, .jpeg, .png, .gif, .heic" name="profile">
+                    </td>
+                    <td><a th:href="@{/mypage/modify}">닉네임 수정</a></td>
+                    <td><a th:href="@{/mypage/secession}">회원 탈퇴</a></td>
+                </tr>
+                <tr>
+                    <th>정보 수신 동의</th>
+                    <td class="main__func-content-sms">
+                        <div>
+                            <p>이벤트 이메일, SMS 받기</p>
+                            <p>할인 및 이벤트에 대한 정보를 이메일 문자로 받아보세요</p>
+                        </div>
+                        <input type="checkbox" id="sms-toggle"/><label class="switch-toggle" for="sms-toggle"></label>
+                    </td>
+
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!--카테고리 모달창-->
+<div class="category_popup" id="category_wrap">
+    <div class="category_popup_inner">
+        <section class="category_popup_inner_layout">
+            <section class="category_popup_content_layout">
+                <a th:href="@{/board/post/main}">
+                    <span class="category_popup_title">게시판</span>
+                </a>
+
+                <div class="category_popup_content_box">
+                    <span class="category_popup_content">소설 게시판</span>
+                    <span class="category_popup_content">중고 게시판</span>
+                    <span class="category_popup_content">자유 게시판</span>
+                </div>
+
+                <span class="category_popup_title">쪽지</span>
+                <div class="category_popup_content_box">
+                    <a th:href="@{/message/letter/get}">
+                        <span class="category_popup_content">받은 쪽지함</span>
+                    </a>
+                    <a th:href="@{/message/letter/send}">
+                        <span class="category_popup_content">보낸 쪽지함</span>
+                    </a>
+                </div>
+
+
+                <a th:href="@{/feed}">
+                    <span class="category_popup_title">피드</span>
+                </a>
+
+                <div class="category_popup_content_box">
+                    <a th:href="@{/feed}">
+                        <span class="category_popup_content">포스트</span>
+                    </a>
+                    <a th:href="@{/feed/oneline}">
+                        <span class="category_popup_content">한 줄 리뷰</span>
+                    </a>
+                    <a th:href="@{/feed/read}">
+                        <span class="category_popup_content">독후감</span>
+                    </a>
+                </div>
+
+                <span class="category_popup_title">이벤트</span>
+                <a th:href="@{/mypage/sticker}">
+                    <span class="category_popup_content">스티커 신청하기</span>
+                </a>
+            </section>
+        </section>
+    </div>
+</div>
+
+<footer>
+    <div>
+        <button id="reading-book-delete-button">삭제하기</button>
+    </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.hippobookproject.mapper.feed.FeedMapper">
+    <select id="selectAll" resultType="CardDto" parameterType="Long">
+        SELECT F.FEED_ID, U.USER_NICKNAME, F.USER_ID,
+               (SELECT COUNT(FL.FEED_LIKE_ID) FROM TBL_FEED_LIKE FL WHERE F.FEED_ID = FL.FEED_ID) AS LIKE_CNT,
+               FF.FEED_FILE_ID, FF.FEED_FILE_NAME, FF.FEED_UPLOAD_PATH, FF.FEED_UUID,
+               NVL(J1.CNT, 0) AS IS_FOLLOW
+        FROM TBL_FEED F JOIN TBL_USER U
+                             ON F.USER_ID = U.USER_ID
+                        LEFT JOIN TBL_FEED_FILE FF
+                                  ON F.FEED_ID = FF.FEED_ID
+                        LEFT JOIN (
+                            SELECT COUNT(FO.FOLLOW_ID) CNT, FO.FOLLOW_TO
+                            FROM TBL_FOLLOW FO
+                            WHERE FO.FOLLOW_FROM = #{userId}
+                            GROUP BY FO.FOLLOW_TO
+                        ) J1
+                                  ON J1.FOLLOW_TO = F.USER_ID
+        ORDER BY F.FEED_ID DESC
+    </select>
+
+    <insert id="insertFollow" parameterType="FollowDto">
+        insert into TBL_FOLLOW (FOLLOW_ID,  FOLLOW_TO, FOLLOW_FROM)
+        values (SEQ_FOLLOW.nextval, #{followTo}, #{followFrom})
+    </insert>
+
+    <delete id="deleteFollow" parameterType="FollowDto">
+        DELETE FROM TBL_FOLLOW
+        WHERE FOLLOW_TO = #{followTo} AND FOLLOW_FROM = #{followFrom}
+    </delete>
+</mapper>

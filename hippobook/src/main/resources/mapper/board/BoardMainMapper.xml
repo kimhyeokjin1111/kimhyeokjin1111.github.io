@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.hippobookproject.mapper.board.BoardMainMapper">
+    <select id="selectDealPost">
+        SELECT DEAL_ID post_id, DEAL_TITLE post_title, DEAL_CONTENT post_content, USER_ID, USER_NICKNAME, LIKE_COUNT, DEAL_DATE post_date, post_view
+            FROM (SELECT ROWNUM AS RNUM, DEAL_ID, DEAL_TITLE, DEAL_CONTENT, USER_ID, USER_NICKNAME, LIKE_COUNT, DEAL_DATE, post_view
+                    FROM (SELECT S.DEAL_ID, DEAL_TITLE , DEAL_CONTENT, S.USER_ID, USER_NICKNAME, LIKE_COUNT, DEAL_DATE, NVL(V.DV_CONNT, 0) post_view
+                            FROM (SELECT S.DEAL_ID, DEAL_TITLE , DEAL_CONTENT, S.USER_ID, USER_NICKNAME, NVL(DL.DL_CONNT, 0) LIKE_COUNT, DEAL_DATE
+                            FROM (SELECT DEAL_ID, DEAL_TITLE, DEAL_CONTENT, D.USER_ID, USER_NICKNAME, DEAL_DATE
+                                    FROM TBL_DEAL D JOIN TBL_USER U
+                                    ON
+                                    <trim prefixOverrides="AND" >
+                                        <if test="'title'.equals(searchOpt.type)">
+                                            D.DEAL_TITLE LIKE '%' || #{searchOpt.keyword} || '%'
+                                        </if>
+                                        <if test="'writer'.equals(searchOpt.type)">
+                                            AND USER_NICKNAME LIKE '%' || #{searchOpt.keyword} || '%'
+                                        </if>
+                                    AND D.USER_ID = U.USER_ID
+                                    </trim>
+                                    ) S LEFT JOIN (SELECT DEAL_ID ,COUNT(DL.USER_ID) DL_CONNT
+                                                                            FROM TBL_DEAL_LIKE DL
+                                                                            GROUP BY DL.DEAL_ID) DL
+                                                                            ON S.DEAL_ID = DL.DEAL_ID) S LEFT JOIN (SELECT DEAL_ID ,COUNT(DV.USER_ID) DV_CONNT
+        FROM TBL_DEAL_VIEW DV
+        GROUP BY DV.DEAL_ID) V
+        ON S.DEAL_id = V.DEAL_ID
+
+                        <if test="'recent'.equals(searchOpt.orderType)">ORDER BY DEAL_DATE DESC</if>
+                        <if test="'like'.equals(searchOpt.orderType)">ORDER BY LIKE_COUNT DESC</if>)
+        <![CDATA[
+                WHERE ROWNUM <= #{criteria.page} * #{criteria.amount})
+        WHERE RNUM > (#{criteria.page} - 1) * #{criteria.amount}
+        ]]>
+    </select>
+
+    <select id="selectBoardPost">
+        SELECT BOARD_ID post_id, BOARD_TITLE post_title, BOARD_CONTENT post_content, USER_ID, USER_NICKNAME, LIKE_COUNT, BOARD_DATE post_date, post_view
+        FROM (SELECT ROWNUM AS RNUM, BOARD_ID, BOARD_TITLE, BOARD_CONTENT, USER_ID, USER_NICKNAME, LIKE_COUNT, BOARD_DATE , post_view
+        FROM (SELECT S.BOARD_ID, BOARD_TITLE, BOARD_CONTENT, S.USER_ID, USER_NICKNAME, LIKE_COUNT, BOARD_DATE, NVL(V.DV_CONNT, 0) post_view
+        FROM (SELECT S.BOARD_ID, BOARD_TITLE, BOARD_CONTENT, S.USER_ID, USER_NICKNAME, NVL(DL.DL_CONNT, 0) LIKE_COUNT, BOARD_DATE
+        FROM (SELECT BOARD_ID, BOARD_TITLE, BOARD_CONTENT, D.USER_ID, USER_NICKNAME, BOARD_DATE
+        FROM TBL_BOARD D JOIN TBL_USER U
+        ON
+        <trim prefixOverrides="AND" >
+            <if test="'title'.equals(searchOpt.type)">
+                D.BOARD_TITLE LIKE '%' || #{searchOpt.keyword} || '%'
+            </if>
+            <if test="'writer'.equals(searchOpt.type)">
+                AND USER_NICKNAME LIKE '%' || #{searchOpt.keyword} || '%'
+            </if>
+            AND D.USER_ID = U.USER_ID
+        </trim>
+        ) S LEFT JOIN (SELECT BOARD_ID ,COUNT(DL.USER_ID) DL_CONNT
+        FROM TBL_BOARD_LIKE DL
+        GROUP BY DL.BOARD_ID) DL
+        ON S.BOARD_ID = DL.BOARD_ID) S LEFT JOIN (SELECT BOARD_ID ,COUNT(DV.USER_ID) DV_CONNT
+        FROM TBL_BOARD_VIEW DV
+        GROUP BY DV.BOARD_ID) V
+        ON S.BOARD_id = V.BOARD_ID
+
+        <if test="'recent'.equals(searchOpt.orderType)">ORDER BY BOARD_DATE DESC</if>
+        <if test="'like'.equals(searchOpt.orderType)">ORDER BY LIKE_COUNT DESC</if>
+        )
+        <![CDATA[
+                WHERE ROWNUM <= #{criteria.page} * #{criteria.amount})
+        WHERE RNUM > (#{criteria.page} - 1) * #{criteria.amount}
+        ]]>
+    </select>
+
+    <select id="selectNovelPost">
+        SELECT NOVEL_ID post_id, NOVEL_TITLE post_title, NOVEL_CONTENT post_content, USER_ID, USER_NICKNAME, LIKE_COUNT, NOVEL_DATE post_date, post_view
+        FROM (SELECT ROWNUM AS RNUM, NOVEL_ID, NOVEL_TITLE, NOVEL_CONTENT, USER_ID, USER_NICKNAME, LIKE_COUNT, NOVEL_DATE , post_view
+        FROM (SELECT S.NOVEL_ID, NOVEL_TITLE, NOVEL_CONTENT, S.USER_ID, USER_NICKNAME, LIKE_COUNT, NOVEL_DATE, NVL(V.DV_CONNT, 0) post_view
+        FROM (SELECT S.NOVEL_ID, NOVEL_TITLE, NOVEL_CONTENT, S.USER_ID, USER_NICKNAME, NVL(DL.DL_CONNT, 0) LIKE_COUNT, NOVEL_DATE
+        FROM (SELECT NOVEL_ID, NOVEL_TITLE, NOVEL_CONTENT, D.USER_ID, USER_NICKNAME, NOVEL_DATE
+        FROM TBL_NOVEL D JOIN TBL_USER U
+        ON
+        <trim prefixOverrides="AND" >
+            <if test="'title'.equals(searchOpt.type)">
+                D.NOVEL_TITLE LIKE '%' || #{searchOpt.keyword} || '%'
+            </if>
+            <if test="'writer'.equals(searchOpt.type)">
+                AND USER_NICKNAME LIKE '%' || #{searchOpt.keyword} || '%'
+            </if>
+            AND D.USER_ID = U.USER_ID
+        </trim>
+        ) S LEFT JOIN (SELECT NOVEL_ID ,COUNT(DL.USER_ID) DL_CONNT
+        FROM TBL_NOVEL_LIKE DL
+        GROUP BY DL.NOVEL_ID) DL
+        ON S.NOVEL_ID = DL.NOVEL_ID) S LEFT JOIN (SELECT NOVEL_ID ,COUNT(DV.USER_ID) DV_CONNT
+        FROM TBL_NOVEL_VIEW DV
+        GROUP BY DV.NOVEL_ID) V
+        ON S.NOVEL_id = V.NOVEL_ID
+
+        <if test="'recent'.equals(searchOpt.orderType)">ORDER BY NOVEL_DATE DESC</if>
+        <if test="'like'.equals(searchOpt.orderType)">ORDER BY LIKE_COUNT DESC</if>)
+        <![CDATA[
+                WHERE ROWNUM <= #{criteria.page} * #{criteria.amount})
+        WHERE RNUM > (#{criteria.page} - 1) * #{criteria.amount}
+        ]]>
+    </select>
+
+    <select id="selectClaimPost">
+        SELECT CLAIM_ID post_id, CLAIM_TITLE post_title, CLAIM_CONTENT post_content, USER_ID, USER_NICKNAME, LIKE_COUNT, CLAIM_DATE post_date, post_view
+        FROM (SELECT ROWNUM AS RNUM, CLAIM_ID, CLAIM_TITLE, CLAIM_CONTENT, USER_ID, USER_NICKNAME, LIKE_COUNT, CLAIM_DATE , post_view
+        FROM (SELECT S.CLAIM_ID, CLAIM_TITLE, CLAIM_CONTENT, S.USER_ID, USER_NICKNAME, LIKE_COUNT, CLAIM_DATE, NVL(V.DV_CONNT, 0) post_view
+        FROM (SELECT S.CLAIM_ID, CLAIM_TITLE, CLAIM_CONTENT, S.USER_ID, USER_NICKNAME, NVL(DL.DL_CONNT, 0) LIKE_COUNT, CLAIM_DATE
+        FROM (SELECT CLAIM_ID, CLAIM_TITLE, CLAIM_CONTENT, D.USER_ID, USER_NICKNAME, CLAIM_DATE
+        FROM TBL_CLAIM D JOIN TBL_USER U
+        ON
+        <trim prefixOverrides="AND" >
+            <if test="'title'.equals(searchOpt.type)">
+                D.CLAIM_TITLE LIKE '%' || #{searchOpt.keyword} || '%'
+            </if>
+            <if test="'writer'.equals(searchOpt.type)">
+                AND USER_NICKNAME LIKE '%' || #{searchOpt.keyword} || '%'
+            </if>
+            AND D.USER_ID = U.USER_ID
+        </trim>
+        ) S LEFT JOIN (SELECT CLAIM_ID ,COUNT(DL.USER_ID) DL_CONNT
+        FROM TBL_CLAIM_LIKE DL
+        GROUP BY DL.CLAIM_ID) DL
+        ON S.CLAIM_ID = DL.CLAIM_ID) S LEFT JOIN (SELECT CLAIM_ID ,COUNT(DV.USER_ID) DV_CONNT
+        FROM TBL_CLAIM_VIEW DV
+        GROUP BY DV.CLAIM_ID) V
+        ON S.CLAIM_id = V.CLAIM_ID
+
+        <if test="'recent'.equals(searchOpt.orderType)">ORDER BY CLAIM_DATE DESC</if>
+        <if test="'like'.equals(searchOpt.orderType)">ORDER BY LIKE_COUNT DESC</if>)
+        <![CDATA[
+                WHERE ROWNUM <= #{criteria.page} * #{criteria.amount})
+        WHERE RNUM > (#{criteria.page} - 1) * #{criteria.amount}
+        ]]>
+    </select>
+
+    <select id="selectDeclPostTotal">
+        SELECT COUNT(S.DEAL_ID)
+        FROM (SELECT S.DEAL_ID, DEAL_TITLE , DEAL_CONTENT, S.USER_ID, USER_NICKNAME, NVL(DL.DL_CONNT, 0) LIKE_COUNT, DEAL_DATE
+        FROM (SELECT DEAL_ID, DEAL_TITLE, DEAL_CONTENT, D.USER_ID, USER_NICKNAME, DEAL_DATE
+        FROM TBL_DEAL D JOIN TBL_USER U
+        ON
+        <trim prefixOverrides="AND" >
+            <if test="'title'.equals(searchOpt.type)">
+                D.DEAL_TITLE LIKE '%' || #{searchOpt.keyword} || '%'
+            </if>
+            <if test="'writer'.equals(searchOpt.type)">
+                AND USER_NICKNAME LIKE '%' || #{searchOpt.keyword} || '%'
+            </if>
+            AND D.USER_ID = U.USER_ID
+        </trim>
+        ) S LEFT JOIN (SELECT DEAL_ID ,COUNT(DL.USER_ID) DL_CONNT
+        FROM TBL_DEAL_LIKE DL
+        GROUP BY DL.DEAL_ID) DL
+        ON S.DEAL_ID = DL.DEAL_ID) S LEFT JOIN (SELECT DEAL_ID ,COUNT(DV.USER_ID) DV_CONNT
+        FROM TBL_DEAL_VIEW DV
+        GROUP BY DV.DEAL_ID) V
+        ON S.DEAL_id = V.DEAL_ID
+    </select>
+    <select id="selectBoardPostTotal">
+        SELECT COUNT(S.BOARD_ID)
+        FROM (SELECT S.BOARD_ID, BOARD_TITLE, BOARD_CONTENT, S.USER_ID, USER_NICKNAME, NVL(DL.DL_CONNT, 0) LIKE_COUNT, BOARD_DATE
+        FROM (SELECT BOARD_ID, BOARD_TITLE, BOARD_CONTENT, D.USER_ID, USER_NICKNAME, BOARD_DATE
+        FROM TBL_BOARD D JOIN TBL_USER U
+        ON
+        <trim prefixOverrides="AND" >
+            <if test="'title'.equals(searchOpt.type)">
+                D.BOARD_TITLE LIKE '%' || #{searchOpt.keyword} || '%'
+            </if>
+            <if test="'writer'.equals(searchOpt.type)">
+                AND USER_NICKNAME LIKE '%' || #{searchOpt.keyword} || '%'
+            </if>
+            AND D.USER_ID = U.USER_ID
+        </trim>
+        ) S LEFT JOIN (SELECT BOARD_ID ,COUNT(DL.USER_ID) DL_CONNT
+        FROM TBL_BOARD_LIKE DL
+        GROUP BY DL.BOARD_ID) DL
+        ON S.BOARD_ID = DL.BOARD_ID) S LEFT JOIN (SELECT BOARD_ID ,COUNT(DV.USER_ID) DV_CONNT
+        FROM TBL_BOARD_VIEW DV
+        GROUP BY DV.BOARD_ID) V
+        ON S.BOARD_id = V.BOARD_ID
+    </select>
+    <select id="selectNovelPostTotal">
+        SELECT COUNT(S.NOVEL_ID)
+        FROM (SELECT S.NOVEL_ID, NOVEL_TITLE, NOVEL_CONTENT, S.USER_ID, USER_NICKNAME, NVL(DL.DL_CONNT, 0) LIKE_COUNT, NOVEL_DATE
+        FROM (SELECT NOVEL_ID, NOVEL_TITLE, NOVEL_CONTENT, D.USER_ID, USER_NICKNAME, NOVEL_DATE
+        FROM TBL_NOVEL D JOIN TBL_USER U
+        ON
+        <trim prefixOverrides="AND" >
+            <if test="'title'.equals(searchOpt.type)">
+                D.NOVEL_TITLE LIKE '%' || #{searchOpt.keyword} || '%'
+            </if>
+            <if test="'writer'.equals(searchOpt.type)">
+                AND USER_NICKNAME LIKE '%' || #{searchOpt.keyword} || '%'
+            </if>
+            AND D.USER_ID = U.USER_ID
+        </trim>
+        ) S LEFT JOIN (SELECT NOVEL_ID ,COUNT(DL.USER_ID) DL_CONNT
+        FROM TBL_NOVEL_LIKE DL
+        GROUP BY DL.NOVEL_ID) DL
+        ON S.NOVEL_ID = DL.NOVEL_ID) S LEFT JOIN (SELECT NOVEL_ID ,COUNT(DV.USER_ID) DV_CONNT
+        FROM TBL_NOVEL_VIEW DV
+        GROUP BY DV.NOVEL_ID) V
+        ON S.NOVEL_id = V.NOVEL_ID
+    </select>
+    <select id="selectClaimPostTotal">
+        SELECT COUNT(S.CLAIM_ID)
+        FROM (SELECT S.CLAIM_ID, CLAIM_TITLE, CLAIM_CONTENT, S.USER_ID, USER_NICKNAME, NVL(DL.DL_CONNT, 0) LIKE_COUNT, CLAIM_DATE
+        FROM (SELECT CLAIM_ID, CLAIM_TITLE, CLAIM_CONTENT, D.USER_ID, USER_NICKNAME, CLAIM_DATE
+        FROM TBL_CLAIM D JOIN TBL_USER U
+        ON
+        <trim prefixOverrides="AND" >
+            <if test="'title'.equals(searchOpt.type)">
+                D.CLAIM_TITLE LIKE '%' || #{searchOpt.keyword} || '%'
+            </if>
+            <if test="'writer'.equals(searchOpt.type)">
+                AND USER_NICKNAME LIKE '%' || #{searchOpt.keyword} || '%'
+            </if>
+            AND D.USER_ID = U.USER_ID
+        </trim>
+        ) S LEFT JOIN (SELECT CLAIM_ID ,COUNT(DL.USER_ID) DL_CONNT
+        FROM TBL_CLAIM_LIKE DL
+        GROUP BY DL.CLAIM_ID) DL
+        ON S.CLAIM_ID = DL.CLAIM_ID) S LEFT JOIN (SELECT CLAIM_ID ,COUNT(DV.USER_ID) DV_CONNT
+        FROM TBL_CLAIM_VIEW DV
+        GROUP BY DV.CLAIM_ID) V
+        ON S.CLAIM_id = V.CLAIM_ID
+    </select>
+</mapper>

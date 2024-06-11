@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.hippobookproject.mapper.feed.PostMapper">
+    <select id="selectAll" resultType="PostBookDto">
+        SELECT BOOK_ID, BOOK_NAME, BOOK_WRITER, BOOK_DATE, PUBLISHER_ID
+        FROM TBL_BOOK
+    </select>
+    <select id="selectByKeyword" parameterType="PostSearchDto" resultType="PostBookDto">
+        SELECT BOOK_ID, BOOK_NAME, BOOK_WRITER, BOOK_DATE, PUBLISHER_ID
+        FROM TBL_BOOK
+        <choose>
+        <when test="'bookWriter'.equals(cate)">
+            WHERE BOOK_WRITER LIKE '%' || #{keyword} || '%'
+        </when>
+        <when test="'bookName'.equals(cate)">
+            WHERE BOOK_NAME LIKE '%' || #{keyword} || '%'
+        </when>
+        </choose>
+    </select>
+</mapper>

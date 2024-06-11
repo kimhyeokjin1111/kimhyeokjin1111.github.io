@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>히포북</title>
+    <link rel="stylesheet" th:href="@{/css/categorie/Categoriepage.css}"/>
+    <script th:href="@{/js/categorie/BookCate.js}"></script>
+  </head>
+  <body>
+    <header>
+      <div class="header_layout">
+        <h1 class="header_logo">
+          <div class="header_logo_layout">
+             <!--홈페이지 버튼 -->
+            <a href="">
+              <img
+                th:src="@{/images/book/HippoBook_logo.png}"
+                alt=""
+                class="header_logo_images"
+              />
+            </a>
+          </div>
+        </h1>
+        <div class="header_right_layout">
+          <a href="">
+            <!-- 알람 페이지 이동  -->
+            <img th:src="@{/images/book/alarm.png}" alt="" class="header_right_alarm" />
+          </a>
+          <!-- 로그인 박스 -->
+          <ul class="header_right_login">
+            <button type="button" class="header_right_login_btn">
+              <a href="" class="header_right_login_box">로그아웃</a>
+            </button>
+          </ul>
+        </div>
+      </div>
+    </header>
+    <main>
+      <div class="main_top">
+        <div class="main_top_layout">
+          <a href="">
+            <!-- 카테고리  -->
+            <img
+              th:src="@{/images/book/Category.png}"
+              alt=""
+              class="main_top_category"
+            />
+          </a>
+          <div class="main_top_category_tap">
+            <ul class="main_top_category_list">
+              <li>
+                <a href="">내 서재</a>
+                <!-- 내 서재 이동 -->
+              </li>
+              <li>
+                <a href="">쪽지</a>
+                <!-- 쪽지 이동 -->
+              </li>
+              <li>
+                <a href="http://localhost:10000/categorie/Categoriepage">검색</a>
+                <!-- 검색 이동 -->
+              </li>
+            </ul>
+            <!-- 검색란 -->           
+          </div>
+        </div>
+        <section class="content">
+            <section class="search-container">
+            <div class="search">
+              <input class="rrrr" type="text" placeholder="검색어 입력" />
+            </div>
+            </section>
+        </section>
+      </div>
+      <div>&ensp;</div>
+      <div>&ensp;</div>
+      <div>&ensp;</div>   
+      <div>&ensp;</div> 
+      <div class="search-body">
+        <hr class="toto">
+        <div class="tab-wrap">
+          <ul class="tab-list">
+            <li id="category" class="search-tab-category"><a href="#scroll1" class="category">카테고리</a></li>
+            <li id="keyword" class="search-tab-keyword"><a href="#scroll2" class="keyword">작가</a></li>
+            <li id="editor" class="search-tab-editor"><a href="#scroll3" class="editor">컬렉션</a></li>
+          </ul>
+        </div>
+        <section class="category-wrap" id="scroll1">
+          <h2 class="title">카테고리</h2>
+          <ul class="category-list">
+            <li class="category-box" onclick="">
+              <a href="http://localhost:10000/categorie/content">
+                <div class="metadata">
+                  <strong>도슨트북</strong>
+                  <p>스토리 요약부터 해설까지, 도슨트와 함께 하는 편한 독서</p>
+                </div>
+                <div class="bookcover">
+                  <div class="inner">
+                    <div class="book-picture img" data-observe="true">
+                      <picture>
+                        <img
+                          src="https://d2j6uvfek9vas1.cloudfront.net/common_banner/6459ae386e753.jpg"
+                          alt=""
+                          class="img-so"
+                        />
+                      </picture>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="category-box" onclick="">
+              <a href="">
+                <div class="metadata">
+                  <strong>오브제북</strong>
+                  <p>책에서 영감을 받아 탄생한 예술 작품을 감상해 보세요</p>
+                </div>
+                <div class="bookcover">
+                  <div class="inner">
+                    <div class="book-picture img" data-observe="true">
+                      <picture>
+                        <img
+                          src="https://d2j6uvfek9vas1.cloudfront.net/common_banner/65d1fe2ac14bd.jpg"
+                          alt=""
+                          class="img-so"
+                        />
+                      </picture>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="category-box" onclick="">
+              <a href="">
+                <div class="metadata">
+                  <strong>밀리 오리지널</strong>
+                  <p>
+                    지금!연재 중, 종이책 정기구독 라인업, 소설, SF, 추리,스틸러,
+                    로맨스, 에세이
+                  </p>
+                </div>
+                <div class="bookcover">
+                  <div class="inner">
+                    <div class="book-picture img" data-observe="true">
+                      <picture>
+                        <img
+                          src="	https://d2j6uvfek9vas1.cloudfront.net/common_banner/63f7153b5163b.jpg"
+                          alt=""
+                          class="img-so"
+                        />
+                      </picture>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="category-box" onclick="">
+              <a href="">
+                <div class="metadata">
+                  <strong>독립출판</strong>
+                  <p>기획부터 출판까지, 내 손으로 직접 만든 개성 있는 책</p>
+                </div>
+                <div class="bookcover">
+                  <div class="inner">
+                    <div class="book-picture img" data-observe="true">
+                      <picture>
+                        <img
+                          src="https://d2j6uvfek9vas1.cloudfront.net/common_banner/63fc9cd94665b.jpg"
+                          alt=""
+                          class="img-so"
+                        />
+                      </picture>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="category-box" onclick="">
+              <a href="">
+                <div class="metadata">
+                  <strong>디즈니</strong>
+                  <p>디즈니, 픽사, 마블의 책이 보이는 영어 오디오북 ⓒDisney</p>
+                </div>
+                <div class="bookcover">
+                  <div class="inner">
+                    <div class="book-picture img" data-observe="true">
+                      <picture>
+                        <img
+                          src="https://d2j6uvfek9vas1.cloudfront.net/common_banner/65d1fe8d56855.jpg"
+                          alt=""
+                          class="img-so"
+                        />
+                      </picture>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="category-box" onclick="">
+              <a href="">
+                <div class="metadata">
+                  <strong>빨간펜 동화</strong>
+                  <p>아이도, 어른도 함께 즐기는 동화의 시간!</p>
+                </div>
+                <div class="bookcover">
+                  <div class="inner">
+                    <div class="book-picture img" data-observe="true">
+                      <picture>
+                        <img
+                          src="https://d2j6uvfek9vas1.cloudfront.net/common_banner/661294830cba4.jpg"
+                          alt=""
+                          class="img-so"
+                        />
+                      </picture>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="category-box" onclick="">
+              <a href="">
+                <div class="metadata">
+                  <strong>매거진</strong>
+                  <p>
+                    경제·경영, 패션·트렌드, 대중문화, 인문·예술,
+                    리빙·라이프스타일, 문학·교양, 시사 등
+                  </p>
+                </div>
+                <div class="bookcover">
+                  <div class="inner">
+                    <div class="book-picture img" data-observe="true">
+                      <picture>
+                        <img
+                          src="https://d2j6uvfek9vas1.cloudfront.net/common_banner/65d1fee486e21.jpg"
+                          alt=""
+                          class="img-so"
+                        />
+                      </picture>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="category-box" onclick="">
+              <a href="">
+                <div class="metadata">
+                  <strong>만화</strong>
+                  <p>인문·교양, 일상·드라마, 어린이·청소년, 그래픽노블</p>
+                </div>
+                <div class="bookcover">
+                  <div class="inner">
+                    <div class="book-picture img" data-observe="true">
+                      <picture>
+                        <img
+                          src="https://d2j6uvfek9vas1.cloudfront.net/common_banner/65d2030c4e2e5.jpg"
+                          alt=""
+                          class="img-so"
+                        />
+                      </picture>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="category-box" onclick="">
+              <a href="">
+                <div class="metadata">
+                  <strong>소설</strong>
+                  <p>추리・스릴러, 킬러 스파이, 법의학 스릴러, SF, 판타지</p>
+                </div>
+                <div class="bookcover">
+                  <div class="inner">
+                    <div class="book-picture img" data-observe="true">
+                      <picture>
+                        <img
+                          src="https://d2j6uvfek9vas1.cloudfront.net/common_banner/65d2038350431.jpg"
+                          alt=""
+                          class="img-so"
+                        />
+                      </picture>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="category-box" onclick="">
+              <a href="">
+                <div class="metadata">
+                  <strong>세계문학전집</strong>
+                  <p>
+                    열린책들, 민음사, 펭귄클래식, 문예출판사, 을유문화사,
+                    현대지성, 문예출판사
+                  </p>
+                </div>
+                <div class="bookcover">
+                  <div class="inner">
+                    <div class="book-picture img" data-observe="true">
+                      <picture>
+                        <img
+                          src="https://d2j6uvfek9vas1.cloudfront.net/common_banner/63f736a454342.jpg"
+                          alt=""
+                          class="img-so"
+                        />
+                      </picture>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </section>
+        <section class="title" id="scroll2">
+          <h2>작가의 책 모아보기</h2>
+          <ul class="category-list">
+            <li class="listt">
+              <a href="http://localhost:10000/categorie/writer" class="aaaa">
+                <p class="jj">#박상영</p>
+              </a>
+            </li>
+            <li class="listt">
+              <a href="" class="aaaa">
+                <p class="jj">#김상현</p>
+              </a>
+            </li>
+            <li class="listt">
+              <a href="" class="aaaa">
+                <p class="jj">#유발 하라리</p>
+              </a>
+            </li>
+            <li class="listt">
+              <a href="" class="aaaa">
+                <p class="jj">#리처드 도킨스</p>
+              </a>
+            </li>
+            <li class="listt">
+              <a href="" class="aaaa">
+                <p class="jj">#요나스 요나손</p>
+              </a>
+            </li>
+            <li class="listt">
+              <a href="" class="aaaa">
+                <p class="jj">#J.R.R.톨킨</p>
+              </a>
+            </li>
+            <li class="listt">
+              <a href="" class="aaaa">
+                <p class="jj">#정해연</p>
+              </a>
+            </li>
+            <li class="listt">
+              <a href="" class="aaaa">
+                <p class="jj">#레몬심리</p>
+              </a>
+            </li>
+            <li class="listt">
+              <a href="" class="aaaa">
+                <p class="jj">#히로시마 레이코</p>
+              </a>
+            </li>
+            <li class="listt">
+              <a href="" class="aaaa">
+                <p class="jj">#나태주</p>
+              </a>
+            </li>
+            <li class="listt">
+              <a href="" class="aaaa">
+                <p class="jj">#채사장</p>
+              </a>
+            </li>
+            <li class="listt">
+              <a href="" class="aaaa">
+                <p class="jj">#공지영</p>
+              </a>
+            </li>
+            <li class="listt">
+              <a href="" class="aaaa">
+                <p class="jj">#히가시노 게이고</p>
+              </a>
+            </li>
+            <li class="listt">
+              <a href="" class="aaaa">
+                <p class="jj">#베르나르 베르나르</p>
+              </a>
+            </li>
+            <li class="listt">
+              <a href="" class="aaaa">
+                <p class="jj">#김초엽</p>
+              </a>
+            </li>
+            <li class="listt">
+              <a href="" class="aaaa">
+                <p class="jj">#천선란</p>
+              </a>
+            </li>
+            <li class="listt">
+              <a href="" class="aaaa">
+                <p class="jj">#신카이 마코토</p>
+              </a>
+            </li>
+            <li class="listt">
+              <a href="" class="aaaa">
+                <p class="jj">#기욤 뮈소</p>
+              </a>
+            </li>
+            <li class="listt">
+              <a href="" class="aaaa">
+                <p class="jj">#이영도</p>
+              </a>
+            </li>
+            <li class="listt">
+              <a href="" class="aaaa">
+                <p class="jj">#박완서</p>
+              </a>
+            </li>
+          </ul>
+        </section>
+        <section class="title" id="scroll3">
+          <h2>컬렉션</h2>
+          <p class="sub-title">밀리가 만드는 다양한 아티클을 확인해보세요!</p>
+          <ul class="category-list">
+            <li class="listt">
+              <a href="http://localhost:10000/categorie/collection">
+                <img
+                  src="https://d2j6uvfek9vas1.cloudfront.net/common_banner/63fca3561028f.jpg"
+                  alt="책-잇"
+                />
+                <span class="spoo">책-잇</span>
+              </a>
+            </li>
+            <li class="listt">
+              <a href="">
+                <img
+                  src="https://d2j6uvfek9vas1.cloudfront.net/common_banner/63fca37af0157.jpg"
+                  alt="책-잇"
+                />
+                <span class="spoo">밀리봐봐</span>
+              </a>
+            </li>
+            <li class="listt">
+              <a href="">
+                <img
+                  src="https://d2j6uvfek9vas1.cloudfront.net/common_banner/63fca3a834406.jpg"
+                  alt="책-잇"
+                />
+                <span class="spoo">에디터의 선택</span>
+              </a>
+            </li>
+            <li class="listt">
+              <a href="">
+                <img
+                  src="https://d2j6uvfek9vas1.cloudfront.net/common_banner/63fca3cfe7f5c.jpg"
+                  alt="책-잇"
+                />
+                <span class="spoo">밀리 시리즈</span>
+              </a>
+            </li>
+            <li class="listt">
+              <a href="">
+                <img
+                  src="https://d2j6uvfek9vas1.cloudfront.net/common_banner/63fca42edde83.jpg"
+                  alt="책-잇"
+                />
+                <span class="spoo">추천 작가</span>
+              </a>
+            </li>
+            <li class="listt">
+              <a href="">
+                <img
+                  src="https://d2j6uvfek9vas1.cloudfront.net/common_banner/63fca40e2fb89.jpg"
+                  alt="책-잇"
+                />
+                <span class="spoo">독서 연구소</span>
+              </a>
+            </li>
+            <li class="listt">
+              <a href="">
+                <img
+                  src="https://d2j6uvfek9vas1.cloudfront.net/common_banner/63fca45407778.png"
+                  alt="책-잇"
+                />
+                <span class="spoo">북러닝</span>
+              </a>
+            </li>
+            <li class="listt">
+              <a href="">
+                <img
+                  src="https://d2j6uvfek9vas1.cloudfront.net/common_banner/657a8cbb7af33.jpg"
+                  alt="책-잇"
+                />
+                <span class="spoo">밀리의 발견</span>
+              </a>
+            </li>
+          </ul>
+        </section>
+<!--    </section>-->
+<!--</section>-->
+      </div>
+    </main>
+  </body>
+</html>

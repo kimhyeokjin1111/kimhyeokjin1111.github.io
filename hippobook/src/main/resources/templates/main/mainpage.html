@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>히포북</title>
+    <link rel="stylesheet" th:href="@{/css/main/mainpage.css}" />
+    <script defer th:src="@{/js/main/mainpage.js}"></script>
+  </head>
+  <body>
+  <header class="header" th:replace="~{/fragment/header :: header}"></header>
+    <main>
+      <!-- 메인 슬라이더 배너 부분 부터 -->
+      <div class="main_content">
+        <section class="slides_wrap">
+          <div class="btn_wrap">
+            <button class="btn_wrap_left">
+              <div class="prev">&lt;</div>
+            </button>
+            <button class="btn_wrap_right">
+              <div class="next">&gt;</div>
+            </button>
+          </div>
+          <ul class="slides_banner">
+            <li>
+              <div class="slides_content">
+                <!-- 슬라이딩배너 클릭시 이동 -->
+                <a href="">
+                  <img
+                    th:src="@{/images/main/banner1.png}"
+                    alt=""
+                    class="slide_img"/>
+                </a>
+              </div>
+            </li>
+            <li>
+              <div class="slides_content">
+                <!-- 슬라이딩배너 클릭시 이동 -->
+                <a href="">
+                  <img
+                    th:src="@{/images/main/banner2.png}"
+                    alt=""
+                    class="slide_img"
+                  />
+                </a>
+              </div>
+            </li>
+
+            <li>
+              <div class="slides_content">
+                <!-- 슬라이딩배너 클릭시 이동 -->
+                <a href="">
+                  <img
+                    th:src="@{/images/main/banner3.png}"
+                    alt=""
+                    class="slide_img"
+                  />
+                </a>
+              </div>
+            </li>
+            <li>
+              <div class="slides_content">
+                <!-- 슬라이딩배너 클릭시 이동 -->
+                <a href="">
+                  <img
+                       th:src="@{/images/main/banner1.png}"
+                       alt=""
+                       class="slide_img"
+                  />
+                </a>
+              </div>
+            </li>
+          </ul>
+        </section>
+      <div class="main_layout">
+        <!-- 배너 밑 부분 -->
+          <!-- 배너 밑 부분 --><div class="main_content_layout">
+          <section class="hipppo_ranking">
+              <div class="hipppo_ranking_layout">
+                  <a th:href="@{/book/info}">
+                      <h3 class="hipppo_ranking_title">히포 랭킹</h3>
+                  </a>
+                  <div class="hipppo_ranking-box">
+
+                  </div>
+
+              </div>
+          </section>
+      </div>
+        <div class="novel_preview">
+          <a th:href="@{/feed}">
+            <h3 class="novel_preview_title">독후감 바로가기</h3>
+          </a>
+
+            <div class="novel_content">
+              <div class="novel_content_wrapper">
+                <div class="novel_box">
+                  <div class="novel_box_border" th:each="read :${readList}">
+                    <div class="novel_thumbnail_wrap">
+                      <div class="novel_data">
+                        <div class="novel_box_inner">
+                          <a th:href="@{/feed}" class="novel_url">
+                            <div class="thumbnail2">
+                              <div class="novel_thumbnail_inner">
+                                <div class="novel_thumbnail_inner2">
+                                  <div class="novel_thumbnail_inner_picture">
+                                    <img th:src="@{'/upload/' + ${read.readUploadPath + '/' + read.readUuId + '_' + read.readFileName}}" alt="" class="novel_thumbnail_inner_picture2">
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </a>
+                          <a th:href="@{/feed}" class="book_data2">  <!--책 정보 url이동-->
+                            <div class="novel_box_content">
+                              <p class="novel_box_content_title" th:text="${read.readTitle}"></p>
+                              <p class="novel_box_content_content" th:text="${read.userNickName}"></p>
+                            </div>
+                          </a>
+                        </div>
+                      </div>
+                      <a th:href="@{/feed}">
+                      <div class="novel_box_bottom">
+                        <div class="novel_box_bottom_content" th:text="${read.readContent}"></div>
+                      </div>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+      <div class="main_book_report">
+        <div class="main_book_report_layout">
+          <a th:href="@{/board/post/main}">
+          <h3 class="main_report_title">소설 바로가기</h3>
+          </a>
+          <div class="main_report_section">
+            <div class="main_report_container">
+              <ul class="main_report_content" th:each="novel :${novelList}">
+                <li class="main_report_item">
+                  <div class="main_report_section_box">
+                    <a href="" class="main_report_detail_box">
+                      <div class="main_book_report_thumbnail">
+                      </div>
+                      <div class="main_book_report_box">
+                        <div class="main_book_report_content_title" th:text="${novel.novelTitle}"></div>
+                        <div class="main_book_report_content" th:text="${novel.novelContent}"></div>
+                      </div>
+                      <div class="main_book_report_writer_content">
+                        <img class="main_book_report_writer_content_icon" th:src="@{'/upload/' + ${novel.userProfileUploadPath + '/' + novel.userProfileUuId + '_' + novel.userProfileName}}" alt="">
+                        <div class="main_book_report_writer_content_username" th:text="${novel.userNickName}"></div>
+                      </div>
+                    </a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="main_deal">
+        <div class="main_deal_inner">
+          <a th:href="@{/board/post/main}">
+          <h3 class="main_deal_title">방금 올라온 중고장터</h3>
+          </a>
+          <div class="main_deal_layout">
+            <ul class="main_deal_wrap" th:each="deal :${dealList}">
+              <li class="main_deal_item">
+                <div class="main_deal_box">
+                  <a href=""> <!--중고거래 게시글로 이동-->
+                    <div class="main_deal_book_thumbnail">
+                      <div class="main_deal_book_thumbnail_inner">
+                        <img class="main_deal_book_img" th:src="@{'/upload/' + ${deal.dealUploadPath + '/' + deal.dealUuid + '_' + deal.dealFileName}}" alt="">
+                      </div>
+                    </div>
+                  </a>
+                  <a href="" class="main_deal_boox_content">
+                    <div class="main_deal_boox_content_box">
+                      <p class="title" th:text="${deal.dealTitle}"></p>
+                      <p th:text="${deal.userNickName}"></p>
+                    </div>
+                  </a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- 요즘 인기 -->
+      <div class="main_event">
+        <div class="main_event_inner">
+          <div class="main_event_title">요즘 인기</div>
+          <div class="main_event_content">
+            <ul class="main_event_content_layout">
+              <li class="main_event_content_box">
+                <a href="">
+                  <img th:src="@{/images/main/thumbnail1.png}" alt="">
+                </a> <!--이벤트 페이지 이동-->
+              </li>
+              <li class="main_event_content_box">
+                <a href="">
+                  <img th:src="@{/images/main/thumbnail1.png}" alt="">
+                </a> <!--이벤트 페이지 이동-->
+              </li>
+              <li class="main_event_content_box">
+                <a href="">
+                  <img th:src="@{/images/main/thumbnail1.png}" alt="">
+                </a> <!--이벤트 페이지 이동-->
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="category_popup" id="category_wrap">
+        <div class="category_popup_inner">
+          <section class="category_popup_inner_layout">
+            <section class="category_popup_content_layout">
+              <a th:href="@{/board/post/main}">
+              <span class="category_popup_title">게시판</span>
+              </a>
+
+              <div class="category_popup_content_box">
+              <span class="category_popup_content">소설 게시판</span>
+              <span class="category_popup_content">중고 게시판</span>
+              <span class="category_popup_content">자유 게시판</span>
+              </div>
+
+              <span class="category_popup_title">쪽지</span>
+              <div class="category_popup_content_box">
+              <a th:href="@{/message/letter/get}">
+              <span class="category_popup_content">받은 쪽지함</span>
+              </a>
+              <a th:href="@{/message/letter/send}">
+              <span class="category_popup_content">보낸 쪽지함</span>
+              </a>
+              </div>
+
+
+              <a th:href="@{/feed}">
+                <span class="category_popup_title">피드</span>
+              </a>
+
+              <div class="category_popup_content_box">
+              <a th:href="@{/feed}">
+              <span class="category_popup_content">포스트</span>
+              </a>
+              <a th:href="@{/feed/oneline}">
+              <span class="category_popup_content">한 줄 리뷰</span>
+              </a>
+              <a th:href="@{/feed/read}">
+              <span class="category_popup_content">독후감</span>
+              </a>
+              </div>
+
+              <span class="category_popup_title">이벤트</span>
+              <a th:href="@{/mypage/sticker}">
+                <span class="category_popup_content">스티커 신청하기</span>
+              </a>
+            </section>
+          </section>
+        </div>
+      </div>
+    </div>
+    </main>
+    <footer>
+      <div class="footer_inner">
+        <div class="footer_head">
+          <h1 class="footer_header_title">히포북</h1>
+          <ul class="footer_link">
+            <li class="footer_link_img">
+              <a href="" class="footer_link_insta"></a>
+             </li>  <!--인스타 바로가기 링크-->
+            <li class="footer_link_img">
+              <a href="" class="footer_link_kakao"></a>
+            </li>  <!-- 카카오 바로가기 링크-->
+          </ul>
+        </div>
+        <ul class="footer_services">
+          <li class="footer_services_content">
+            <a href="" class="footer_services_link">이용약관 ></a>
+          </li>
+          <li class="footer_services_content">
+            <a href="" class="footer_services_link">개인정보처리방침 ></a>
+          </li>
+          <li class="footer_services_content">
+            <a href="" class="footer_services_link">청소년보호정책 ></a>
+          </li>
+        </ul>
+        <p class="footer_copyright">Copyright © 2024 히포북 All Rights Reserved.</p>
+      </div>
+    </footer>
+  </body>
+</html>

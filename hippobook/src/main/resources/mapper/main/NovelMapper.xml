@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.hippobookproject.mapper.main.NovelMapper">
+    <select id="selectAll" resultType="NovelListDto">
+        SELECT NOVEL_TITLE, NOVEL_CONTENT, USER_ID, USER_NICKNAME, NOVEL_ID,USER_PROFILE_ID, USER_PROFILE_NAME, USER_PROFILE_UPLOAD_PATH, USER_PROFILE_UUID
+        FROM (SELECT NOVEL_TITLE, NOVEL_CONTENT, U.USER_ID, U.USER_NICKNAME, NOVEL_ID,
+                     PP.USER_PROFILE_ID, PP.USER_PROFILE_NAME, PP.USER_PROFILE_UPLOAD_PATH, PP.USER_PROFILE_UUID
+            FROM TBL_NOVEL N JOIN TBL_USER U
+                ON N.USER_ID = U.USER_ID
+             LEFT JOIN HR.TBL_USER_PROFILE PP on U.USER_ID = PP.USER_ID
+                 ORDER BY NOVEL_ID DESC)
+        WHERE <![CDATA[ROWNUM < =4]]>
+    </select>
+
+
+</mapper>

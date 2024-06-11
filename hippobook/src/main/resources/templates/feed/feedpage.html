@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>히포북</title>
+    <link rel="stylesheet" th:href="@{/css/feed/feedpage.css}">
+    <script defer th:src="@{/js/feed/feed_modal.js}"></script>
+</head>
+<body>
+
+    <header>
+        <div class="header_layout">
+            <h1 class="header_logo">
+                <div class="header_logo_layout">
+                    <a th:href="@{/}">  <!--홈페이지 버튼 -->
+                    <img th:src="@{/images/main/HippoBook_logo.png}" alt="" class="header_logo_images">
+                    </a>
+                </div>
+            </h1>
+            <div class="header_right_layout">
+                <a href=""> <!-- 알람 페이지 이동  -->
+                <img th:src="@{/images/main/alarm.png}" alt="" class="header_right_alarm">
+                </a>
+                <ul class="header_right_login">
+                    <a th:href="@{/user/login}" class="header_right_login_box">로그인</a>
+                </ul>
+            </div>
+        </div>
+
+        <div class="main_top">
+            <div class="main_top_layout">
+                <div class="main_category_btnbox">
+                    <div class="main_category_btn">
+                        <img th:src="@{/images/main/Category.png}" alt="" class="main_top_category">
+                    </div>
+                
+                </div>
+                <div class="main_top_category_tap">
+                    <ul class="main_top_category_list">
+                        <li>
+                            <a th:href="@{/mypage/int}">내 서재</a> <!-- 내 서재 이동 -->
+                        </li>
+                        <li>
+                            <a th:href="@{/feed}">피드</a> <!-- 피드 이동-->
+                        </li>    
+                        <li>
+                            <a th:href="@{/message/letter/get}">쪽지</a> <!-- 쪽지 이동 -->
+                        </li> 
+                        <li>
+                            <a th:href="@{/search}">검색</a> <!-- 검색 이동 -->
+                        </li>
+                        <li>
+                            <a th:href="@{/categorie/Categoriepage}">카테고리</a> <!-- 카테고리 이동 -->
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="feed_menu">
+            <div class="feed_menu_container">
+                <ul class="feed_menu_list">
+                    <li>
+                        <a th:href="@{/feed}" class="feed_random">
+                            <span>추천</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a th:href="@{/feed/follow}" class="feed_following">
+                            <span>팔로잉</span>
+                        </a>
+                    </li>
+                </ul>
+                <button class="feed_writer"> <!-- 클릭하면 글쓰기 종류 선택하는 팝업이 뿌려진다.-->
+                    <img th:src="@{/images/feed/writer.png}" alt="">
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        
+        <div class="sub_menu">
+            <div class="sub_container">
+                <ul class="sub_list">
+                    <li>
+                        <a th:href="@{/feed}" class="">포스트</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/feed/oneline}" class="">한 줄 리뷰</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/feed/read}" class="">독후감</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <section class="feed_contentbox">
+
+        <section class="modal_section">
+            <div class="modal">
+                <ul class="modal_ul">
+                    <a th:href="@{/feed/postwrite}">
+                        <li>포스트 쓰기</li>
+                    </a>
+                    <a th:href="@{/feed/readwrite}">
+                        <li>독서록 쓰기</li>
+                    </a>
+                    <a th:href="@{/book/info}" >
+                        <li>한 줄 리뷰</li>
+                    </a>
+                </ul>
+            </div>
+        </section>
+        <div class="feed_contentlayer">
+
+            <div class="feed_cardbox" th:each="card : ${feedList}">
+                <div class="feed_infobox">
+                    <div class="feed_metadata">
+                        <div class="feed_user">
+                            <a href="">
+                                <span class="nickname" th:text="${card.userNickname}"></span>
+                            </a>
+                        </div>
+                        <div class="feed_timebox">
+                            <span th:text="${card.feedDate}"></span>
+                        </div>
+                    </div>
+                    <th:block th:if="${session.userId != card.userId}">
+                        <button class="feed_follow_btn" th:if="${!card.isFollow}" th:data-id="${card.userId}">팔로우</button>
+                        <button class="feed_unfollow_btn" th:if="${card.isFollow}" th:data-id="${card.userId}">언팔로우</button>
+                    </th:block>
+                </div>
+                <div class="feed_cardimg">
+                    <img th:src="@{'/upload/' + ${card.feedUploadPath + '/' + card.feedUuId + '_' + card.feedFileName}}" alt="">
+                </div>
+                <div class="feed_likebox">
+                    <button class="feed_like_btn">
+                        <span class="like_icon">♡ 좋아요</span>
+                        <span class="like_sheep" th:text="${card.likeCnt}"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="category_popup" id="category_wrap">
+        <div class="category_popup_inner">
+          <section class="category_popup_inner_layout">
+            <section class="category_popup_content_layout">
+              <span class="category_popup_title">게시판</span>
+
+              <span class="category_popup_content">소설 쓰기</span>
+              <span class="category_popup_content">중고거래</span>
+              <span class="category_popup_content">독후감</span>
+              <span class="category_popup_content">자유</span>
+
+              <span class="category_popup_title2">쪽지</span>
+              <span class="category_popup_content">받은 쪽지함</span>
+              <span class="category_popup_content" style="margin-bottom: 40px">쪽지 보내기</span>
+
+              <span class="category_popup_title3">내 서재</span>
+              <span class="category_popup_title3">이벤트</span>
+              <span class="category_popup_title3">검색</span>
+              
+            </section>
+          </section>
+        </div>
+      </div>
+      </div>
+
+
+
+</body>
+</html>

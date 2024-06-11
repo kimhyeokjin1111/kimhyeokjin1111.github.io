@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.hippobookproject.mapper.book.BookMapper">
+    <select id="getBookById" parameterType="java.lang.Long" resultType="com.example.hippobookproject.dto.Categorie.BookDto">
+        SELECT BOOK_ID, BOOK_NAME, BOOK_WRITER, BOOK_DATE, PUBLISHER_ID
+        FROM TBL_BOOK
+        WHERE BOOK_ID = #{bookId}
+    </select>
+
+    <insert id="insertBook" parameterType="com.example.hippobookproject.dto.Categorie.BookDto">
+        INSERT INTO TBL_BOOK (BOOK_ID, BOOK_NAME, BOOK_WRITER, PUBLISHER_ID)
+        VALUES (#{bookId}, #{bookName}, #{bookWriter}, #{publisherId})
+    </insert>
+
+    <update id="updateBook" parameterType="com.example.hippobookproject.dto.Categorie.BookDto">
+        UPDATE TBL_BOOK
+        SET BOOK_NAME = #{bookName}, BOOK_WRITER = #{bookWriter}, PUBLISHER_ID = #{publisherId}
+        WHERE BOOK_ID = #{bookId}
+    </update>
+
+    <delete id="deleteBookById" parameterType="java.lang.Long">
+        DELETE FROM TBL_BOOK WHERE BOOK_ID = #{bookId}
+    </delete>
+
+
+    <insert id="insertAllBook" parameterType="AladinItemDto">
+        INSERT INTO TBL_BOOK(BOOK_ID, BOOK_NAME, BOOK_WRITER, BOOK_DATE, LINK, DESCRIPTION, COVER,ISBN,PUBLISHER_ID,CATEGORY)
+        VALUES (SEQ_BOOK.nextval, #{title}, #{author},#{pubDate},#{link},#{description},#{cover},#{isbn},#{publisher},#{categoryName})
+    </insert>
+
+    <select id="selectIsbn" resultType="String">
+        SELECT ISBN
+        FROM TBL_BOOK
+    </select>
+
+    <select id="selectBookInfo" resultType="BookInfoDto">
+        SELECT B.BOOK_ID, BOOK_NAME, BOOK_WRITER, BOOK_DATE, LINK, DESCRIPTION,
+               COVER, PUBLISHER_ID PUB_NAME, ISBN, CATEGORY, NVL(BOOK_HAS_CNT, 0)
+            FROM TBL_BOOK B LEFT JOIN (SELECT BOOK_ID, COUNT(USER_ID) BOOK_HAS_CNT
+                                      FROM TBL_BOOK_HAS
+                                      GROUP BY BOOK_ID) BH
+        ON B.BOOK_ID = BH.BOOK_ID
+        WHERE B.BOOK_ID = #{bookId}
+    </select>
+
+    <insert id="insertBookHas">
+        INSERT INTO TBL_BOOK_HAS (BOOK_HAS_ID, BOOK_HAS_PERCENT, BOOKCASE_ID, BOOK_ID, USER_ID)
+        VALUES (SEQ_BOOK_HAS.nextval, '안읽음', #{bookcaseId}, #{bookId}, #{userId})
+    </insert>
+
+    <select id="selectBookHas">
+        SELECT COUNT(BOOK_HAS_ID)
+            FROM TBL_BOOK_HAS
+        WHERE BOOK_ID = #{bookId} AND USER_ID = ${userId}
+    </select>
+
+    <insert id="insertBookComment">
+        INSERT INTO TBL_BOOK_COMMENT(BOOK_COMMENT_ID, BOOK_COMMENT_CONTENT, USER_ID, BOOK_ID)
+        VALUES (SEQ_BOOK_COMMENT.nextval, #{bookCommentContent}, #{userId}, #{bookId})
+    </insert>
+
+    <select id="selectBookCommentAll">
+        SELECT COUNT(BOOK_COMMENT_ID)
+            FROM TBL_BOOK_COMMENT
+        WHERE BOOK_ID = #{bookId}
+    </select>
+
+</mapper>

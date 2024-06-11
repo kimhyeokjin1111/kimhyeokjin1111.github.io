@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>히포북</title>
+    <link rel="stylesheet" th:href="@{/css/feed/postwrite.css}" />
+    <script defer th:src="@{/js/feed/postwrite.js}"></script>
+  </head>
+  <body>
+    <header>
+      <div class="header_layout">
+        <h1 class="header_logo">
+          <div class="header_logo_layout">
+            <a href="">
+              <!--홈페이지 버튼 -->
+              <img
+                th:src="@{/images/main/HippoBook_logo.png}"
+                alt=""
+                class="header_logo_images"
+              />
+            </a>
+          </div>
+        </h1>
+        <div class="header_right_layout">
+          <a href="">
+            <!-- 알람 페이지 이동  -->
+            <img th:src="@{/images/main/alarm.png}" alt="" class="header_right_alarm" />
+          </a>
+          <ul class="header_right_login">
+            <a href="" class="header_right_login_box">로그인</a>
+          </ul>
+        </div>
+      </div>
+
+      <div class="main_top">
+        <div class="main_top_layout">
+          <a href="#" onclick="return false"> 
+            <!-- 카테고리  -->
+                <img th:src="@{/images/main/Category.png}" alt="" class="main_top_category">
+          </a>
+          <div class="main_top_category_tap">
+            <ul class="main_top_category_list">
+              <li>
+                <a href="">내 서재</a>
+                <!-- 내 서재 이동 -->
+              </li>
+              <li>
+                <a href="">피드</a>
+                <!-- 피드 이동-->
+              </li>
+              <li>
+                <a href="">쪽지</a>
+                <!-- 쪽지 이동 -->
+              </li>
+              <li>
+                <a href="">내서재</a>
+                <!-- 내 서재 이동 -->
+              </li>
+              <li>
+                <a href="">검색</a>
+                <!-- 검색 이동 -->
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="read_writebox">
+        <form action="" class="read_write_input">
+            <span>제목</span>
+            <div class="read_titlebox">
+                <input type="text" class="read_titleinput"
+                placeholder="  이곳에 제목을 입력하세요" >
+            </div>
+            <div class="post_infoarea">
+            <span>히포북 정보</span>
+              <div class="post_infoBtn">
+              <button type="button" class="post_bookBtn" onclick="BookPopUp();">검색</button>
+              </div>
+            </div>
+            <span>목차</span>
+            <div class="read_onelinebox">
+              <textarea
+              cols="50"
+              rows="30"
+              placeholder="이곳에 목차를 입력하세요"
+          ></textarea>
+            </div>
+            <span>책 저자</span>
+            <div class="read_datebox">
+                <input type="text" class="read_dateinput"
+                placeholder="   이곳에 저자를 입력하세요"
+                style="font-size: 12px;">
+            </div>
+            <span>저자 소개</span>
+            <div class="read_onelinebox">
+              <textarea
+              cols="100"
+              rows="10"
+              placeholder="이곳에 저자를 소개하세요"
+          ></textarea>
+            </div>
+            <span>카테고리</span>
+            <div class="read_datebox">
+                <input type="text" class="read_dateinput"
+                placeholder="   이곳에 카테고리를 입력하세요"
+                style="font-size: 12px;">
+            </div>
+            <span>페이지 수</span>
+            <div class="read_datebox">
+                <input type="text" class="read_dateinput"
+                placeholder="   이곳에 페이지 수를 입력하세요"
+                style="font-size: 12px;">
+            </div>
+            <span>출판사</span>
+            <div class="read_datebox">
+                <input type="text" class="read_dateinput"
+                placeholder="   이곳에 출판사를 입력하세요"
+                style="font-size: 12px;">
+            </div>
+            <span>출판사 서평</span>
+            <div class="read_onelinebox">
+              <textarea
+              cols="100"
+              rows="30"
+              placeholder="이곳에 출판사 서평을 입력하세요"
+          ></textarea>
+            </div>
+            <span>책 소개</span>
+                <div class="read_contentbox">
+                <textarea
+                    cols="100"
+                    rows="50"
+                    placeholder="이곳에 책을 소개하세요"
+                ></textarea>
+                </div>
+                
+                <div class="read—btnbox">
+                    <button class="read_btn">작성</button> 
+                </div>
+        </form>
+        
+        </div>
+    </main>
+
+<!--    책 info 검색 모달 창-->
+    <section class="book_infoarea">
+      <div class="book_modal">
+        <div class="Xbtn-box">x</div>
+            <div class="book_selectbox">
+            <select name="book_info" id="book_info">
+              <option value="" >제목</option>
+              <option value="" >저자</option>
+            </select>
+            </div>
+        <div class="book_search">
+          검색 : <input type="text" name="keyword">
+          <button class="book_btn">검색</button>
+        </div>
+        <div class="book_selectarea">
+        <table class="book_select">
+          <th>저자</th>
+          <th>제목</th>
+          <th></th>
+        <!-- 첫번째 행-->
+          <tr th:each="book : ${postList}" class="book_tr">
+            <td th:text="${book.bookWriter}"></td>
+            <td th:text="${book.bookName}"></td>
+            <td class="book_radioBox"><input class="book_radio" type="radio"></td>
+          </tr>
+        </table>
+        </div>
+        <div class="book_submitBtn">
+          <button type="button">선택</button>
+        </div>
+      </div>
+    </section>
+
+<!--    책 정보받는 hidden 태그-->
+    <input type="hidden" class="book_info_hiddenBox">
+
+<!--    카테고리 모달 창-->
+    <div class="category_popup" id="category_wrap">
+      <div class="category_popup_inner">
+        <section class="category_popup_inner_layout">
+          <section class="category_popup_content_layout">
+            <span class="category_popup_title">게시판</span>
+
+            <span class="category_popup_content">소설 쓰기</span>
+            <span class="category_popup_content">중고거래</span>
+            <span class="category_popup_content">독후감</span>
+            <span class="category_popup_content">자유</span>
+
+            <span class="category_popup_title2">쪽지</span>
+            <span class="category_popup_content">받은 쪽지함</span>
+            <span class="category_popup_content" style="margin-bottom: 40px">쪽지 보내기</span>
+
+            <span class="category_popup_title3">내 서재</span>
+            <span class="category_popup_title3">이벤트</span>
+            <span class="category_popup_title3">검색</span>
+            
+          </section>
+        </section>
+      </div>
+    </div>
+    </div>
+  </body>
+</html>

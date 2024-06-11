@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.hippobookproject.mapper.declaration.DeclarationMapper">
+    <insert id="insertPostDecl" >
+        insert into TBL_POST_DECLARATION (POST_DECLARATION_ID, POST_DECLARATION_CONTENT,
+                                          POST_DECLARATION_CHECK, POST_ID, POST_CATE, USER_ID,
+                                          POST_DECL_READ)
+        values (SEQ_POST_DECLARATION.nextval, #{declContent}, 'N', #{targetId}, #{declCate}, #{userId}, 'N')
+    </insert>
+
+    <insert id="insertCommentDecl">
+        insert into TBL_COMMENT_DECLARATION (COMMENT_DECLARATION_ID, COMMENT_DECLARATION_CONTENT,
+                                             COMMENT_DECLARATION_CHECK, COMMENT_ID, COMMENT_CATE, USER_ID,
+                                             COMMENT_DECL_READ)
+        values (SEQ_COMMENT_DECLARATION.nextval, #{declContent}, 'N', #{targetId}, #{declCate}, #{userId}, 'N')
+    </insert>
+
+    <insert id="insertFeedDecl">
+        insert into TBL_FEED_DECLARATION (FEED_DECLARATION_ID, FEED_DECLARATION_CONTENT,
+                                          FEED_DECLARATION_CHECK, FEED_ID, USER_ID,
+                                          FEED_DECL_READ)
+        values (SEQ_FEED_DECLARATION.nextval, #{declContent}, 'N', #{targetId}, #{userId}, 'N')
+    </insert>
+</mapper>
