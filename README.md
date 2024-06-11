@@ -1,19 +1,16 @@
-## :pushpin: 프로필
+## 프로필
 
 - 이름: 김혁진
 - 1999.11.11 출생
 - phone: 010-9406-3580
 - Email: r3rumasi2@gmail.com
 - GitHub: [github.com/kimhyeokjin1111](https://github.com/kimhyeokjin1111)
-</br>
+
 
 > 한경대학교 졸업(2018.03-2024.02)  
 > 경동고등학교 졸업(2015.03-2018.02)
-> 
 
-</br>
-
-## :pushpin: attitude
+##  attitude
 ```
 여러 방법을 적용할 수 있는 유연한 사고를 가진 개발자를 목표로 하고 있습니다.
 ```
@@ -28,9 +25,9 @@
 <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=white">
 <img src="https://img.shields.io/badge/CSS-1572B6?style=for-the-badge&logo=CSS3&logoColor=white">
 
-</br>
 
-## :pushpin: 툴
+
+## 툴
 
 <img src="https://img.shields.io/badge/eclipseide-2C2255?style=for-the-badge&logo=eclipseide&logoColor=white">
 <img src="https://img.shields.io/badge/intellijidea-000000?style=for-the-badge&logo=intellijidea&logoColor=white">
@@ -38,9 +35,9 @@
 <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">
 <img src="https://img.shields.io/badge/visual studio code-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white">
 
-</br>
 
-## :pushpin: 프로젝트
+
+## 프로젝트
 ### 1. [hippoBook](https://github.com/Integerous/goQuality)
 >개인 책장 서비스 및 커뮤니티 사이트 (팀 프로젝트)  
 >개발 기간: 2024.4.21 ~ 2024.5.30 
@@ -49,13 +46,11 @@
 >Java 17 / Spring Boot / JSP / html / Javascript
 >Oracle / MyBatis
 
-</br>
 
 ## 1. 제작 기간 & 참여 인원
 - 2024년 4월 27일 ~ 5월 30일
 - 팀 프로젝트
 
-</br>
 
 ## 2. 사용 기술
 #### `Back-end`
@@ -64,14 +59,9 @@
   - Gradle
   - Oracle 11.2.0
 
-</br>
 
 ## 3. ERD 설계
-<p align="center">  
-  
   ![ddl](https://github.com/kimhyeokjin1111/myGitHub/assets/159498606/2aadb451-ce7d-41f3-9d20-cfaa95442b8e)
-  
-</p>
 
 ## 4. 핵심 기능
 
