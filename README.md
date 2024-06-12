@@ -84,7 +84,7 @@ OpenAi API를 활용하여 Client의 요청(질문)에 대해 응답해줍니다
   - 화면단에서 th:if를 이용해 session.userId이 null인지 확인합니다.
   - null이라면 모달버튼을 생성하지 않습니다.
     
-[chatbot.html 코드 확인](hippobook/src/main/resources/templates/chatbot/chatbot.html)
+[chatbot.html 코드 확인](hippobook/src/main/resources/templates/chatbot)
 
 - **Fetch 비동기 요청** 
   - 사용자의 채팅를 POST방식으로 비동기 요청을 날립니다.
