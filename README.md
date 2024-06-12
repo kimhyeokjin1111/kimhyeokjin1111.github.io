@@ -92,7 +92,7 @@ OpenAi API를 활용하여 Client의 요청(질문)에 대해 응답해줍니다
   - (요청 보냈을 때 채팅이 url상에 노출되는 점과 채팅에 특수문자가 있는 경우 데이터가 손상되는 점  
     REST단에서 채팅에 대한 OpenAi의 답변을 받고 이를 데이터베이스에 INSERT처리를 하는 점을 고려해 POST방식으로 명시해주었습니다.)
     
-[chatbot.js 코드 확인](hippobook/src/main/resources/static/js/chatbot/chatbot.js)
+[chatbot.js 코드 확인](https://github.com/kimhyeokjin1111/kimhyeokjin1111.github.io/blob/47767365200b5dac7c990af4edc13e14d2054972/hippobook/src/main/resources/static/js/chatbot/chatbot.js)
  
 ### 4.1.3. RestController
 
@@ -102,7 +102,7 @@ OpenAi API를 활용하여 Client의 요청(질문)에 대해 응답해줍니다
 - **결과 응답** 
   - Service 계층에서 넘어온 로직 처리 결과(OpenAi의 답변)를 화면단에 응답해줍니다.
  
-[ChatbotApi.java 코드 확인](hippobook/src/main/java/com/example/hippobookproject/api/chatbot/ChatbotApi.java)
+[ChatbotApi.java 코드 확인](https://github.com/kimhyeokjin1111/kimhyeokjin1111.github.io/blob/47767365200b5dac7c990af4edc13e14d2054972/hippobook/src/main/java/com/example/hippobookproject/api/chatbot/ChatbotApi.java)
 
 ### 4.1.4. Service
 
@@ -117,7 +117,7 @@ OpenAi API를 활용하여 Client의 요청(질문)에 대해 응답해줍니다
 - **채팅 내역 저장하기** 
   - 사용자 채팅과 api통신의 response의 컨텐츠에 접근하여 답변을 데이터베이스단에 전달합니다.  
 
-[ChatbotService.java 코드 확인](hippobook/src/main/java/com/example/hippobookproject/service/chatbot/ChatbotService.java)
+[ChatbotService.java 코드 확인](https://github.com/kimhyeokjin1111/kimhyeokjin1111.github.io/blob/47767365200b5dac7c990af4edc13e14d2054972/hippobook/src/main/java/com/example/hippobookproject/service/chatbot/ChatbotService.java)
 
 ### 4.1.5. Database
 
