@@ -42,7 +42,7 @@
 >개발 기간: 2024.4.21 ~ 2024.5.30 
 >  
 >기술 스택:  
->Java 17 / Spring Boot / JSP / html / Javascript
+>Java 17 / Spring Boot / JSP / html / Javascript /
 >Oracle / MyBatis
 
 
