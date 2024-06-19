@@ -149,3 +149,6 @@ OpenAi API를 활용하여 Client의 요청(질문)에 대해 응답해줍니다
 ![GIF 2024-06-10 오전 9-01-17](https://github.com/kimhyeokjin1111/myGitHub/assets/159498606/1b51b26d-e476-4608-a7ce-8933c243c687)
   - 게시글 뷰 페이지
 ![GIF 2024-06-10 오전 9-05-30](https://github.com/kimhyeokjin1111/myGitHub/assets/159498606/6f59afff-5bc2-4987-83e3-b458559216f2)
+
+## 배포
+![KakaoTalk_20240618_095748382](https://github.com/kimhyeokjin1111/kimhyeokjin1111.github.io/assets/159498606/add39290-8517-4511-b700-b9dbf444b611)
