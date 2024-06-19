@@ -152,7 +152,7 @@ OpenAi API를 활용하여 Client의 요청(질문)에 대해 응답해줍니다
 
 ## 배포
 ![KakaoTalk_20240618_095748382](https://github.com/kimhyeokjin1111/kimhyeokjin1111.github.io/assets/159498606/add39290-8517-4511-b700-b9dbf444b611)
-- **서버**
+**서버**
 - 오라클 클라우드
 - AWS(EC2)
 
