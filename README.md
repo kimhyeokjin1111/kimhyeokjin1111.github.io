@@ -193,4 +193,8 @@ EC2 서버에 .pem 파일을 통해 연결 후 원격 저장소를 클론하여 
   - JavaScript
   - Typmeleaf
 
+## 3. ERD 설계
+  ![ddl](https://github.com/user-attachments/assets/3201cb59-e770-4bb5-8118-c26cbeeea204)
+
+
 ## [프로필](#프로필)
