@@ -241,23 +241,29 @@ PG사와의 연동을 단일 규격으로 통합 관리하여 개발 생산성�
 
 ### 4.1.4. Service
 
-- **과거 채팅 내역 불러오기** 
-  - 데이터베이스단에서 채팅 내역을 받아옵니다.
-  - OpenApi API 요청body의 message에 과거 채팅 내역을 추가해줍니다.
+- **포트원 결제 데이터 요청** 
+  - apiKey와 secretKey 정보를 생성자 주입한 iamportClient 객체를 통해 결제 정보를 전달받습니다. 
 
-- **OpenAi API endpoint로 웹 통신** 
-  - WebClient 만들어진 body를 endpoint에 요청해줍니다.
-  - 공식사이트에 명시된대로 POST방식을 사용해주고 response 1개의 값을 리턴받기 위해 bodyToMono로 사용하였습니다.
+- **데이터 위변조 검증** 
+  - 포트원 결제정보와 프론트단에서 전달 받은 검증 데이터의 가격을 서로 대조합니다.
+    - 성공시
+      결제 정보를 payments엔티티로 builder하여 저장합니다.
+      성공 여부를 RestController에 응답합니다.
+    - 실패시 
+      실패 여부를 RestController에 응답합니다. 
 
 - **채팅 내역 저장하기** 
   - 사용자 채팅과 api통신의 response의 컨텐츠에 접근하여 답변을 데이터베이스단에 전달합니다.  
 
-[ChatbotService.java 코드 확인](https://github.com/kimhyeokjin1111/kimhyeokjin1111.github.io/blob/47767365200b5dac7c990af4edc13e14d2054972/hippobook/src/main/java/com/example/hippobookproject/service/chatbot/ChatbotService.java)
+[PaymentApiService.java 코드 확인](pika/src/main/java/com/numlock/pika/service/payment/PaymentApiService.java)
 
 ### 4.1.5. Database
 
 - **결제 데이터 저장**
-  - 가격 검증을 마친 결제 데이털르 읽어 service단으로 넘깁니다.
-  - service단에서 넘어온 채팅 내역을 데이터베이스에 저장합니다.
+  - Payments - 도메인 클래스 정의 (Product, Buyer, Seller 정보 포함)
+  - 가격 검증을 마친 결제 데이터를 paymentRepository에 넘겨 save 처리합니다.
+
+[Payments.java 코드 확인](pika/src/main/java/com/numlock/pika/domain/Payments.java)
+[PaymentRepository.java 코드 확인](pika/src/main/java/com/numlock/pika/repository/PaymentRepository.java)
 
 ## [프로필](#프로필)
