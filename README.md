@@ -224,8 +224,7 @@ PG사와의 연동을 단일 규격으로 통합 관리하여 개발 생산성�
   - 화면단에서 포트원 api를 통해 결제요청을 합니다.
   - 포트원에서 결제 요청 후 결제 성공 시 url(/api/payment/validation)로 응답을 보냅니다. 
     
-[preview.html 코드 확인] (https://github.com/kimhyeokjin1111/kimhyeokjin1111.github.io/blob/47767365200b5dac7c990af4edc13e14d2054972/hippobook/src/main/resources/templates/chatbot/chatbot.html
-)
+[preview.html 코드 확인](pika/src/main/resources/templates/payment/preview.html)
 
 - **Fetch 비동기 요청** 
   - 사용자의 채팅를 POST방식으로 비동기 요청을 날립니다.
