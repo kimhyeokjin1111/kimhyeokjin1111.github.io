@@ -76,9 +76,9 @@ OpenAi API를 활용하여 Client의 요청(질문)에 대해 응답해줍니다
   <img src="https://github.com/kimhyeokjin1111/myGitHub/assets/159498606/78f131bf-120d-4d00-aa66-f7e50a39f6b0">
 </p>
 <p align="center">
-  <img width="654" height="712" alt="Image" src="https://github.com/user-attachments/assets/1a788e5d-2cb3-467b-8231-b31bffc37146" />
-  <img width="836" height="712" alt="Image" src="https://github.com/user-attachments/assets/bfd74671-593f-4fdf-8edb-70f65d687ec6" />
-  <img width="832" height="712" alt="Image" src="https://github.com/user-attachments/assets/91153ab5-02aa-4169-bf74-8e14d737988c" />
+  <img src="https://github.com/kimhyeokjin1111/myGitHub/assets/159498606/d00a303b-f3d8-4cf9-be7a-c74474197e2d" width=300 margin-right=10>
+  <img src="https://github.com/kimhyeokjin1111/myGitHub/assets/159498606/6f2142c8-9ef8-4878-9e2c-f50a77a1bf7b" width=300 margin-right=10>
+  <img src="https://github.com/kimhyeokjin1111/myGitHub/assets/159498606/7efccc75-3aea-499b-82a9-9c3c6dd9f881" width=300>
 </p>
 
 ### 4.1.2. 사용자 요청
@@ -212,18 +212,19 @@ PG사와의 연동을 단일 규격으로 통합 관리하여 개발 생산성�
   <img src="https://github.com/user-attachments/assets/2c84e4c2-4b9f-4cfa-b156-5dca0ba9463a">
 </p>
 <p align="center">
-  <img src="https://github.com/kimhyeokjin1111/myGitHub/assets/159498606/d00a303b-f3d8-4cf9-be7a-c74474197e2d" width=300 margin-right=10>
-  <img src="https://github.com/kimhyeokjin1111/myGitHub/assets/159498606/6f2142c8-9ef8-4878-9e2c-f50a77a1bf7b" width=300 margin-right=10>
-  <img src="https://github.com/kimhyeokjin1111/myGitHub/assets/159498606/7efccc75-3aea-499b-82a9-9c3c6dd9f881" width=300>
+  <img width="300" height="200" alt="Image" src="https://github.com/user-attachments/assets/1a788e5d-2cb3-467b-8231-b31bffc37146" />
+  <img width="300" height="300" alt="Image" src="https://github.com/user-attachments/assets/bfd74671-593f-4fdf-8edb-70f65d687ec6" />
+  <img width="300" height="300" alt="Image" src="https://github.com/user-attachments/assets/91153ab5-02aa-4169-bf74-8e14d737988c" />
 </p>
 
-### 4.1.2. 사용자 요청
 
-- **Session userId 체크** 
-  - 화면단에서 th:if를 이용해 session.userId이 null인지 확인합니다.
-  - null이라면 모달버튼을 생성하지 않습니다.
+### 4.1.2. 구매자 요청
+
+- **구매자 요청** 
+  - 화면단에서 포트원 api를 통해 결제요청을 합니다.
+  - 포트원에서 결제 요청 후 결제 성공 시 url(/api/payment/validation)로 응답을 보냅니다. 
     
-[chatbot.html 코드 확인](https://github.com/kimhyeokjin1111/kimhyeokjin1111.github.io/blob/47767365200b5dac7c990af4edc13e14d2054972/hippobook/src/main/resources/templates/chatbot/chatbot.html
+[preview.html 코드 확인 (https://github.com/kimhyeokjin1111/kimhyeokjin1111.github.io/blob/47767365200b5dac7c990af4edc13e14d2054972/hippobook/src/main/resources/templates/chatbot/chatbot.html
 )
 
 - **Fetch 비동기 요청** 
@@ -260,8 +261,8 @@ PG사와의 연동을 단일 규격으로 통합 관리하여 개발 생산성�
 
 ### 4.1.5. Database
 
-- **채팅 내역 검색 및 저장**
-  - session.userId와 일치하는 사용자 채팅 내역을 읽어 service단으로 넘깁니다.
+- **결제 데이터 저장**
+  - 가격 검증을 마친 결제 데이털르 읽어 service단으로 넘깁니다.
   - service단에서 넘어온 채팅 내역을 데이터베이스에 저장합니다.
 
 ## [프로필](#프로필)
