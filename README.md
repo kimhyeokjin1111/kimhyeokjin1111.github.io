@@ -38,8 +38,8 @@
 
 
 ## 프로젝트
-- [1. hippoBook](#hippobook)(2024.4.21~2024.5.30)
-- [2. pika](#pika)(2025.12.15~2025.1.9)
+- 1. [ hippoBook](#hippobook) (2024.4.21~2024.5.30)
+- 2. [ pika](#pika) (2025.12.15~2025.1.9)
 
 ## HippoBook
 >개인 책장 서비스 및 커뮤니티 사이트 (팀 프로젝트)  
@@ -201,12 +201,15 @@ EC2 서버에 .pem 파일을 통해 연결 후 원격 저장소를 클론하여 
 
 ### 4.1. (PortOne api)
 복잡한 결제 프로세스를 표준화된 인터페이스로 추상화하기 위해 portOne(구 I'mport) API를 도입하여 결제 시스템의 유연성을 확보하였습니다. 
-PG사와의 연동을 단일 규격으로 통합 관리하여 개발 생산성을 높였으며, 결제 사전/사후 검증 로직을 철저히 구현하여 금전 거래 시 발생할 수 있는 데이터 위변조를 방지하고 트랜잭션의 신뢰성을 보장하였습니다.
-<img width="2915" height="41" alt="image" src="https://github.com/user-attachments/assets/e358cd57-068c-4f48-9fa9-73e9196c9e60" />
+PG사와의 연동을 단일 규격으로 통합 관리하여 개발 생산성을 높였으며, 
+결제 사전/사후 검증 로직을 철저히 구현하여 금전 거래 시 발생할 수 있는 데이터 위변조를 방지하고 트랜잭션의 신뢰성을 보장하였습니다.
 
 ### 4.1.1. 전체 흐름
 <p align="center">
-  <img src="https://github.com/kimhyeokjin1111/myGitHub/assets/159498606/78f131bf-120d-4d00-aa66-f7e50a39f6b0">
+  <img src="https://github.com/user-attachments/assets/85cabdcd-9971-41e8-bce2-cd35906fa82e">
+</p>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/2c84e4c2-4b9f-4cfa-b156-5dca0ba9463a">
 </p>
 <p align="center">
   <img src="https://github.com/kimhyeokjin1111/myGitHub/assets/159498606/d00a303b-f3d8-4cf9-be7a-c74474197e2d" width=300 margin-right=10>
