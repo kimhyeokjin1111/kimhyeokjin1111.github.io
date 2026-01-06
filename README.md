@@ -224,7 +224,7 @@ PG사와의 연동을 단일 규격으로 통합 관리하여 개발 생산성�
   - 화면단에서 포트원 api를 통해 결제요청을 합니다.
   - 포트원에서 결제 요청 후 결제 성공 시 url(/api/payment/validation)로 응답을 보냅니다. 
     
-[preview.html 코드 확인](https://github.com/kimhyeokjin1111/kimhyeokjin1111.github.io/blob/main/pika/src/main/resources/templates/payment/preview.html)
+[preview.html 코드 확인](https://github.com/kimhyeokjin1111/kimhyeokjin1111.github.io/blob/ea06787cdbdfaf39f0c7d6989a22e7c35c34b787/pika/src/main/resources/templates/payment/preview.html)
 
 ### 4.1.3. RestController
 
@@ -237,7 +237,7 @@ PG사와의 연동을 단일 규격으로 통합 관리하여 개발 생산성�
 - **결과 응답** 
   - Service 계층에서 넘어온 저장된 결제 데이터 및 결제 성공 여부를 화면단에 응답해줍니다.
  
-[PaymentApiController.java 코드 확인](https://github.com/kimhyeokjin1111/kimhyeokjin1111.github.io/blob/main/pika/src/main/java/com/numlock/pika/controller/payment/PaymentApiController.java)
+[PaymentApiController.java 코드 확인](https://github.com/kimhyeokjin1111/kimhyeokjin1111.github.io/blob/ea06787cdbdfaf39f0c7d6989a22e7c35c34b787/pika/src/main/java/com/numlock/pika/controller/payment/PaymentApiController.java)
 
 ### 4.1.4. Service
 
@@ -252,7 +252,7 @@ PG사와의 연동을 단일 규격으로 통합 관리하여 개발 생산성�
     - 실패시 
       실패 여부를 RestController에 응답합니다. 
 
-[PaymentApiService.java 코드 확인](https://github.com/kimhyeokjin1111/kimhyeokjin1111.github.io/blob/main/pika/src/main/java/com/numlock/pika/service/payment/PaymentApiService.java)
+[PaymentApiService.java 코드 확인](https://github.com/kimhyeokjin1111/kimhyeokjin1111.github.io/tree/ea06787cdbdfaf39f0c7d6989a22e7c35c34b787/pika/src/main/java/com/numlock/pika/service/payment)
 
 ### 4.1.5. Database
 
@@ -260,8 +260,8 @@ PG사와의 연동을 단일 규격으로 통합 관리하여 개발 생산성�
   - Payments - 도메인 클래스 정의 (Product, Buyer, Seller 정보 포함)
   - 가격 검증을 마친 결제 데이터를 paymentRepository에 넘겨 save 처리합니다.
 
-[Payments.java 코드 확인](https://github.com/kimhyeokjin1111/kimhyeokjin1111.github.io/blob/main/pika/src/main/java/com/numlock/pika/domain/Payments.java)  
-[PaymentRepository.java 코드 확인](https://github.com/kimhyeokjin1111/kimhyeokjin1111.github.io/blob/main/pika/src/main/java/com/numlock/pika/repository/PaymentRepository.java)
+[Payments.java 코드 확인](https://github.com/kimhyeokjin1111/kimhyeokjin1111.github.io/blob/ea06787cdbdfaf39f0c7d6989a22e7c35c34b787/pika/src/main/java/com/numlock/pika/domain/Payments.java)  
+[PaymentRepository.java 코드 확인](https://github.com/kimhyeokjin1111/kimhyeokjin1111.github.io/blob/ea06787cdbdfaf39f0c7d6989a22e7c35c34b787/pika/src/main/java/com/numlock/pika/repository/PaymentRepository.java)
 
 ## 5. 담당 파트 
 
