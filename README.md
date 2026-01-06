@@ -46,8 +46,7 @@
 >개발 기간: 2024.4.21 ~ 2024.5.30 
 >  
 >기술 스택:  
->Java 17 / Spring Boot / JSP / html / Javascript /
->Oracle / MyBatis
+>Java 17 / Spring Boot / JSP / html / Javascript / Oracle / MyBatis
 
 
 ## 1. 제작 기간 & 참여 인원
@@ -173,8 +172,7 @@ EC2 서버에 .pem 파일을 통해 연결 후 원격 저장소를 클론하여 
 >개발 기간: 2025.12.15 ~ 2026.1.9 
 >  
 >기술 스택:  
->Java 17 / Spring Boot / JPA / html / Javascript / CSS
->Oracle
+>Java 17 / Spring Boot / JPA / html / Javascript / CSS / Oracle
 
 
 ## 1. 제작 기간 & 참여 인원
