@@ -252,9 +252,6 @@ PG사와의 연동을 단일 규격으로 통합 관리하여 개발 생산성�
     - 실패시 
       실패 여부를 RestController에 응답합니다. 
 
-- **채팅 내역 저장하기** 
-  - 사용자 채팅과 api통신의 response의 컨텐츠에 접근하여 답변을 데이터베이스단에 전달합니다.  
-
 [PaymentApiService.java 코드 확인](pika/src/main/java/com/numlock/pika/service/payment/PaymentApiService.java)
 
 ### 4.1.5. Database
@@ -263,7 +260,7 @@ PG사와의 연동을 단일 규격으로 통합 관리하여 개발 생산성�
   - Payments - 도메인 클래스 정의 (Product, Buyer, Seller 정보 포함)
   - 가격 검증을 마친 결제 데이터를 paymentRepository에 넘겨 save 처리합니다.
 
-[Payments.java 코드 확인](pika/src/main/java/com/numlock/pika/domain/Payments.java)
+[Payments.java 코드 확인](pika/src/main/java/com/numlock/pika/domain/Payments.java)  
 [PaymentRepository.java 코드 확인](pika/src/main/java/com/numlock/pika/repository/PaymentRepository.java)
 
 ## [프로필](#프로필)
