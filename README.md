@@ -263,4 +263,14 @@ PG사와의 연동을 단일 규격으로 통합 관리하여 개발 생산성�
 [Payments.java 코드 확인](pika/src/main/java/com/numlock/pika/domain/Payments.java)  
 [PaymentRepository.java 코드 확인](pika/src/main/java/com/numlock/pika/repository/PaymentRepository.java)
 
+## 5. 담당 파트 
+
+- **상품 페이지**
+  - 상품 판매 페이지
+  - 상품 상세 페이지
+  - 상품 결제 페이지
+  **알람**
+  - 헤더 내 알람 기능
+    
+
 ## [프로필](#프로필)
