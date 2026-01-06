@@ -38,8 +38,8 @@
 
 
 ## 프로젝트
-- [1. hippoBook](#hippobook)
-- [2. pika](#pika)
+- [1. hippoBook(2024.4.21~2024.5.30](#hippobook)
+- [2. pika(2025.12.15~2025.1.9)](#pika)
 
 ## HippoBook
 >개인 책장 서비스 및 커뮤니티 사이트 (팀 프로젝트)  
@@ -128,7 +128,7 @@ OpenAi API를 활용하여 Client의 요청(질문)에 대해 응답해줍니다
   - session.userId와 일치하는 사용자 채팅 내역을 읽어 service단으로 넘깁니다.
   - service단에서 넘어온 채팅 내역을 데이터베이스에 저장합니다.
 
-## 4. 담당 파트 
+## 5. 담당 파트 
 
 - **관리자 페이지**
   - 사용자 검색 페이지
@@ -186,6 +186,7 @@ EC2 서버에 .pem 파일을 통해 연결 후 원격 저장소를 클론하여 
   - Spring Boot 3.0
   - Gradle
   - Oracle 11.2.0
+  - Websocket protocol
 
 #### `Front-end`
   - HTML
@@ -196,5 +197,68 @@ EC2 서버에 .pem 파일을 통해 연결 후 원격 저장소를 클론하여 
 ## 3. ERD 설계
   ![ddl](https://github.com/user-attachments/assets/3201cb59-e770-4bb5-8118-c26cbeeea204)
 
+## 4. 핵심 기능
+
+### 4.1. (PortOne api)
+복잡한 결제 프로세스를 표준화된 인터페이스로 추상화하기 위해 portOne(구 I'mport) API를 도입하여 결제 시스템의 유연성을 확보하였습니다. 
+PG사와의 연동을 단일 규격으로 통합 관리하여 개발 생산성을 높였으며, 결제 사전/사후 검증 로직을 철저히 구현하여 금전 거래 시 발생할 수 있는 데이터 위변조를 방지하고 트랜잭션의 신뢰성을 보장하였습니다.
+<img width="2915" height="41" alt="image" src="https://github.com/user-attachments/assets/e358cd57-068c-4f48-9fa9-73e9196c9e60" />
+
+### 4.1.1. 전체 흐름
+<p align="center">
+  <img src="https://github.com/kimhyeokjin1111/myGitHub/assets/159498606/78f131bf-120d-4d00-aa66-f7e50a39f6b0">
+</p>
+<p align="center">
+  <img src="https://github.com/kimhyeokjin1111/myGitHub/assets/159498606/d00a303b-f3d8-4cf9-be7a-c74474197e2d" width=300 margin-right=10>
+  <img src="https://github.com/kimhyeokjin1111/myGitHub/assets/159498606/6f2142c8-9ef8-4878-9e2c-f50a77a1bf7b" width=300 margin-right=10>
+  <img src="https://github.com/kimhyeokjin1111/myGitHub/assets/159498606/7efccc75-3aea-499b-82a9-9c3c6dd9f881" width=300>
+</p>
+
+### 4.1.2. 사용자 요청
+
+- **Session userId 체크** 
+  - 화면단에서 th:if를 이용해 session.userId이 null인지 확인합니다.
+  - null이라면 모달버튼을 생성하지 않습니다.
+    
+[chatbot.html 코드 확인](https://github.com/kimhyeokjin1111/kimhyeokjin1111.github.io/blob/47767365200b5dac7c990af4edc13e14d2054972/hippobook/src/main/resources/templates/chatbot/chatbot.html
+)
+
+- **Fetch 비동기 요청** 
+  - 사용자의 채팅를 POST방식으로 비동기 요청을 날립니다.
+  - (요청 보냈을 때 채팅이 url상에 노출되는 점과 채팅에 특수문자가 있는 경우 데이터가 손상되는 점  
+    REST단에서 채팅에 대한 OpenAi의 답변을 받고 이를 데이터베이스에 INSERT처리를 하는 점을 고려해 POST방식으로 명시해주었습니다.)
+    
+[chatbot.js 코드 확인](https://github.com/kimhyeokjin1111/kimhyeokjin1111.github.io/blob/47767365200b5dac7c990af4edc13e14d2054972/hippobook/src/main/resources/static/js/chatbot/chatbot.js)
+ 
+### 4.1.3. RestController
+
+- **요청 처리** 
+  - RestController에서는 화면단에서 넘어온 요청(채팅)을 받고, Service 계층에서 로직 처리를 넘깁니다.
+
+- **결과 응답** 
+  - Service 계층에서 넘어온 로직 처리 결과(OpenAi의 답변)를 화면단에 응답해줍니다.
+ 
+[ChatbotApi.java 코드 확인](https://github.com/kimhyeokjin1111/kimhyeokjin1111.github.io/blob/47767365200b5dac7c990af4edc13e14d2054972/hippobook/src/main/java/com/example/hippobookproject/api/chatbot/ChatbotApi.java)
+
+### 4.1.4. Service
+
+- **과거 채팅 내역 불러오기** 
+  - 데이터베이스단에서 채팅 내역을 받아옵니다.
+  - OpenApi API 요청body의 message에 과거 채팅 내역을 추가해줍니다.
+
+- **OpenAi API endpoint로 웹 통신** 
+  - WebClient 만들어진 body를 endpoint에 요청해줍니다.
+  - 공식사이트에 명시된대로 POST방식을 사용해주고 response 1개의 값을 리턴받기 위해 bodyToMono로 사용하였습니다.
+
+- **채팅 내역 저장하기** 
+  - 사용자 채팅과 api통신의 response의 컨텐츠에 접근하여 답변을 데이터베이스단에 전달합니다.  
+
+[ChatbotService.java 코드 확인](https://github.com/kimhyeokjin1111/kimhyeokjin1111.github.io/blob/47767365200b5dac7c990af4edc13e14d2054972/hippobook/src/main/java/com/example/hippobookproject/service/chatbot/ChatbotService.java)
+
+### 4.1.5. Database
+
+- **채팅 내역 검색 및 저장**
+  - session.userId와 일치하는 사용자 채팅 내역을 읽어 service단으로 넘깁니다.
+  - service단에서 넘어온 채팅 내역을 데이터베이스에 저장합니다.
 
 ## [프로필](#프로필)
