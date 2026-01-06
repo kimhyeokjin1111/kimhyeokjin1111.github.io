@@ -212,9 +212,9 @@ PG사와의 연동을 단일 규격으로 통합 관리하여 개발 생산성�
   <img src="https://github.com/user-attachments/assets/2c84e4c2-4b9f-4cfa-b156-5dca0ba9463a">
 </p>
 <p align="center">
-  <img width="300" height="200" alt="Image" src="https://github.com/user-attachments/assets/1a788e5d-2cb3-467b-8231-b31bffc37146" />
-  <img width="300" height="300" alt="Image" src="https://github.com/user-attachments/assets/bfd74671-593f-4fdf-8edb-70f65d687ec6" />
-  <img width="300" height="300" alt="Image" src="https://github.com/user-attachments/assets/91153ab5-02aa-4169-bf74-8e14d737988c" />
+  <img width="300" height="450" alt="Image" src="https://github.com/user-attachments/assets/1a788e5d-2cb3-467b-8231-b31bffc37146" />
+  <img width="300" height="450" alt="Image" src="https://github.com/user-attachments/assets/bfd74671-593f-4fdf-8edb-70f65d687ec6" />
+  <img width="300" height="450" alt="Image" src="https://github.com/user-attachments/assets/91153ab5-02aa-4169-bf74-8e14d737988c" />
 </p>
 
 
