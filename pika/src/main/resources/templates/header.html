@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<header th:fragment="mainHeader" id="main-header">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <div class="header-auth">
+        <div>
+            <span sec:authorize="!isAuthenticated()">
+                <a href="/user/login" id="login">로그인</a>
+                <a href="/user/join" id="join">회원가입</a>
+            </span>
+            <span sec:authorize="isAuthenticated()">
+                <a href="/user/logout" id="logout">로그아웃</a>
+                <a href="/user/add-info" id="modify">정보수정</a>
+            </span>
+        </div>
+    </div>
+
+    <div id="header-top">
+        <div id="header-main-content">
+            <a id="logo-link" th:href="@{/}">pika 피카</a>
+
+            <div id="search-bar">
+                <form th:action="@{/search}" method="get">
+                    <!--url에 category 파라미터가 있으면 숨겨진 input에 추가-->
+                   <input th:if="${param.category != null and not #strings.isEmpty(param.category)}" type="hidden"
+                        name="category" th:value="${param.category}"/>
+                    <!--category 파라미터 유무에 따라 placeholder 텍스트 동적으로 설정-->
+                    <th:block th:with="placeholderText=${(param.category != null and not
+                        #strings.isEmpty(param.category)) ? param.category + ' 상품검색' : '검색할 상품을 입력하세요.'}">
+                        <input type="text" name="keyword" th:placeholder="${placeholderText}" class="search-input">
+                    </th:block>
+                    <button type="submit" style="background:none; border:none; padding:0">
+                        <img th:src="@{/icon/search.svg}" alt="검색">
+                    </button>
+                </form>
+                <div id="popular-searches-container" style="display: none;">
+                    <h5>인기 검색어</h5>
+                    <ul id="popular-searches-list">
+                    </ul>
+                </div>
+            </div>
+        </div>
+				<ul id="main-nav-menu">
+					<li th:style="${#authorization.expression('!isAuthenticated')} ? 'visibility: hidden; pointer-event: none;' : ''">
+					<a th:href="@{/chat/list}">채팅</a></li>
+                    <li id="notification-btn" th:style="${#authorization.expression('!isAuthenticated')} ? 'visibility: hidden; pointer-event: none;' : ''">
+                        <a href="#">알림</a>
+                        <span id="notification-count" class="notification-count"></span>
+                        <div id="notification-list">
+                            <ul id="notification-items">
+                            </ul>
+                            <div id="notification-pagination">
+                                <button id="prev-notification-page">이전</button>
+                                <button id="next-notification-page">다음</button>
+                            </div>
+                        </div>
+                    </li>
+					<li><a th:href="@{/products/new}">판매하기</a></li>
+					<li><a th:href="@{/user/mypage}">마이페이지</a></li>
+				</ul>
+			</div>
+		</div>
+
+    <div id="category-bar">
+        <div id="category-wrapper">
+            <div id="hamburger-icon">
+                <img th:src="@{/icon/hamburger-icon.png}">
+            </div>
+            <div id="category-dropdown">
+                <p>전체 카테고리</p>
+
+                <div class="category-item"
+                     th:each="category : ${categoriesMap}"
+                     th:if="${category.key != '서적' and category.key != '의류'}">
+
+                    <a th:href="@{/search(category=${category.key})}"
+                       th:text="${category.key}"></a>
+
+                    <div class="submenu">
+                        <p class="submenu-title" th:text="${category.key}"></p>
+                        <th:block th:each="subCategory : ${category.value}">
+                            <a th:href="@{/search(category=${category.key + '>' + subCategory})}"
+                               th:text="${subCategory}"></a>
+                        </th:block>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 상품 리스트 (관리자용) 버튼 - currentUserRole이 ADMIN일 때만 표시 -->
+        <a th:if="${currentUserRole != null and currentUserRole == 'ADMIN'}" th:href="@{/products}" class="nav-link" style="margin-left: auto; align-self: center; padding: 0 15px;">상품 리스트 (관리자용)</a>
+    </div>
+
+    <!-- 오른쪽 고정 메뉴 -->
+    <div id="header-bottom-menu">
+        <div id="favorite-link">
+            <p>찜한 상품</p>
+            <img th:src="@{/icon/heart.png}">
+        </div>
+
+        <div class="slider_fp_wrap" sec:authorize="isAuthenticated()">
+            <div class="slider_fp_img">
+                <div class="slider_fp_inner">
+                    <!-- 찜한 상품 목록이 여기에 동적으로 추가됩니다. -->
+                </div>
+            </div>
+            <div class="slider_fp_btn">
+                <button class="prev_fp"><span>&lt;</span></button>
+                <button class="next_fp"><span>&gt;</span></button>
+            </div>
+            <div class="slider__dot">
+            </div>
+        </div>
+
+        <div id="top-link">TOP</div>
+    </div>
+
+    <!-- AI 챗봇 플로팅 버튼 및 채팅창 -->
+    <div id="ai-chat-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; font-family: 'Malgun Gothic', sans-serif; display: flex; flex-direction: column; align-items: flex-end;">
+        <!-- 채팅창 (초기에는 숨김) -->
+        <div id="ai-chat-window" style="display: none; width: 350px; height: 500px; background-color: white; border-radius: 15px; box-shadow: 0 5px 25px rgba(0,0,0,0.2); flex-direction: column; overflow: hidden; margin-bottom: 15px;">
+            <!-- 헤더 -->
+            <div style="background-color: #FFD700; padding: 15px; display: flex; justify-content: space-between; align-items: center; color: #333; font-weight: bold;">
+                <span>⚡ 피카 AI 도우미</span>
+                <button onclick="toggleAiChat()" style="background: none; border: none; font-size: 18px; cursor: pointer;">×</button>
+            </div>
+
+            <!-- 메시지 영역 -->
+            <div id="ai-chat-messages" style="flex: 1; padding: 15px; overflow-y: auto; background-color: #f9f9f9; display: flex; flex-direction: column; gap: 10px;">
+                <div style="align-self: flex-start; background-color: #fff; padding: 10px; border-radius: 10px; border: 1px solid #eee; max-width: 80%; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                    안녕하세요! 무엇을 도와드릴까요? 상품 시세가 궁금하다면 물어봐주세요! 😄
+                </div>
+            </div>
+
+            <!-- 입력 영역 -->
+            <div style="padding: 10px; border-top: 1px solid #eee; background-color: white; display: flex;">
+                <input type="text" id="ai-chat-input" placeholder="메시지를 입력하세요..." style="flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 20px; outline: none;" onkeypress="if(event.key === 'Enter') sendAiMessage()">
+                <button onclick="sendAiMessage()" style="margin-left: 10px; background-color: #FFD700; border: none; padding: 10px 15px; border-radius: 20px; cursor: pointer; font-weight: bold;">전송</button>
+            </div>
+        </div>
+
+        <!-- 플로팅 버튼 -->
+        <button id="ai-chat-btn" onclick="toggleAiChat()" style="width: 60px; height: 60px; border-radius: 50%; background-color: #FFD700; border: none; box-shadow: 0 4px 10px rgba(0,0,0,0.2); cursor: pointer; display: flex; justify-content: center; align-items: center; font-size: 24px;">
+            🤖
+        </button>
+    </div>
+
+    <script>
+        function toggleAiChat() {
+            const chatWindow = document.getElementById('ai-chat-window');
+            if (chatWindow.style.display === 'none') {
+                chatWindow.style.display = 'flex';
+                document.getElementById('ai-chat-input').focus();
+            } else {
+                chatWindow.style.display = 'none';
+            }
+        }
+
+        async function sendAiMessage() {
+            const input = document.getElementById('ai-chat-input');
+            const message = input.value.trim();
+            const messagesArea = document.getElementById('ai-chat-messages');
+
+            if (!message) return;
+
+            // 사용자 메시지 표시
+            appendMessage(message, 'user');
+            input.value = '';
+
+            // 로딩 표시
+            const loadingId = 'loading-' + Date.now();
+            appendMessage('답변 생성 중...', 'ai', loadingId);
+
+            try {
+                const response = await fetch('/api/chat/ask', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ message: message })
+                });
+
+                const data = await response.json();
+
+                // 로딩 메시지 제거
+                const loadingElement = document.getElementById(loadingId);
+                if (loadingElement) loadingElement.remove();
+
+                // AI 응답 표시
+                appendMessage(data.response, 'ai');
+
+            } catch (error) {
+                console.error('Error:', error);
+                const loadingElement = document.getElementById(loadingId);
+                if (loadingElement) loadingElement.remove();
+                appendMessage('죄송합니다. 오류가 발생했습니다.', 'ai');
+            }
+        }
+
+        function appendMessage(text, sender, id = null) {
+            const messagesArea = document.getElementById('ai-chat-messages');
+            const div = document.createElement('div');
+
+            if (id) div.id = id;
+
+            div.style.padding = '10px';
+            div.style.borderRadius = '10px';
+            div.style.maxWidth = '80%';
+            div.style.wordBreak = 'break-word';
+            div.style.boxShadow = '0 1px 3px rgba(0,0,0,0.1)';
+            div.style.lineHeight = '1.4';
+
+            if (sender === 'user') {
+                div.style.alignSelf = 'flex-end';
+                div.style.backgroundColor = '#FFD700'; // 노란색
+                div.style.color = '#333';
+                div.textContent = text;
+            } else {
+                div.style.alignSelf = 'flex-start';
+                div.style.backgroundColor = '#fff';
+                div.style.border = '1px solid #eee';
+                div.style.color = '#333';
+
+                // 마크다운 렌더링 적용
+                try {
+                    div.innerHTML = marked.parse(text);
+                } catch (e) {
+                    console.error('Markdown parsing error:', e);
+                    div.innerHTML = text.replace(/\n/g, '<br>');
+                }
+            }
+
+            messagesArea.appendChild(div);
+            messagesArea.scrollTop = messagesArea.scrollHeight;
+        }
+    </script>
+        <script type="module" th:src="@{/js/notification/notification-websocket.js}" sec:authorize="isAuthenticated()"></script>
+        <script th:src="@{/js/product/favorite-slider.js}" sec:authorize="isAuthenticated()"></script>
+    </header>
+
+    </body>
+    </html>

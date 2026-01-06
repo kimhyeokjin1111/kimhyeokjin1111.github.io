@@ -1,0 +1,125 @@
+.review-form-container {
+    margin-top: 260px; /* Adjust for fixed header */
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 30px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.review-form-container h1 {
+    font-size: 2em;
+    color: #333;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.error-message {
+    color: #e53935;
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.review-form-container form div {
+    margin-bottom: 15px;
+}
+
+.review-form-container label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+}
+
+.review-form-container input[type="text"],
+.review-form-container textarea {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1em;
+    box-sizing: border-box; /* Include padding in width */
+}
+
+.review-form-container textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+/* Star Rating */
+.star-rating {
+    display: inline-block;
+    unicode-bidi: bidi-override;
+    direction: rtl;
+    text-align: left;
+    margin-left: 10px;
+}
+
+.star-rating input {
+    display: none;
+}
+
+.star-rating label {
+    font-size: 1.8em;
+    color: #ddd; /* Default star color */
+    cursor: pointer;
+    margin: 0 2px;
+    display: inline-block; /* Ensure stars are side-by-side */
+    font-weight: normal; /* Override bold from parent label */
+}
+
+.star-rating label i {
+    font-style: normal; /* Remove italic from Font Awesome icon */
+}
+
+.star-rating input:checked ~ label {
+    color: #ffc107; /* Checked star color */
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+    color: #ffc107; /* Hover star color */
+}
+
+/* Submit button */
+.review-form-container input[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 12px 20px;
+    background-color: #ff4500;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+.review-form-container input[type="submit"]:hover {
+    background-color: #e03e00;
+}
+
+/* Links at the bottom */
+.review-form-container hr {
+    border: 0;
+    border-top: 1px solid #eee;
+    margin: 30px 0;
+}
+
+.review-form-container a {
+    display: block;
+    text-align: center;
+    color: #007bff;
+    text-decoration: none;
+    margin-bottom: 10px;
+    transition: color 0.3s ease;
+}
+
+.review-form-container a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
