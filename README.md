@@ -76,9 +76,9 @@ OpenAi API를 활용하여 Client의 요청(질문)에 대해 응답해줍니다
   <img src="https://github.com/kimhyeokjin1111/myGitHub/assets/159498606/78f131bf-120d-4d00-aa66-f7e50a39f6b0">
 </p>
 <p align="center">
-  <img src="https://github.com/kimhyeokjin1111/myGitHub/assets/159498606/d00a303b-f3d8-4cf9-be7a-c74474197e2d" width=300 margin-right=10>
-  <img src="https://github.com/kimhyeokjin1111/myGitHub/assets/159498606/6f2142c8-9ef8-4878-9e2c-f50a77a1bf7b" width=300 margin-right=10>
-  <img src="https://github.com/kimhyeokjin1111/myGitHub/assets/159498606/7efccc75-3aea-499b-82a9-9c3c6dd9f881" width=300>
+  <img width="654" height="712" alt="Image" src="https://github.com/user-attachments/assets/1a788e5d-2cb3-467b-8231-b31bffc37146" />
+  <img width="836" height="712" alt="Image" src="https://github.com/user-attachments/assets/bfd74671-593f-4fdf-8edb-70f65d687ec6" />
+  <img width="832" height="712" alt="Image" src="https://github.com/user-attachments/assets/91153ab5-02aa-4169-bf74-8e14d737988c" />
 </p>
 
 ### 4.1.2. 사용자 요청
