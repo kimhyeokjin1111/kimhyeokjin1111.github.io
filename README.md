@@ -38,8 +38,8 @@
 
 
 ## 프로젝트
-- 1. hippoBook(#hippobook)
-- 2. pika(#pika)
+- [1. hippoBook](#hippobook)
+- [2. pika](#pika)
 
 ## HippoBook
 >개인 책장 서비스 및 커뮤니티 사이트 (팀 프로젝트)  
