@@ -226,22 +226,18 @@ PG사와의 연동을 단일 규격으로 통합 관리하여 개발 생산성�
     
 [preview.html 코드 확인](pika/src/main/resources/templates/payment/preview.html)
 
-- **Fetch 비동기 요청** 
-  - 사용자의 채팅를 POST방식으로 비동기 요청을 날립니다.
-  - (요청 보냈을 때 채팅이 url상에 노출되는 점과 채팅에 특수문자가 있는 경우 데이터가 손상되는 점  
-    REST단에서 채팅에 대한 OpenAi의 답변을 받고 이를 데이터베이스에 INSERT처리를 하는 점을 고려해 POST방식으로 명시해주었습니다.)
-    
-[chatbot.js 코드 확인](https://github.com/kimhyeokjin1111/kimhyeokjin1111.github.io/blob/47767365200b5dac7c990af4edc13e14d2054972/hippobook/src/main/resources/static/js/chatbot/chatbot.js)
- 
 ### 4.1.3. RestController
 
+- **서버 데이터 검증** 
+  - 결제 응답 데이터를는 검증과 동시에 결제 내역을 저장하는 service 처리를 하기 떄문에 PostMapping 방식으로 요청을 받았습니다.
+    
 - **요청 처리** 
-  - RestController에서는 화면단에서 넘어온 요청(채팅)을 받고, Service 계층에서 로직 처리를 넘깁니다.
+  - RestController에서는 화면단에서 넘어온 검증 데이터를 받고, Service 계층에서 가격 검증로직을 수행합니다.
 
 - **결과 응답** 
-  - Service 계층에서 넘어온 로직 처리 결과(OpenAi의 답변)를 화면단에 응답해줍니다.
+  - Service 계층에서 넘어온 저장된 결제 데이터 및 결제 성공 여부를 화면단에 응답해줍니다.
  
-[ChatbotApi.java 코드 확인](https://github.com/kimhyeokjin1111/kimhyeokjin1111.github.io/blob/47767365200b5dac7c990af4edc13e14d2054972/hippobook/src/main/java/com/example/hippobookproject/api/chatbot/ChatbotApi.java)
+[PaymentApiController.java 코드 확인](pika/src/main/java/com/numlock/pika/controller/payment/PaymentApiController.java)
 
 ### 4.1.4. Service
 
