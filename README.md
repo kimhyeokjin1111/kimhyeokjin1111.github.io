@@ -271,14 +271,17 @@ PG사와의 연동을 단일 규격으로 통합 관리하여 개발 생산성�
 
 - **상품 페이지**
   - 상품 판매 페이지
-  <img width="1022" height="712" alt="Image" src="https://github.com/user-attachments/assets/82954e31-ae56-4e59-a840-c90e13db760b" />
+    <img width="1000" height="712" alt="Image" src="https://github.com/user-attachments/assets/82954e31-ae56-4e59-a840-c90e13db760b" />
+
   - 상품 상세 페이지
-  <img width="1062" height="712" alt="Image" src="https://github.com/user-attachments/assets/efabe948-a0c2-42f2-8d78-22d63797f85a" />
+    <img width="1000" height="712" alt="Image" src="https://github.com/user-attachments/assets/efabe948-a0c2-42f2-8d78-22d63797f85a" />
+
   - 상품 결제 페이지
-  <p align="center">
-   <img width="564" height="712" alt="Image" src="https://github.com/user-attachments/assets/c4bb5884-58d3-41ab-a54f-fa6ff7807c98" />
-  </p>
+    <p align="center">
+      <img width="564" height="712" alt="Image" src="https://github.com/user-attachments/assets/c4bb5884-58d3-41ab-a54f-fa6ff7807c98" />
+    </p>
+
 - **내역 페이지**
-  <img width="968" height="712" alt="Image" src="https://github.com/user-attachments/assets/39e8e2dd-0a2c-4b18-8f40-311318a1ecee" />
+  <img width="1000" height="712" alt="Image" src="https://github.com/user-attachments/assets/39e8e2dd-0a2c-4b18-8f40-311318a1ecee" />
   
 ## [프로필](#프로필)
