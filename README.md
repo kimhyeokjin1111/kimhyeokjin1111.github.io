@@ -265,16 +265,6 @@ PG사와의 연동을 단일 규격으로 통합 관리하여 개발 생산성�
 
 ## 5. 담당 파트 
 
-- **상품 페이지**
-  - 상품 판매 페이지
-  - 상품 상세 페이지
-  - 상품 결제 페이지
-
-- **알람**
-  - 헤더 내 알람 기능
-  
-## 5. 담당 파트 
-
 - **알람**
   - 헤더 내 알람 기능
  <img width="1266" height="577" alt="Image" src="https://github.com/user-attachments/assets/fc5c8700-3a4e-47f0-9f91-529c105cf54f" />
@@ -285,8 +275,9 @@ PG사와의 연동을 단일 규격으로 통합 관리하여 개발 생산성�
   - 상품 상세 페이지
   <img width="1062" height="712" alt="Image" src="https://github.com/user-attachments/assets/efabe948-a0c2-42f2-8d78-22d63797f85a" />
   - 상품 결제 페이지
- <img width="564" height="712" alt="Image" src="https://github.com/user-attachments/assets/c4bb5884-58d3-41ab-a54f-fa6ff7807c98" />
-
+  <p align="center">
+   <img width="564" height="712" alt="Image" src="https://github.com/user-attachments/assets/c4bb5884-58d3-41ab-a54f-fa6ff7807c98" />
+  </p>
 - **내역 페이지**
   <img width="968" height="712" alt="Image" src="https://github.com/user-attachments/assets/39e8e2dd-0a2c-4b18-8f40-311318a1ecee" />
   
